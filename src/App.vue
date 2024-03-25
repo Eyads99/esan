@@ -4,7 +4,7 @@
   <div class="container">  <div class="row d-flex">
     <div class="col-sm-6"> 
     <BarChart :labels="['Consumables','Banks', 'Healthcare', 'Real Estate', 'Textiles & Durables', 'Energy', 'Contracting','NBFS', 'Transportation', 'Basic Resources', 'Communucation','Industrials']"
-    :values="[-1.31,-0.23,1,1.32,1.38,2.64,3.77,4.22,4.93,5.99,6.02,6.6]" title="AveragePerformance/Sector"/>
+    :values="[-1.31,-0.23,1,1.32,1.38,2.64,3.77,4.22,4.93,5.99,6.02,6.6]" title="Average Performance/Sector"/>
     </div>
     
     <div class="col-sm-6">
@@ -17,6 +17,9 @@
 </template>
 
 <script>
+import firebase from 'firebase/app';
+import 'firebase/firestore';
+
 import BarChart from './components/BarChart.vue'
 import PieChart from './components/PieChart.vue'
 import TodayBar from './components/TodayBar.vue'
@@ -28,7 +31,16 @@ export default {
     BarChart,
     PieChart,
     TodayBar
+  },
+
+  created() {
+    // Initialize Firebase
+    const firebaseConfig = {
+      
+    };
+    firebase.initializeApp(firebaseConfig);
   }
+
 }
 </script>
 
