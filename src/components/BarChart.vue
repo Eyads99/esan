@@ -20,7 +20,7 @@ export default {
   },
   mounted() {
     this.chartId++;
-    console.log('bar-chart'+this.title)
+    console.log('bar-chart'+this.title+' Loaded')
     const chartDom = document.getElementById(['bar-chart'+this.title]);
     const myChart = echarts.init(chartDom);
 
