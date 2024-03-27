@@ -1,6 +1,4 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-
   <div class="container">
     <div class="row d-flex">
       <div class="col-sm-6">
@@ -14,7 +12,7 @@
     
 
     <div class="col-sm-6">
-    <BarChart :labels=stockNames :values=stockChgs title="Top 5 gainers"/>
+    <BarChart :labels=stockNames :values=stockChgs title="Stock Market Today"/>
 
     <div v-if="EGXIndex">
       <TodayBar :dailyChange =EGXDaily :currentPoints =EGXIndex  :YtDate = EGXYtDate />
@@ -22,7 +20,7 @@
     <div v-else>
       Loading Todays details
     </div>
-    <PieChart :gainer =5 :losers=20 />
+    <PieChart :gainers =5 :losers=20 />
   </div>
 </div>
 </div>
