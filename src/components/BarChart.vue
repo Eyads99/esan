@@ -1,18 +1,18 @@
 <template>
-<div class="chart">
-  <div class="blue-background">
-    {{title}} 
+  <div class="chart">
+    <div class="blue-background">
+      {{ title }}
+    </div>
+    <div :id="`bar-chart${title}`" style="width: 100%; height: 500px"></div>
   </div>
-    <div :id="`bar-chart${title}`" style="width: 100%; height: 400px;"></div>  
- </div>
 </template>
 
 <script>
-import * as echarts from 'echarts';
+import * as echarts from "echarts";
 
 export default {
-  name: 'BarChart',
-  props: ['labels','values','title'],
+  name: "BarChart",
+  props: ["labels", "values", "title"],
   data() {
     return {
       chartId: 0, // Initialize a counter
@@ -20,26 +20,44 @@ export default {
   },
   mounted() {
     this.chartId++;
-    console.log('bar-chart'+this.title+' Loaded')
-    const chartDom = document.getElementById(['bar-chart'+this.title]);
+    console.log("bar-chart" + this.title);
+    const chartDom = document.getElementById(["bar-chart" + this.title]);
     const myChart = echarts.init(chartDom);
 
     const options = {
+      grid: {
+        left: "30%",
+      },
       visualMap: {
-        type: 'piecewise',
+        type: "piecewise",
         dimension: 0,
         pieces: [
-        { gt: 0, color: '#09467d' },  // Blue for positive values (> 0)  
-        { lte: 0, color: '#A40000' } // Red for negative values (<= 0)
-          
+          { gt: 0, color: "#09467d" }, // Blue for positive values (> 0)
+          { lte: 0, color: "#A40000" }, // Red for negative values (<= 0)
         ],
+      }, // Update the labelStyle for xAxis and yAxis in the mounted function of BarChart.vue
+      labelOption: {
+        fontSize: 200, // Change the font size to 14px or any desired size
+        color: "#A40000",
       },
+
       xAxis: {
-        type: 'value',
+        type: "value",
+        axisLine: { show: true },
       },
       yAxis: {
-        type: 'category',
+        type: "category",
         data: this.labels,
+        inverse: false,
+        axisLabel: {
+          show: true,
+          interval: 0,
+          rotate: 0,
+          //padding: 10,
+          crossAlign: "far",
+          fontSize: 30,
+        },
+
         axisLine: { show: false },
         axisTick: { show: false },
         splitLine: { show: false },
@@ -47,11 +65,13 @@ export default {
       series: [
         {
           data: this.values,
-          type: 'bar',
+          type: "bar",
           label: {
             show: true,
-            position: 'right',
-            formatter: '{c}%',
+            position: "right",
+            formatter: "{c}%",
+            fontSize: 30,
+            labelSize: 30,
           },
         },
       ],
