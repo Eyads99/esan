@@ -5,27 +5,13 @@
     <div class="row d-flex">
       <div class="col-sm-6">
         <BarChart
-          :labels="[
-            'Consumables',
-            'Banks',
-            'Healthcare',
-            'Real Estate',
-            'Textiles & Durables',
-            'Energy',
-            'Contracting',
-            'NBFS',
-            'Transportation',
-            'Basic Resources',
-            'Communucation',
-            'Industrials',
-          ]"
-          :values="[
-            -1.31, -0.23, 1, 1.32, 1.38, 2.64, 3.77, 4.22, 4.93, 5.99, 6.02,
-            6.6,
-          ]"
-          title="AveragePerformance/Sector"
+          :labels="['Consumables','Banks','Healthcare','Real Estate','Textiles & Durables','Energy','Contracting',
+            'NBFS','Transportation','Basic Resources','Communucation','Industrials']"
+          :values="[-1.31, -0.23, 1, 1.32, 1.38, 2.64, 3.77, 4.22, 4.93, 5.99, 6.02,6.6,]"
+          title="Average Performance/Sector"
         />
       </div>
+    
 
     <div class="col-sm-6">
     <BarChart :labels=stockNames :values=stockChgs title="Top 5 gainers"/>
@@ -36,10 +22,15 @@
     <div v-else>
       Loading Todays details
     </div>
+    <PieChart :gainer =5 :losers=20 />
   </div>
+</div>
+</div>
 </template>
 
 <script>
+import { getDoc,doc } from 'firebase/firestore';
+import { db } from './firebase/init'
 import BarChart from "./components/BarChart.vue";
 import PieChart from "./components/PieChart.vue";
 import TodayBar from "./components/TodayBar.vue";
@@ -87,9 +78,7 @@ export default {
         keys.push(key)     
         values.push(doc.data()[key])  
     }
-    
-
-
+   
         console.log(keys)
         console.log(values)
         this.stockNames = keys
