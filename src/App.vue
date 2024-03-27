@@ -11,7 +11,7 @@
     <BarChart :labels="['Orascom', 'CIB', 'Eastern','Abu Qir', 'Wadi Kom Ombo']" :values="[11.9, 10.2, 2.6, 1.1,0.1]" title="Top 5 gainers"/>
 
     <div v-if="EGXIndex">
-      <TodayBar dailyChange ='-1.5' :currentPoints = EGXIndex  YtDate='5.62'/>
+      <TodayBar :dailyChange =EGXDaily :currentPoints =EGXIndex  :YtDate = EGXYtDate />
     </div>
     <div v-else>
       Loading Todays details
@@ -33,7 +33,9 @@ export default {
   name: 'App',
   data(){
       return {
-        EGXIndex : null
+        EGXIndex : null,
+        EGXYtDate : null,
+        EGXDaily : null
       }
   },
   components: {
@@ -45,12 +47,20 @@ export default {
 
     const docRef = doc(db, 'stocks', 'EGX30')
       
-     getDoc(docRef).then(doc => {
-        this.EGXIndex = doc.data()[20240325]
-        console.log(this.EGXIndex)
-       })
+    getDoc(docRef).then(doc => {
+      var today = new Date().toISOString().slice(0, 10).replace(/-/g, '')//gets today date in YYYYMMDD format
+      var newYear = parseInt(today.slice(0,4)+'0102') // 1st jan is holiday
+      today = parseInt(today)
       
+      if (new Date().getHours() < 15) // if before 3PM
+        today -=1
 
+      var yesterday = today-1 //this is incorrect given weekends
+
+      this.EGXIndex = (doc.data()[today])
+      this.EGXYtDate = ((doc.data()[today] - doc.data()[newYear])/doc.data()[newYear] * 100).toFixed(3) // round to 3 dp
+      this.EGXDaily = ((doc.data()[today] - doc.data()[yesterday])/doc.data()[yesterday] * 100).toFixed(3)    
+      })      
   }
 }
 </script>
