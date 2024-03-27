@@ -8,7 +8,7 @@
     </div>
 
     <div class="col-sm-6">
-    <BarChart :labels="['Orascom', 'CIB', 'Eastern','Abu Qir', 'Wadi Kom Ombo']" :values="[11.9, 10.2, 2.6, 1.1,0.1]" title="Top 5 gainers"/>
+    <BarChart :labels=stockNames :values=stockChgs title="Top 5 gainers"/>
 
     <div v-if="EGXIndex">
       <TodayBar :dailyChange =EGXDaily :currentPoints =EGXIndex  :YtDate = EGXYtDate />
@@ -35,7 +35,9 @@ export default {
       return {
         EGXIndex : null,
         EGXYtDate : null,
-        EGXDaily : null
+        EGXDaily : null,
+        stockChgs : null,
+        stockNames : null
       }
   },
   components: {
@@ -45,7 +47,7 @@ export default {
   },
     mounted(){
 
-    const docRef = doc(db, 'stocks', 'EGX30')
+    let docRef = doc(db, 'stocks', 'EGX30')
       
     getDoc(docRef).then(doc => {
       var today = new Date().toISOString().slice(0, 10).replace(/-/g, '')//gets today date in YYYYMMDD format
@@ -60,7 +62,26 @@ export default {
       this.EGXIndex = (doc.data()[today])
       this.EGXYtDate = ((doc.data()[today] - doc.data()[newYear])/doc.data()[newYear] * 100).toFixed(3) // round to 3 dp
       this.EGXDaily = ((doc.data()[today] - doc.data()[yesterday])/doc.data()[yesterday] * 100).toFixed(3)    
-      })      
+      })
+    
+    docRef = doc(db, 'stocks', 'changes')
+    getDoc(docRef).then(doc => {
+      const keys = []
+      const values = []
+      for (const key in doc.data()) {
+        keys.push(key)     
+        values.push(doc.data()[key])  
+    }
+    
+
+
+        console.log(keys)
+        console.log(values)
+        this.stockNames = keys
+        this.stockChgs = values
+      })
+
+
   }
 }
 </script>
