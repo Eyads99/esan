@@ -17,6 +17,8 @@ pnpm-debug.log*
 .idea
 .vscode
 egxsite-firebase-adminsdk.json
+firebaseInit.js
+CFGH.json
 *.suo
 *.ntvs*
 *.njsproj
