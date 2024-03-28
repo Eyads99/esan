@@ -11,7 +11,7 @@
       </div>
     
 
-    <div class="col-sm-6">
+    <div class="col-sm-12">
     <BarChart :labels=stockNames :values=stockChgs title="Stock Market Today"/>
 
     <div v-if="EGXIndex">
@@ -70,17 +70,24 @@ export default {
     
     docRef = doc(db, 'stocks', 'changes')
     getDoc(docRef).then(doc => {
-      const keys = []
+      //const keys = []
       const values = []
-      for (const key in doc.data()) {
-        keys.push(key)     
-        values.push(doc.data()[key])  
-    }
-   
-        console.log(keys)
-        console.log(values)
-        this.stockNames = keys
-        this.stockChgs = values
+      
+      let keysOrder = Object.keys(doc.data())//reorder obj to be in descending order
+      keysOrder.sort((a, b) => doc.data()[a] - doc.data()[b])
+
+      for (let i = 0; i < keysOrder.length; i++) {// get all keys and values and push them into their arrays
+        //console.log(keysOrder)
+        let key = keysOrder[i]
+        //console.log(key)
+        //keys.push(key)     
+        values.push((doc.data()[key]).toFixed(2))  
+    }   
+
+        this.stockNames = keysOrder.slice(-30)// get last 30 elements
+        this.stockChgs = values.slice(-30)// get last 30 elements
+        console.log(this.stockNames)
+        console.log(this.stockChgs)
       })
 
 

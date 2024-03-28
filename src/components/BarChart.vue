@@ -15,7 +15,7 @@ export default {
   props: ["labels", "values", "title"],
   data() {
     return {
-      chartId: 0, // Initialize a counter
+      chartId: 0, // Initialize a counter unneeded
     };
   },
   mounted() {
@@ -28,6 +28,7 @@ export default {
       grid: {
         left: "30%",
       },
+      barWidth: '40%',
       visualMap: {
         type: "piecewise",
         dimension: 0,
@@ -40,6 +41,25 @@ export default {
         fontSize: 200, // Change the font size to 14px or any desired size
         color: "#A40000",
       },
+
+      dataZoom: 
+      [
+        {
+          type: 'slider',
+          yAxisIndex: 0,
+          zoomLock: false,
+          width: 20,
+          right: 5,
+          minValueSpan: 3,//min # of bars to show
+          maxValueSpan: 50,
+          startValue: 0, //start and end represent the # bars of chart to show by default
+          endValue: 4,
+          handleSize: 20,
+          showDetail: false,
+
+        }
+      ],
+
 
       xAxis: {
         type: "value",
