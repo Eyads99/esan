@@ -1,6 +1,6 @@
 <template>
   <div class="chart">
-    <div class="blue-background">
+    <div class="font">
       {{ title }}
     </div>
     <div :id="`bar-chart${title}`" style="width: 100%; height: 500px"></div>
@@ -23,6 +23,8 @@ export default {
     console.log("bar-chart" + this.title);
     const chartDom = document.getElementById(["bar-chart" + this.title]);
     const myChart = echarts.init(chartDom);
+    // Sort the data array based on values in descending order
+    const sortedValues = this.values.slice().sort((a, b) => a - b);
 
     const options = {
       grid: {
@@ -35,15 +37,14 @@ export default {
           { gt: 0, color: "#09467d" }, // Blue for positive values (> 0)
           { lte: 0, color: "#A40000" }, // Red for negative values (<= 0)
         ],
+        show: false,
       }, // Update the labelStyle for xAxis and yAxis in the mounted function of BarChart.vue
-      labelOption: {
-        fontSize: 200, // Change the font size to 14px or any desired size
-        color: "#A40000",
-      },
 
       xAxis: {
         type: "value",
+        show: false,
         axisLine: { show: true },
+        splitLine: { show: false },
       },
       yAxis: {
         type: "category",
@@ -54,8 +55,8 @@ export default {
           interval: 0,
           rotate: 0,
           //padding: 10,
-          crossAlign: "far",
-          fontSize: 30,
+          fontSize: 15,
+          fontWeight: "bold",
         },
 
         axisLine: { show: false },
@@ -64,14 +65,23 @@ export default {
       },
       series: [
         {
-          data: this.values,
+          data: sortedValues,
           type: "bar",
+          barWidth: "50%",
+          fontWeight: "bold",
+          itemStyle: {
+            barBorderRadius: [5, 5, 5, 5],
+          },
           label: {
             show: true,
             position: "right",
             formatter: "{c}%",
-            fontSize: 30,
-            labelSize: 30,
+            fontSize: 15,
+          },
+          emphasis: {
+            itemStyle: {
+              barWidth: "6000%",
+            },
           },
         },
       ],
@@ -83,8 +93,10 @@ export default {
 </script>
 
 <style scoped>
-.blue-background {
-  background-color: #09467d; /* Blue background */
-  color: white; /* White text color */
+.font {
+  color: rgba(21, 25, 88, 0.971); /* White text color */
+  margin-bottom: -50px; /*space between chart title and chart */
+  font-weight: bold;
+  text-align: right;
 }
 </style>
