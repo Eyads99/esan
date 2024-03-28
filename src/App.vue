@@ -86,7 +86,7 @@ export default {
         let key = keysOrder[i]
         //console.log(key)
         //keys.push(key)     
-        values.push((doc.data()[key]).toFixed(2))  
+        values.push(((doc.data()[key])*100).toFixed(2))  
     }   
 
         this.stockNames = keysOrder.slice(-15)// get last 30 elements

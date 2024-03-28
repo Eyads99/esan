@@ -30,6 +30,7 @@ export default {
       },
       barWidth: '40%',
       visualMap: {
+        show: false, //removes the postive negative legend
         type: "piecewise",
         dimension: 0,
         pieces: [
