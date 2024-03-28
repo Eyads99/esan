@@ -15,7 +15,7 @@ export default {
   props: ["labels", "values", "title"],
   data() {
     return {
-      chartId: 0, // Initialize a counter
+      chartId: 0, // Initialize a counter unneeded
     };
   },
   mounted() {
@@ -30,7 +30,9 @@ export default {
       grid: {
         left: "30%",
       },
+      barWidth: '40%',
       visualMap: {
+        show: false, //removes the postive negative legend
         type: "piecewise",
         dimension: 0,
         pieces: [
@@ -39,6 +41,25 @@ export default {
         ],
         show: false,
       }, // Update the labelStyle for xAxis and yAxis in the mounted function of BarChart.vue
+
+      dataZoom: 
+      [
+        {
+          type: 'slider',
+          yAxisIndex: 0,
+          zoomLock: false,
+          width: 20,
+          right: 5,
+          minValueSpan: 3,//min # of bars to show
+          maxValueSpan: 50,
+          startValue: 0, //start and end represent the # bars of chart to show by default
+          endValue: 15,
+          handleSize: 20,
+          showDetail: false,
+
+        }
+      ],
+
 
       xAxis: {
         type: "value",
