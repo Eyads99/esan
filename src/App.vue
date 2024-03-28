@@ -12,7 +12,12 @@
     
 
     <div class="col-sm-12">
-    <BarChart :labels=stockNames :values=stockChgs title="Stock Market Today"/>
+      <div v-if="stockChgs">
+        <BarChart :labels=stockNames :values=stockChgs title="Stock Market Today"/>
+      </div>
+      <div v-else>
+           Loading EGX stocks
+      </div>
 
     <div v-if="EGXIndex">
       <TodayBar :dailyChange =EGXDaily :currentPoints =EGXIndex  :YtDate = EGXYtDate />
@@ -84,8 +89,8 @@ export default {
         values.push((doc.data()[key]).toFixed(2))  
     }   
 
-        this.stockNames = keysOrder.slice(-30)// get last 30 elements
-        this.stockChgs = values.slice(-30)// get last 30 elements
+        this.stockNames = keysOrder.slice(-15)// get last 30 elements
+        this.stockChgs = values.slice(-15)// get last 30 elements
         console.log(this.stockNames)
         console.log(this.stockChgs)
       })

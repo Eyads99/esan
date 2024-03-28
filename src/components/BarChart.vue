@@ -53,7 +53,7 @@ export default {
           minValueSpan: 3,//min # of bars to show
           maxValueSpan: 50,
           startValue: 0, //start and end represent the # bars of chart to show by default
-          endValue: 4,
+          endValue: 15,
           handleSize: 20,
           showDetail: false,
 
