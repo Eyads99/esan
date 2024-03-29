@@ -16,7 +16,7 @@ export default {
     const options = {
       tooltip: {
         trigger: "item",
-        formatter: "{a} <br/>{b}: {c} ({d}%)",
+        formatter: "{b}: {c} ({d}%)",
       },
       series: [
         {
@@ -30,7 +30,7 @@ export default {
             formatter: "{b}: {c} ({d}%)",
             textStyle: {
               color: "#000",
-              FontFace: "Cursive",
+              fontFamily: "Cursive",
               fontSize: "15",
             },
           },
