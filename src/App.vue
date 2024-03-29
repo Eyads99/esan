@@ -137,7 +137,6 @@ export default {
         today -= 1;
 
       var yesterday = today - 1; //this is incorrect given weekends      
-      var newYear = parseInt(today.slice(0,4)+'0102') // 1st jan is holiday
 
       this.EGXIndex = doc.data()[today]; //gets point for EGX30 today
       this.EGXYtDate = (
