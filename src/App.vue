@@ -2,23 +2,15 @@
   <div class="container">
     <div class="row d-flex">
       <div class="col-sm-6">
-        <BarChart
-          :values="[-1.31, -0.23, 1, 1.32, 1.38, 2.64, 3.77, 4.22, 4.93, 5.99, 6.02,6.6,]
-            "title="Average performance/sector" :labels="['Consumables','Banks','Healthcare','Real Estate','Textiles & Durables','Energy','Contracting','NBFS','Transportation','Basic Resources','Communucation','Industrials']" />
+        <BarChart :values="[-1.31, -0.23, 1, 1.32, 1.38, 2.64, 3.77, 4.22, 4.93, 5.99, 6.02,6.6]" title="Average performance/sector" :labels="['Consumables','Banks','Healthcare','Real Estate','Textiles & Durables','Energy','Contracting','NBFS','Transportation','Basic Resources','Communucation','Industrials']" />
       </div>
 
       <div class="col-sm-6">
-        <BarChart
-          :labels="[
-            'Orascom Construction',
+        <BarChart :labels="['Orascom Construction',
             'CIB',
             'Eastern',
             'Abu Qir',
-            'Wadi Kom Ombo',
-          ]"
-          :values="[11.9, 10.2, 2.6, 1.1, 0.1]"
-          title="Top 5 gainers"
-        />
+            'Wadi Kom Ombo',]" :values="[11.9, 10.2, 2.6, 1.1, 0.1]" title="Top 5 gainers"/>
         <div class="chart-container2">
           <PieChart :gainers="25" :losers="20" />
         </div>
@@ -35,14 +27,15 @@
            Loading EGX stocks
       </div>
 
-    <div v-if="EGXIndex">
-      <TodayBar :dailyChange =EGXDaily :currentPoints =EGXIndex  :YtDate = EGXYtDate />
+      <div v-if="EGXIndex">
+        <TodayBar :dailyChange =EGXDaily :currentPoints =EGXIndex  :YtDate = EGXYtDate />
+      </div>
+      <div v-else>
+        Loading Todays details
+      </div>
+      <PieChart :gainers =5 :losers=20 />
     </div>
-    <div v-else>
-      Loading Todays details
-    </div>
-    <PieChart :gainers =5 :losers=20 />
-  </div>
+</div>
 </div>
 </div>
 </template>

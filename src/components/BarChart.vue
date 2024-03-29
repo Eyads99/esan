@@ -39,7 +39,6 @@ export default {
           { gt: 0, color: "#09467d" }, // Blue for positive values (> 0)
           { lte: 0, color: "#A40000" }, // Red for negative values (<= 0)
         ],
-        show: false,
       }, // Update the labelStyle for xAxis and yAxis in the mounted function of BarChart.vue
 
       dataZoom: 
