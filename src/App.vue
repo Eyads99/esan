@@ -71,8 +71,17 @@
           <PieChart :gainers="5" :losers="20" />
         </div>
       </div>
+
+    <div v-if="EGXIndex">
+      <TodayBar :dailyChange =EGXDaily :currentPoints =EGXIndex  :YtDate = EGXYtDate />
     </div>
+    <div v-else>
+      Loading Todays details
+    </div>
+    <PieChart :gainers =5 :losers=20 />
   </div>
+</div>
+
 </template>
 
 <script>
@@ -127,9 +136,10 @@ export default {
         // if before 3PM
         today -= 1;
 
-      var yesterday = today - 1; //this is incorrect given weekends
+      var yesterday = today - 1; //this is incorrect given weekends      
+      var newYear = parseInt(today.slice(0,4)+'0102') // 1st jan is holiday
 
-      this.EGXIndex = doc.data()[today];
+      this.EGXIndex = doc.data()[today]; //gets point for EGX30 today
       this.EGXYtDate = (
         ((doc.data()[today] - doc.data()[newYear]) / doc.data()[newYear]) *
         100
@@ -140,7 +150,7 @@ export default {
       ).toFixed(3);
     });
 
-    docRef = doc(db, "stocks", "changes");
+    docRef = doc(db, "stocks", "changes"); //get stock with last trading day's changes
     getDoc(docRef).then((doc) => {
       //const keys = []
       //let values = [];
