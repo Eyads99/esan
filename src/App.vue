@@ -54,7 +54,10 @@
         <div v-else>Loading EGX stocks</div>
 
         <div class="chart-container2">
-          <PieChart :gainers="25" :losers="20" />
+          <div v-if="gainers">
+           <PieChart :gainers= gainers :losers=losers />
+          </div>
+          <div v-else>Loading Pie Chart</div>
         </div>
         <div class="chart-container1">
           <div v-if="EGXIndex">
@@ -92,7 +95,9 @@ export default {
       stockNames: null,
       Switch: 10,
       keysOrder: null,
-      values: [],
+      allChgValues: [],
+      gainers: null,
+      losers: null
     };
   },
   methods: {
@@ -100,10 +105,10 @@ export default {
       this.Switch *= -1;
       if (this.Switch > 0) {
         this.stockNames = this.keysOrder.slice(0, this.Switch); // get last 30 elements
-        this.stockChgs = this.values.slice(0, this.Switch);
+        this.stockChgs = this.allChgValues.slice(0, this.Switch);
       } else {
         this.stockNames = this.keysOrder.slice(this.Switch); // get last 30 elements
-        this.stockChgs = this.values.slice(this.Switch); // get last 30 elements
+        this.stockChgs = this.allChgValues.slice(this.Switch); // get last 30 elements
       }
       console.log(this.stockNames);
       console.log(this.stockChgs);
@@ -153,14 +158,18 @@ export default {
         let key = this.keysOrder[i];
         //console.log(key)
         //keys.push(key)     
-        this.values.push(((doc.data()[key])*100).toFixed(2))  
+        this.allChgValues.push(((doc.data()[key])*100).toFixed(2))  
     }   
 
         this.stockNames = this.keysOrder.slice(0,10)// get last 30 elements
-        this.stockChgs = this.values.slice(0,10)// get last 30 elements
-        console.log(this.stockNames)
-        console.log(this.stockChgs)
+        this.stockChgs = this.allChgValues.slice(0,10)// get last 30 elements
+        //console.log(this.stockNames)
+        //console.log(this.stockChgs)
+        this.gainers = this.allChgValues.filter((x) => x > 0).length
+        console.log(this.allChgValues.filter((x) => x > 0)  )
+        this.losers = this.allChgValues.length - this.gainers
       })
+    //count number of values above 0 in allChgValues
 
 
   }
