@@ -69,13 +69,14 @@ export default {
       
     getDoc(docRef).then(doc => {
       var today = new Date().toISOString().slice(0, 10).replace(/-/g, '')//gets today date in YYYYMMDD format      
-      today = parseInt(today)
-      
+      var newYear = parseInt(today.slice(0,4)+'0102') // 1st jan is holiday
+      today = parseInt(today)      
+
       if (new Date().getHours() < 15) // if before 3PM
         today -=1
 
       var yesterday = today-1 //this is incorrect given weekends      
-      var newYear = parseInt(today.slice(0,4)+'0102') // 1st jan is holiday
+      
 
       this.EGXIndex = (doc.data()[today]) //gets point for EGX30 today
       this.EGXYtDate = ((doc.data()[today] - doc.data()[newYear])/doc.data()[newYear] * 100).toFixed(3) // round to 3 dp
@@ -98,8 +99,8 @@ export default {
         values.push(((doc.data()[key])*100).toFixed(2))  
     }   
 
-        this.stockNames = keysOrder.slice(-15)// get last 30 elements
-        this.stockChgs = values.slice(-15)// get last 30 elements
+        this.stockNames = keysOrder.slice(0,5)// get last 30 elements
+        this.stockChgs = values.slice(0,5)// get last 30 elements
         console.log(this.stockNames)
         console.log(this.stockChgs)
       })
