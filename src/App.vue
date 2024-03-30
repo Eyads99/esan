@@ -66,19 +66,7 @@
           </div>
           <div v-else>Loading Today's details</div>
         </div>
-
-        <div class="col-sm-12">
-          <PieChart :gainers="5" :losers="20" />
-        </div>
       </div>
-
-    <div v-if="EGXIndex">
-      <TodayBar :dailyChange =EGXDaily :currentPoints =EGXIndex  :YtDate = EGXYtDate />
-    </div>
-    <div v-else>
-      Loading Todays details
-    </div>
-    <PieChart :gainers =5 :losers=20 />
   </div>
 </div>
 
@@ -152,7 +140,7 @@ export default {
     docRef = doc(db, "stocks", "changes"); //get stock with last trading day's changes
     getDoc(docRef).then((doc) => {
       //const keys = []
-      //let values = [];
+      //let values = []
 
       this.keysOrder = Object.keys(doc.data()); //reorder obj to be in descending order
       this.keysOrder.sort((a, b) => doc.data()[a] - doc.data()[b]);
@@ -163,11 +151,11 @@ export default {
         let key = this.keysOrder[i];
         //console.log(key)
         //keys.push(key)     
-        values.push(((doc.data()[key])*100).toFixed(2))  
+        this.values.push(((doc.data()[key])*100).toFixed(2))  
     }   
 
-        this.stockNames = keysOrder.slice(0,5)// get last 30 elements
-        this.stockChgs = values.slice(0,5)// get last 30 elements
+        this.stockNames = this.keysOrder.slice(0,5)// get first 5 elements
+        this.stockChgs = this.values.slice(0,5)
         console.log(this.stockNames)
         console.log(this.stockChgs)
       })
