@@ -132,13 +132,9 @@ export default {
 
       this.EGXIndex = doc.data()[today]; //gets point for EGX30 today
       this.EGXYtDate = (
-        ((doc.data()[today] - doc.data()[newYear]) / doc.data()[newYear]) *
-        100
-      ).toFixed(3); // round to 3 dp
+        ((doc.data()[today] - doc.data()[newYear]) / doc.data()[newYear]) * 100).toFixed(2); // round to 3 dp
       this.EGXDaily = (
-        ((doc.data()[today] - doc.data()[yesterday]) / doc.data()[yesterday]) *
-        100
-      ).toFixed(3);
+        ((doc.data()[today] - doc.data()[yesterday]) / doc.data()[yesterday]) *100).toFixed(2);
     });
 
     docRef = doc(db, "stocks", "changes"); //get stock with last trading day's changes

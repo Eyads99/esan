@@ -1,9 +1,9 @@
 <template>
   <table id="TodayBar">
     <tr class="title">
-      <th :style="{ color: getColor(roundedValue1) }">{{ roundedValue1 }}%</th>
-      <th>{{ roundedValue2 }}</th>
-      <th :style="{ color: getColor(roundedValue3) }">{{ roundedValue3 }}%</th>
+      <th :style="{ color: getColor(dailyChange) }">{{ dailyChange }}%</th>
+      <th>{{ currentPoints }}</th>
+      <th :style="{ color: getColor(YtDate) }">{{ YtDate }}%</th>
     </tr>
     <tr>
       <td>daily change</td>
@@ -37,7 +37,7 @@ export default {
       return value < 0 ? "red" : value > 0 ? "green" : "black"; //-ive -> red +ive -> green 0 -> black
     },
   },
-  computed: {
+  computed: { // redunant code rouding done in prop
     roundedValue1() {
       return Math.round(this.dailyChange * 10) / 10;
     },
