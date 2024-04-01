@@ -19,15 +19,15 @@ export default {
   name: "TodayBar",
   props: {
     dailyChange: {
-      type: Number,
+      //type: Number,
       required: true,
     },
     currentPoints: {
-      type: Number,
+      //type: Number,
       required: true,
     },
     YtDate: {
-      type: Number,
+      //type: Number,
       required: true,
     },
   },

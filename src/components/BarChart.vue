@@ -50,7 +50,7 @@ export default {
               minValueSpan: 3, //min # of bars to show
               maxValueSpan: 50,
               startValue: 0, //start and end represent the # bars of chart to show by default
-              endValue: 15,
+              endValue: 20,
               handleSize: 20,
               showDetail: false,
             },
@@ -120,7 +120,6 @@ export default {
 
   mounted() {
     this.chartId++;
-    console.log("bar-chart" + this.title);
     const chartDom = document.getElementById(["bar-chart" + this.title]);
     const myChart = echarts.init(chartDom);
     // Sort the data array based on values in descending order
@@ -189,7 +188,8 @@ export default {
           fontWeight: "bold",
           fontFamily: "Cursive",
           itemStyle: {
-            barBorderRadius: [5, 5, 5, 5],
+            //barBorderRadius: [5, 5, 5, 5],
+            borderRadius : 5
           },
           label: {
             show: true,

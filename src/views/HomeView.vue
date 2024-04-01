@@ -2,49 +2,23 @@
   <!-- Button to change the values -->
   <button @click="changeValues">Top / Bottom 10</button>
   <div>
-    <!-- Lines 137 and 138 with the values to be changed -->
     <p>{{ Switch }}</p>
   </div>
-  <div class="logo-container top-left">
-    <img src="/src/assets/Logo2.jpeg" alt="Logo" id="logo" />
-  </div>
-<!--   <div class="logo-container top-right">
-    <img src="/src/assets/Logo2.jpeg" alt="Logo" id="logo" />
-  </div>
-  <div class="logo-container bottom-left">
-    <img src="/src/assets/Logo2.jpeg" alt="Logo" id="logo" />
-  </div>
-  <div class="logo-container bottom-right">
-    <img src="/src/assets/Logo2.jpeg" alt="Logo" id="logo" />
-  </div> -->
   <div class="container">
     <div class="row d-flex">
       <div class="col-sm-5">
         <BarChart
           title="Average performance/sector"
-          :labels="[
-            'Consumables',
-            'Banks',
-            'Healthcare',
-            'Real Estate',
-            'Textiles & Durables',
-            'Energy',
-            'Contracting',
-            'NBFS',
-            'Transportation',
-            'Basic Resources',
-            'Communucation',
-            'Industrials',
-          ]"
-          :values="[-1.31, -0.23, 1, 1.32, 1.38, 2.64, 3.77, 4.22, 4.93, 5.99, 6.02,6.6,]"
+          :labels = sectors
+          :values= sectorChg
         />
       </div>
 
       <div class="col-sm-6">
-        <div v-if="stockChgs">
+        <div v-if="topstockChgs">
           <BarChart
-            :labels="stockNames"
-            :values="stockChgs"
+            :labels="topStockNames"
+            :values="topstockChgs"
             title="Stock Market Today"
           />
         </div>
@@ -88,29 +62,55 @@ export default {
       EGXIndex: null,
       EGXYtDate: null,
       EGXDaily: null,
-      stockChgs: null,
-      stockNames: null,
+      topstockChgs: null,
+      topStockNames: null,
       Switch: 10,
-      keysOrder: null,
+      allStockNamesOrder: null,
       allChgValues: [],
       gainers: null,
-      losers: null
+      losers: null,
+      sectors: [],
+      sectorChg: [],
+      allStocksChgToday : null
+
     };
   },
   methods: {
     changeValues() {
-      this.Switch *= -1;
+      this.Switch *= -1
       if (this.Switch > 0) {
-        this.stockNames = this.keysOrder.slice(0, this.Switch); // get last 30 elements
-        this.stockChgs = this.allChgValues.slice(0, this.Switch);
+        this.topStockNames = this.allStockNamesOrder.slice(0, this.Switch) // get first 10 elements
+        this.topstockChgs = this.allChgValues.slice(0, this.Switch)
       } else {
-        this.stockNames = this.keysOrder.slice(this.Switch); // get last 30 elements
-        this.stockChgs = this.allChgValues.slice(this.Switch); // get last 30 elements
+        this.topStockNames = this.allStockNamesOrder.slice(this.Switch) // get last 10 elements
+        this.topstockChgs = this.allChgValues.slice(this.Switch) 
       }
-      console.log(this.stockNames);
-      console.log(this.stockChgs);
     },
+
+    getDayBefore(dateInt) //function takes int in date format YYYYMMDD and outputs in in same format of previous day
+    {
+      //convert int to date from format YYYYMMDD
+      const date = new Date(dateInt.toString().slice(0, 4), dateInt.toString().slice(4, 6) - 1, dateInt.toString().slice(6)); // Adjust month for Date() constructor
+      date.setDate(date.getDate() - 1);
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0'); // Month is 0-indexed
+      const day = String(date.getDate()).padStart(2, '0');
+      return parseInt(`${year}${month}${day}`);
+    },
+
+    getAvgChg(sectorName,stockNames, allChgs) {
+      let sum = 0
+      let count = 0
+      for (let i = 0; i < stockNames.length; i++) 
+        { 
+          sum += allChgs[stockNames[i]]
+          count +=1
+        }
+      return (sum / count).toFixed(2)  
+    }
   },
+
+
   components: {
     BarChart,
     PieChart,
@@ -119,16 +119,15 @@ export default {
     mounted(){
 
     let docRef = doc(db, 'stocks', 'EGX30')
-      
+    let secdoc = doc(db, "info", "industry")  
+
     getDoc(docRef).then(doc => {
       var today = new Date().toISOString().slice(0, 10).replace(/-/g, '')//gets today date in YYYYMMDD format      
       var newYear = parseInt(today.slice(0,4)+'0102') // 1st jan is holiday
       today = parseInt(today)      
-
       if (new Date().getHours() < 15) // if before 3PM
-        today -=1
-
-      var yesterday = today - 1; //this is incorrect given weekends      
+        today = this.getDayBefore(today)
+      var yesterday = this.getDayBefore(today - 1); //this is incorrect given weekends      
 
       this.EGXIndex = doc.data()[today]; //gets point for EGX30 today
       this.EGXYtDate = (
@@ -137,32 +136,55 @@ export default {
         ((doc.data()[today] - doc.data()[yesterday]) / doc.data()[yesterday]) *100).toFixed(2);
     });
 
-    docRef = doc(db, "stocks", "changes"); //get stock with last trading day's changes
+    docRef = doc(db, "stocks", "changes") //get stock with last trading day's changes
+    
     getDoc(docRef).then((doc) => {
-      //const keys = []
-      //let values = [];
 
-      this.keysOrder = Object.keys(doc.data()); //reorder obj to be in descending order
-      this.keysOrder.sort((a, b) => doc.data()[a] - doc.data()[b]);
 
-      for (let i = 0; i < this.keysOrder.length; i++) {
+      this.allStocksChgToday = doc.data()
+
+      this.allStockNamesOrder = Object.keys(doc.data()); //reorder obj to be in descending order
+      this.allStockNamesOrder.sort((a, b) => doc.data()[a] - doc.data()[b]);
+
+      for (let i = 0; i < this.allStockNamesOrder.length; i++) {
         // get all keys and values and push them into their arrays
-        //console.log(keysOrder)
-        let key = this.keysOrder[i];
-        //console.log(key)
+        let key = this.allStockNamesOrder[i];
         //keys.push(key)     
         this.allChgValues.push(((doc.data()[key])*100).toFixed(2))  
     }   
 
-        this.stockNames = this.keysOrder.slice(0,10)// get last 30 elements
-        this.stockChgs = this.allChgValues.slice(0,10)// get last 30 elements
-        //console.log(this.stockNames)
-        //console.log(this.stockChgs)
-        this.gainers = this.allChgValues.filter((x) => x > 0).length
-        console.log(this.allChgValues.filter((x) => x > 0)  )
+        this.topStockNames = this.allStockNamesOrder.slice(0,10)// get last 30 elements
+        this.topstockChgs = this.allChgValues.slice(0,10)// get last 30 elements
+
+        this.gainers = this.allChgValues.filter((x) => x > 0).length //get the number of stocks that increased
         this.losers = this.allChgValues.length - this.gainers
-      })
-    //count number of values above 0 in allChgValues
+
+        //below is for next doc for getting sectors and their component stocks
+        return getDoc(secdoc) 
+      }).then((doc2) => {
+          
+        const sectorsDoc = Object.keys(doc2.data())
+
+        for (let i = 0; i < sectorsDoc.length; i++) {
+          let currSector = sectorsDoc[i]
+          this.sectorChg[currSector] = this.getAvgChg(currSector,doc2.data()[currSector], this.allStocksChgToday)
+        }
+        //make sectorChg in descending order by values
+        this.sectorChg = Object.entries(this.sectorChg).sort((a, b) => a[1] - b[1]).reduce((r, [k, v]) => ({ ...r, [k]: v }), {});
+
+
+        this.sectors = Object.keys(this.sectorChg)
+        this.sectorChg = Object.values(this.sectorChg)
+        //make all sectors First letter capital
+        this.sectors = this.sectors.map( x => {return x.charAt(0).toUpperCase() + x.slice(1)})
+
+      
+
+      });
+
+      
+      
+
 
 
   }
