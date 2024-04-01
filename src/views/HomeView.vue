@@ -97,7 +97,7 @@ export default {
           sum += allChgs[stockNames[i]]
           count +=1
         }
-      return (sum / count).toFixed(2)  
+      return ((sum / count)*100).toFixed(2)
     }
   },
 
@@ -169,7 +169,7 @@ export default {
         //make all sectors First letter capital
         this.sectors = this.sectors.map( x => {return x.charAt(0).toUpperCase() + x.slice(1)})
         //times all sectorChg by 100
-        this.sectorChg = this.sectorChg.map( x => {return x*100})
+        //this.sectorChg = this.sectorChg.map( x => {return x*100})
       
 
       });
