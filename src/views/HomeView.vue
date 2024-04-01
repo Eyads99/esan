@@ -1,5 +1,6 @@
 <template>
   <!-- Button to change the values -->
+  <h1>EGX Today</h1>
   <button @click="changeValues">Top / Bottom 10</button>
   <div>
     <p>{{ Switch }}</p>
@@ -12,6 +13,10 @@
           :labels = sectors
           :values= sectorChg
         />
+        <div v-if="EGXIndex">
+            <TodayBar :dailyChange="EGXDaily" :currentPoints="EGXIndex" :YtDate="EGXYtDate"/>
+          </div>
+          <div v-else>Loading Today's details</div>
       </div>
 
       <div class="col-sm-6">
@@ -23,24 +28,10 @@
           />
         </div>
         <div v-else>Loading EGX stocks</div>
-
-        <div class="chart-container2">
-          <div v-if="gainers">
+        <div v-if="gainers">
            <PieChart :gainers= gainers :losers=losers />
           </div>
           <div v-else>Loading Pie Chart</div>
-        </div>
-        <div class="chart-container1">
-          <div v-if="EGXIndex">
-            <TodayBar
-              :dailyChange="EGXDaily"
-              :currentPoints="EGXIndex"
-              :YtDate="EGXYtDate"
-            />
-          </div>
-          <div v-else>Loading Today's details</div>
-        </div>
-
       </div>
 
   </div>
@@ -177,7 +168,8 @@ export default {
         this.sectorChg = Object.values(this.sectorChg)
         //make all sectors First letter capital
         this.sectors = this.sectors.map( x => {return x.charAt(0).toUpperCase() + x.slice(1)})
-
+        //times all sectorChg by 100
+        this.sectorChg = this.sectorChg.map( x => {return x*100})
       
 
       });
@@ -196,21 +188,6 @@ export default {
   height: -90px;
 }
 
-.chart-container1 {
-  position: absolute;
-  top: 600px;
-  left: 115px;
-  width: 40%;
-  height: 10%;
-}
-
-.chart-container2 {
-  position: absolute;
-  top: 500px;
-  left: 750px;
-  width: 40%;
-  height: 10%;
-}
 .bar {
   width: 20px;
   margin-right: 5px;
