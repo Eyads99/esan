@@ -13,6 +13,7 @@
           :labels = sectors
           :values= sectorChg
         />
+        <h3>EGX Today</h3>
         <div v-if="EGXIndex">
             <TodayBar :dailyChange="EGXDaily" :currentPoints="EGXIndex" :YtDate="EGXYtDate"/>
           </div>
@@ -113,12 +114,30 @@ export default {
     let secdoc = doc(db, "info", "industry")  
 
     getDoc(docRef).then(doc => {
-      var today = new Date().toISOString().slice(0, 10).replace(/-/g, '')//gets today date in YYYYMMDD format      
-      var newYear = parseInt(today.slice(0,4)+'0102') // 1st jan is holiday
-      today = parseInt(today)      
+      //var today = new Date().toISOString().slice(0, 10).replace(/-/g, '')//gets today date in YYYYMMDD format      
+      //if friday or saturday set today to previous thrusday
+      var today = new Date()
+      var yesterday = new Date()
+
       if (new Date().getHours() < 15) // if before 3PM
-        today = this.getDayBefore(today)
-      var yesterday = this.getDayBefore(today - 1); //this is incorrect given weekends      
+        today.setDate(today.getDate() - 1)
+
+      var dayOfWeek = today.getDay()
+      if (dayOfWeek > 4)
+        today.setDate(today.getDate() - (dayOfWeek-4))
+
+      yesterday.setDate(today.getDate() - 1) 
+
+
+      //var yesterday = this.getDayBefore(today); //this is incorrect given weekends      
+      
+      today = today.toISOString().slice(0, 10).replace(/-/g, '')//gets today date in YYYYMMDD format
+      yesterday = yesterday.toISOString().slice(0, 10).replace(/-/g, '')//gets today date in YYYYMMDD format
+
+      var newYear = parseInt(today.slice(0,4)+'0102') // 1st jan is holiday
+      today = parseInt(today)
+      yesterday = parseInt(yesterday)
+
 
       this.EGXIndex = doc.data()[today]; //gets point for EGX30 today
       this.EGXYtDate = (
@@ -168,14 +187,8 @@ export default {
         this.sectorChg = Object.values(this.sectorChg)
         //make all sectors First letter capital
         this.sectors = this.sectors.map( x => {return x.charAt(0).toUpperCase() + x.slice(1)})
-        //times all sectorChg by 100
-        //this.sectorChg = this.sectorChg.map( x => {return x*100})
-      
 
-      });
-
-      
-      
+      });     
 
 
 
@@ -192,41 +205,10 @@ export default {
   width: 20px;
   margin-right: 5px;
 }
-.logo-container {
-  width: 100px; /* Set the width and height of the container to create a square */
-  height: 100px;
-  border-radius: 100%;
-  overflow: hidden;
-  position: fixed;
-}
-.logo-container img {
-  width: 100%; /* Make the image fill the container width */
-  height: 100%;
-  object-fit: cover; /* Maintain the aspect ratio of the image */
-}
-.top-left {
-  top: 10px;
-  left: 10px;
-}
-
-.top-right {
-  top: 10px;
-  right: 10px;
-}
-
-.bottom-left {
-  bottom: 10px;
-  left: 10px;
-}
-
-.bottom-right {
-  bottom: 10px;
-  right: 10px;
-}
 
 #app {
   font-size: large;
-  font-family: Avenir, cursive, Arial, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
