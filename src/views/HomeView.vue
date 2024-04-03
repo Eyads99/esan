@@ -13,7 +13,7 @@
           :labels = sectors
           :values= sectorChg
         />
-        <h3>EGX Today</h3>
+        <h3>EGX30 Today</h3>
         <div v-if="EGXIndex">
             <TodayBar :dailyChange="EGXDaily" :currentPoints="EGXIndex" :YtDate="EGXYtDate"/>
           </div>
@@ -127,7 +127,6 @@ export default {
         today.setDate(today.getDate() - (dayOfWeek-4))
 
       yesterday.setDate(today.getDate() - 1) 
-
 
       //var yesterday = this.getDayBefore(today); //this is incorrect given weekends      
       
