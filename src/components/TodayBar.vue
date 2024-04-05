@@ -6,9 +6,9 @@
       <th :style="{ color: getColor(YtDate) }">{{ YtDate }}%</th>
     </tr>
     <tr>
-      <td>daily change</td>
-      <td>current points</td>
-      <td>year-to-date performance</td>
+      <td>Daily Change</td>
+      <td>Current Points</td>
+      <td>Year-to-Date performance</td>
       <br />
     </tr>
   </table>

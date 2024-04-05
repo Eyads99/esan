@@ -1,6 +1,6 @@
 <template>
   <div class="chart">
-    <div id="pie-chart" style="width: 100%; height: 400px"></div>
+    <div :id= "`pie-chart${ID}`" style="width: 100%; height: 400px"></div>
   </div>
 </template>
 
@@ -8,9 +8,11 @@
 import * as echarts from "echarts";
 export default {
   name: "PieChart",
-  props: ["gainers", "losers"],
+  props: ["gainers", "losers","ID"],
   mounted() {
-    const chartDom = document.getElementById("pie-chart");
+    //window.addEventListener('resize', this.handleResize); //this is to handle zoom in/out from browser
+    this.chartId++;
+    const chartDom = document.getElementById(["pie-chart" + this.ID]);
     const myChart = echarts.init(chartDom);
 
     const options = {
@@ -58,6 +60,19 @@ export default {
     };
 
     myChart.setOption(options);
+  },
+
+  methods: {
+  handleResize() {
+    //const chart = echarts.init(document.getElementById(`bar-chart${this.title}`));
+    //chart.resize();
+  }
+},
+
+data() {
+    return {
+      chartId: 0, // Initialize a counter unneeded
+    };
   },
 };
 </script>

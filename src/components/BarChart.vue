@@ -1,10 +1,11 @@
 <template>
-  <div class="chart">
-    <div class="font">
-      {{ title }}
+ <v-container fluid fill-height >
+    <div class="font">      
+      {{ title }}  
     </div>
-    <div :id="`bar-chart${title}`" style="width: 100%; height: 500px"></div>
-  </div>
+    
+    <div :id="`bar-chart${title}`" style=" height: 100%"></div>
+  </v-container>
 </template>
 
 <script>
@@ -24,7 +25,7 @@ export default {
     values: {
       handler: function(newValues, oldValues) {
         if ((newValues !== oldValues) && oldValues) {
-          console.log("values changed")
+          //console.log("values changed")
           const options = {
           grid: {
             left: "30%",
@@ -38,7 +39,7 @@ export default {
               { gt: 0, color: "#09467d" }, // Blue for positive values (> 0)
               { lte: 0, color: "#A40000" }, // Red for negative values (<= 0)
             ],
-          }, // Update the labelStyle for xAxis and yAxis in the mounted function of BarChart.vue
+          }, 
 
           dataZoom: [
             {
@@ -88,7 +89,8 @@ export default {
               fontWeight: "bold",
               fontFamily: "Cursive",
               itemStyle: {
-                barBorderRadius: [5, 5, 5, 5],
+            //barBorderRadius: [5, 5, 5, 5],
+                borderRadius : 5
               },
               label: {
                 show: true,
@@ -119,6 +121,7 @@ export default {
 
 
   mounted() {
+    window.addEventListener('resize', this.handleResize); //this is to handle zoom in/out from browser
     this.chartId++;
     const chartDom = document.getElementById(["bar-chart" + this.title]);
     const myChart = echarts.init(chartDom);
@@ -127,7 +130,7 @@ export default {
 
     const options = {
       grid: {
-        left: "30%",
+        //left: "1%",
       },
       barWidth: "40%",
       visualMap: {
@@ -208,14 +211,22 @@ export default {
 
     myChart.setOption(options);
   },
+  methods: {
+  handleResize() {
+    const chart = echarts.init(document.getElementById(`bar-chart${this.title}`)) //this is to handle zoom in/out from browser
+    chart.resize();
+  }
+}
 };
 </script>
 
 <style scoped>
 .font {
-  color: rgba(21, 25, 88, 0.971); /* White text color */
-  margin-bottom: -50px; /*space between chart title and chart */
+  /*position: absolute;*/
+  /*top: 0;*/
+  color: rgba(21, 25, 88, 0.971); 
+  /*margin-bottom: -50px; /*space between chart title and chart */
   font-weight: bold;
-  text-align: right;
+  /*text-align: right;*/
 }
 </style>
