@@ -6,9 +6,36 @@
 
 <script>
 import * as echarts from "echarts";
+
+
 export default {
   name: "PieChart",
   props: ["gainers", "losers","ID"],
+
+
+  watch: {
+
+      gainers(newValues, oldValues) {        
+        if ((newValues !== oldValues) && oldValues)
+        {
+          this.updateChart()
+        }
+        
+      },
+
+      losers(newValues, oldValues) {
+        console.log("value change up") 
+        if ((newValues !== oldValues) && oldValues)
+        {
+          this.updateChart()
+        }
+        
+      },
+
+
+
+  },
+
   mounted() {
     //window.addEventListener('resize', this.handleResize); //this is to handle zoom in/out from browser
     this.chartId++;
@@ -66,8 +93,61 @@ export default {
   handleResize() {
     //const chart = echarts.init(document.getElementById(`bar-chart${this.title}`));
     //chart.resize();
+  },
+  updateChart()
+  {
+    const options = {
+        tooltip: {
+          trigger: "item",
+          formatter: "{b}: {c} ({d}%)",
+        },
+        series: [
+          {
+            name: "Gainers and Losers",
+            type: "pie",
+            radius: ["00%", "50%"],
+            avoidLabelOverlap: true,
+            label: {
+              show: true,
+              position: "outside",
+              formatter: "{b}: {c} ({d}%)",
+              textStyle: {
+                color: "#000",
+                fontFamily: "Cursive",
+                fontSize: "15",
+              },
+            },
+            emphasis: {
+              label: {
+                show: true,
+                fontSize: "15",
+                fontWeight: "bold",
+              },
+            },
+            data: [
+              {
+                value: this.gainers,
+                name: "Gainers",
+                itemStyle: { color: "#09467d" },
+              }, // Blue
+              {
+                value: this.losers,
+                name: "Losers",
+                itemStyle: { color: "#e1e1e1" },
+              }, // Grey
+            ],
+          },
+        ],
+          };
+          const chartDom = document.getElementById(["pie-chart" + this.ID]);
+          const myChart = echarts.init(chartDom);
+          
+          if(myChart){
+            myChart.setOption(options);}
+
   }
 },
+
 
 data() {
     return {

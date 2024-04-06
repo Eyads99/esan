@@ -65,10 +65,11 @@
         <div v-if="gainers">
           <v-card elevated class="card-margin">
             <h3>Gainers and losers</h3>
-           <PieChart :gainers=gainers :losers=losers />
+           <PieChart :gainers="gainers" :losers="losers" ID="GL" />
           </v-card>
           </div>
-          <div v-else><v-card loading>Loading Pie Chart</v-card></div>
+          <div v-else>
+            <v-card loading>Loading Pie Chart</v-card></div>
           </v-col>
         </v-row>
       </v-container>
@@ -165,6 +166,9 @@ export default {
 
       this.topStockNames = top10.map(([n])=> n) //extract names  
       this.topstockChgs = top10.map(([,n])=> (n*100).toFixed(2)) //extract values  
+      
+      this.gainers = Object.values(stocksNeeded).filter((x) => x > 0).length
+      this.losers = Object.values(stocksNeeded).filter((x) => x < 0).length//stocksNeeded.length - this.gainers //0 is considered a loss
 
     },
 
@@ -270,8 +274,8 @@ export default {
       
     docRef = doc(db, "stocks", "todayIndices")
     getDoc(docRef).then(doc => {
-      console.log(doc.data())// TODO see why this must be logged to work!!!
-      this.indexPoints = doc.data()
+      //console.log(doc.data())// TODO see why this must be logged to work!!!
+      this.indexPoints = doc.data()      
       });
     
   }

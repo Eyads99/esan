@@ -16,10 +16,9 @@ export default {
   props: ["labels", "values", "title"],
   data() {
     return {
-      chartId: 0, // Initialize a counter unneeded
+      chartId: 0, // Initialize a counter; unneeded
     };
   },
-
 
   watch: {
     values: {
