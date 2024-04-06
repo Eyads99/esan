@@ -32,10 +32,10 @@
             />
           </v-card>          
           
-          <div v-if="idxPoints">
+          <div v-if="idxPointShow">
             <v-card elevated class="card-margin">
               <h3>EGX{{indexSelection}} Today</h3>
-              <TodayBar :dailyChange="idxDailyChg" :currentPoints="idxPoints" :YtDate="idxYtDate"/>
+              <TodayBar :dailyChange="idxDailyChgShow" :currentPoints="idxPointShow" :YtDate="idxYtDate"/>
             </v-card>
             </div>
             <div v-else>  
@@ -89,41 +89,82 @@ export default {
   name: "App",
   data() {
     return {
-      idxPoints: null,
-      idxYtDate: null,
-      idxDailyChg: null,
-      topstockChgs: null,
-      topStockNames: null,
-      Switch: 10,
+      idxPointShow: null,//this data is to be shown to user
+      idxYtDate: null, //this data is to be shown to user
+      idxDailyChgShow: null, //this data is to be shown to user
+      topstockChgs: null, //used as prop in charts has chaging data
+      topStockNames: null, //used as prop in charts has chaging data
+      topCount: 10, //get top x given value i.e 10 -> top ten; -5 -> bottom 5
       allStockNamesOrder: null,
       allChgValuesOrder: [],
       gainers: null,
       losers: null,
       sectors: [],
       sectorChg: [],
-      allStocksChgToday : null, //dict in form {stockname: chg}
-      indexSelection: 30
+      allStocksChgToday : null, //dict in form {stockname: chg} has all stocks and their chg
+      indexSelection: 30, // default set to EGX30
+      indexChgs: {}, // gets % change for all indices
+      indexPoints: {}, // gets points for all indices
+      EGX30TickerList : ["ABUK","ADIB","ALCN","AMOC","BTFH","COMI","EAST","EFID","HRHO","EFIH","EKHO","EKHOA","SWDY","ESRS",
+      "FWRY","GBCO","HELI","JUFO","MASR","MFPC","ORAS","ORHD","ORWE","PHDC","CCAP","SKPC","TMGH","ETEL","SUGR","PHAR","ISPH"],
+      EGX70TickerList : ["ACAP","ACGC","ADPC","AFDI","AIH","AMER","ARAB","ASPI","ATLC","ATQA","BINV","CERA","CICH","CIEB","CIRA",
+      "CLHO","COPR","COSG","DAPH","DSCW","ECAP","EFIC","EGAL","EGAS","EGCH","EGTS","EHDR","ELKA","ELSH","EMFD","ENGC","ETRS",
+      "EXPA","GDWA","GGCC","HDBK","IDRE","IFAP","ISMA","ISMQ","KABO","KRDI","KZPC","MCQE","MCRO","MENA","MEPA","MICH","MOIL",
+      "MPRC","MTIE","NCCW","OCDI","ODIN","OIH","OLFI","POUL","PRCL","PRDC","PRMH","QNBA","RACC","RAYA","RMDA","SAUD","TALM",
+      "TAQA","UEGC","UNIT","ZMID"],
+      idxBeginYTDValues : {"EGX30": 25501.94, "EGX70":5640.68,"EGX100":8111.12, "EGX30Cap":30887.48,"TAMAYOUZ":6531.4},
     };
   },
   methods: {
     changeValues() {
-      this.Switch *= -1
-      if (this.Switch > 0) {
-        this.topStockNames = this.allStockNamesOrder.slice(0, this.Switch) // get first 10 elements
-        this.topstockChgs = this.allChgValuesOrder.slice(0, this.Switch)
+      this.topCount *= -1
+      if (this.topCount > 0) {
+        this.topStockNames = this.allStockNamesOrder.slice(0, this.topCount) // get first 10 elements
+        this.topstockChgs = this.allChgValuesOrder.slice(0, this.topCount)
       } else {
-        this.topStockNames = this.allStockNamesOrder.slice(this.Switch) // get last 10 elements
-        this.topstockChgs = this.allChgValuesOrder.slice(this.Switch) 
+        this.topStockNames = this.allStockNamesOrder.slice(this.topCount) // get last 10 elements
+        this.topstockChgs = this.allChgValuesOrder.slice(this.topCount) 
       }
     },
 
     indexChg()
     {
       console.log(this.indexSelection)
-      this.idxDailyChg=10;
-      this.idxPoints=10;
-      this.idxYtDate=10;
+      const idx = "EGX" + this.indexSelection
+      this.idxDailyChgShow = ((this.indexChgs[idx])*100).toFixed(2);
+      this.idxPointShow = this.indexPoints[idx];
+      this.idxYtDate = ((this.idxPointShow - this.idxBeginYTDValues[idx]) / this.idxBeginYTDValues[idx]*100).toFixed(2)
       
+
+      // deals with top stocks
+      let stocksNeeded
+      switch(idx) {
+      case "EGX30":
+        //set stocksNeeded to all stocks that are a value in the dict allStockChgToday and are in the list EGX30TickerList
+        //get all key value pairs where a key is in EGX30TickerList
+
+        stocksNeeded = Object.fromEntries(Object.entries(this.allStocksChgToday).filter(([key]) => this.EGX30TickerList.includes(key)));
+
+
+        //this.allStocksChgToday.filter(x => this.EGX30TickerList.includes(x))//error hear checking for enttries not keys
+        break;
+      case "EGX70":
+        stocksNeeded = Object.fromEntries(Object.entries(this.allStocksChgToday).filter(([key]) => this.EGX70TickerList.includes(key)));
+        break;
+      default:
+        //set stocksNeeded to include both EGX30 or EGX70 
+        stocksNeeded = Object.fromEntries(Object.entries(this.allStocksChgToday).filter(([key]) => this.EGX30TickerList.includes(key) || this.EGX70TickerList.includes(key) ));
+      }
+
+      const top10 = Object
+          .entries(stocksNeeded) // create Array of Arrays with [key, value]
+          .sort(([, a],[, b]) => b-a) // sort by value, descending (b-a)
+          .slice(0,10) // return only the first 10 elements of the intermediate result
+        //reverse order of top10
+      top10.reverse()
+
+      this.topStockNames = top10.map(([n])=> n) //extract names  
+      this.topstockChgs = top10.map(([,n])=> (n*100).toFixed(2)) //extract values  
 
     },
 
@@ -139,7 +180,6 @@ export default {
     }
   },
 
-
   components: {
     BarChart,
     PieChart,
@@ -152,8 +192,6 @@ export default {
     let secdocRef = doc(db, "info", "industry")  
 
     getDoc(docRef).then(doc => {
-      //var today = new Date().toISOString().slice(0, 10).replace(/-/g, '')//gets today date in YYYYMMDD format      
-      //if friday or saturday set today to previous thrusday
       var today = new Date()
       var yesterday = new Date()
 
@@ -174,10 +212,10 @@ export default {
       yesterday = parseInt(yesterday)
 
 
-      this.idxPoints = doc.data()[today]; //gets point for EGX30 today
+      this.idxPointShow = doc.data()[today]; //gets point for EGX30 today
       this.idxYtDate = (
         ((doc.data()[today] - doc.data()[newYear]) / doc.data()[newYear]) * 100).toFixed(2); // round to 3 dp
-      this.idxDailyChg = (
+      this.idxDailyChgShow = (
         ((doc.data()[today] - doc.data()[yesterday]) / doc.data()[yesterday]) *100).toFixed(2);
     });
 
@@ -222,9 +260,20 @@ export default {
         this.sectors = this.sectors.map( x => {return x.charAt(0).toUpperCase() + x.slice(1)})
 
       });     
-
-
-
+    
+       //get index daily change data
+    docRef = doc(db, "stocks", "idxChanges")
+    getDoc(docRef).then(doc => {
+      console.log(doc.data())// TODO see why this must be logged to work!!!
+      this.indexChgs = doc.data()
+      });
+      
+    docRef = doc(db, "stocks", "todayIndices")
+    getDoc(docRef).then(doc => {
+      console.log(doc.data())// TODO see why this must be logged to work!!!
+      this.indexPoints = doc.data()
+      });
+    
   }
 }
 </script>
