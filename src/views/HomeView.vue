@@ -141,7 +141,7 @@ export default {
       let stocksNeeded
       switch(idx) {
       case "EGX30":
-        //set stocksNeeded to all stocks that are a value in the dict allStockChgToday and are in the list EGX30TickerList
+        //set stocksNeeded to all stocks that are a value in the dict allStocksChgToday and are in the list EGX30TickerList
         //get all key value pairs where a key is in EGX30TickerList
 
         stocksNeeded = Object.fromEntries(Object.entries(this.allStocksChgToday).filter(([key]) => this.EGX30TickerList.includes(key)));
@@ -152,20 +152,20 @@ export default {
       case "EGX70":
         stocksNeeded = Object.fromEntries(Object.entries(this.allStocksChgToday).filter(([key]) => this.EGX70TickerList.includes(key)));
         break;
-      default:
+      default: //assumes other will allways be EGX100
         //set stocksNeeded to include both EGX30 or EGX70 
         stocksNeeded = Object.fromEntries(Object.entries(this.allStocksChgToday).filter(([key]) => this.EGX30TickerList.includes(key) || this.EGX70TickerList.includes(key) ));
       }
 
-      const top10 = Object
+      const topstocks = Object
           .entries(stocksNeeded) // create Array of Arrays with [key, value]
           .sort(([, a],[, b]) => b-a) // sort by value, descending (b-a)
-          .slice(0,10) // return only the first 10 elements of the intermediate result
+          .slice(0,this.topCount) // return only the first 10 elements of the intermediate result
         //reverse order of top10
-      top10.reverse()
+      topstocks.reverse()
 
-      this.topStockNames = top10.map(([n])=> n) //extract names  
-      this.topstockChgs = top10.map(([,n])=> (n*100).toFixed(2)) //extract values  
+      this.topStockNames = topstocks.map(([n])=> n) //extract names  
+      this.topstockChgs = topstocks.map(([,n])=> (n*100).toFixed(2)) //extract values  
       
       this.gainers = Object.values(stocksNeeded).filter((x) => x > 0).length
       this.losers = Object.values(stocksNeeded).filter((x) => x < 0).length//stocksNeeded.length - this.gainers //0 is considered a loss
@@ -192,10 +192,10 @@ export default {
   },
     mounted(){
 
-    let docRef = doc(db, 'stocks', 'EGX30')
+    //let docRef = doc(db, 'stocks', 'EGX30') unneeded after this.indexChg func
     let secdocRef = doc(db, "info", "industry")  
 
-    getDoc(docRef).then(doc => {
+   /* getDoc(docRef).then(doc => { //gets todays trading data for stocks
       var today = new Date()
       var yesterday = new Date()
 
@@ -211,22 +211,22 @@ export default {
       today = today.toISOString().slice(0, 10).replace(/-/g, '')//gets today date in YYYYMMDD format
       yesterday = yesterday.toISOString().slice(0, 10).replace(/-/g, '')//gets today date in YYYYMMDD format
 
-      var newYear = parseInt(today.slice(0,4)+'0102') // 1st jan is holiday
+      //var newYear = parseInt(today.slice(0,4)+'0102') // 1st jan is holiday
       today = parseInt(today)
       yesterday = parseInt(yesterday)
 
 
-      this.idxPointShow = doc.data()[today]; //gets point for EGX30 today
+      /*this.idxPointShow = doc.data()[today]; //gets point for EGX30 today
       this.idxYtDate = (
         ((doc.data()[today] - doc.data()[newYear]) / doc.data()[newYear]) * 100).toFixed(2); // round to 3 dp
       this.idxDailyChgShow = (
-        ((doc.data()[today] - doc.data()[yesterday]) / doc.data()[yesterday]) *100).toFixed(2);
-    });
+        ((doc.data()[today] - doc.data()[yesterday]) / doc.data()[yesterday]) *100).toFixed(2); // unneeded to do this.indexChg func
+    });*/
 
-    docRef = doc(db, "stocks", "changes") //get stock with last trading day's changes
+    let docRef = doc(db, "stocks", "changes") //get stock with last trading day's changes
     
     getDoc(docRef).then((doc) => {
-      this.allStocksChgToday = doc.data()
+      this.allStocksChgToday = doc.data()//gets dict with all stocks with last trading day's chgs
 
       this.allStockNamesOrder = Object.keys(doc.data()); //reorder obj to be in descending order
       this.allStockNamesOrder.sort((a, b) => doc.data()[a] - doc.data()[b]);
@@ -234,19 +234,18 @@ export default {
       for (let i = 0; i < this.allStockNamesOrder.length; i++) {
         // get all keys and values and push them into their arrays
         let key = this.allStockNamesOrder[i];
-        //keys.push(key)     
-        this.allChgValuesOrder.push(((doc.data()[key])*100).toFixed(2))  
+        this.allChgValuesOrder.push(((doc.data()[key])*100).toFixed(2))//makes array with all chgs in decreasing order  
     }   
 
-        this.topStockNames = this.allStockNamesOrder.slice(0,10)// get last 30 elements
+        /*this.topStockNames = this.allStockNamesOrder.slice(0,10)// get last 30 elements
         this.topstockChgs = this.allChgValuesOrder.slice(0,10)// get last 30 elements
 
         this.gainers = this.allChgValuesOrder.filter((x) => x > 0).length //get the number of stocks that increased
-        this.losers = this.allChgValuesOrder.length - this.gainers
+        this.losers = this.allChgValuesOrder.length - this.gainers*/ //unneed after this.indexChg() func
 
         //below is for next doc for getting sectors and their component stocks
         return getDoc(secdocRef) 
-      }).then((doc2) => {
+      }).then((doc2) => { //get sector change
           
         const sectorsDoc = Object.keys(doc2.data())
 
@@ -270,14 +269,18 @@ export default {
     getDoc(docRef).then(doc => {
       console.log(doc.data())// TODO see why this must be logged to work!!!
       this.indexChgs = doc.data()
+
       });
       
     docRef = doc(db, "stocks", "todayIndices")
     getDoc(docRef).then(doc => {
       //console.log(doc.data())// TODO see why this must be logged to work!!!
       this.indexPoints = doc.data()      
-      });
-    
+      this.indexSelection = 30
+      this.indexChg()  
+    });
+      
+      console.log("end of mount")
   }
 }
 </script>

@@ -14,26 +14,19 @@ export default {
 
 
   watch: {
-
       gainers(newValues, oldValues) {        
         if ((newValues !== oldValues) && oldValues)
         {
           this.updateChart()
-        }
-        
+        }        
       },
 
       losers(newValues, oldValues) {
-        console.log("value change up") 
         if ((newValues !== oldValues) && oldValues)
         {
           this.updateChart()
         }
-        
       },
-
-
-
   },
 
   mounted() {
