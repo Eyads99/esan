@@ -43,7 +43,7 @@ export default {
             ],
           }, 
 
-          dataZoom: [
+          /*dataZoom: [
             {
               type: "slider",
               yAxisIndex: 0,
@@ -57,7 +57,7 @@ export default {
               handleSize: 20,
               showDetail: false,
             },
-          ],
+          ],*/
 
           xAxis: {
             type: "value",
@@ -149,7 +149,7 @@ export default {
         ],
       }, // Update the labelStyle for xAxis and yAxis in the mounted function of BarChart.vue
 
-      dataZoom: [
+      /*dataZoom: [
         {
           type: "slider",
           yAxisIndex: 0,
@@ -163,7 +163,7 @@ export default {
           handleSize: 20,
           showDetail: false,
         },
-      ],
+      ],*/
       xAxis: {
         type: "value",
         show: false,
