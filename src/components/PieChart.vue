@@ -52,8 +52,8 @@ export default {
             formatter: "{b}: {c} ({d}%)",
             textStyle: {
               color: "#000",
-              fontFamily: "Cursive",
-              fontSize: "15",
+              fontFamily: "Arial",
+              fontSize: "14",
             },
           },
           emphasis: {
@@ -106,7 +106,7 @@ export default {
               formatter: "{b}: {c} ({d}%)",
               textStyle: {
                 color: "#000",
-                fontFamily: "Cursive",
+                fontFamily: "Arial",
                 fontSize: "15",
               },
             },

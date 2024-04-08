@@ -25,8 +25,12 @@ export default {
         if ((newValues !== oldValues) && oldValues) {
           //console.log("values changed")
           const options = {
-          grid: {
-            //left: "30%",
+            grid: {
+            left: "left",
+            top: "top",
+            right: "10%",
+            bottom: "0%",
+            containLabel: true,
           },
           barWidth: "40%",
           visualMap: {
@@ -70,9 +74,10 @@ export default {
               interval: 0,
               rotate: 0,
               //padding: 10,
-              fontSize: 15,
+              fontSize: 14,
               fontWeight: "bold",
-              fontFamily: "Cursive",
+              fontFamily: "normal",
+              color: "#0f4294",
             },
 
             axisLine: { show: false },
@@ -85,7 +90,7 @@ export default {
               type: "bar",
               barWidth: "50%",
               fontWeight: "bold",
-              fontFamily: "Cursive",
+              fontFamily: "Arial",
               itemStyle: {
             //barBorderRadius: [5, 5, 5, 5],
                 borderRadius : 5
@@ -107,10 +112,9 @@ export default {
         // set new options to the chart
         const chart = echarts.getInstanceByDom(document.getElementById(["bar-chart" + this.title]))
         
-        if(chart){
-          chart.setOption(options)}      
+        if(chart)
+          chart.setOption(options)}              
         
-        }
       },
       deep: true, // This ensures that changes within the array are detected
       immediate: true,
@@ -127,9 +131,13 @@ export default {
     //const sortedValues = this.values.slice().sort((a, b) => a - b); //data should be sorted in input
 
     const options = {
-      grid: {
-        //left: "1%",
-      },
+            grid: {
+            left: "left",
+            top: "top",
+            right: "10%",
+            bottom: "0%",
+            containLabel: true,
+          },
       barWidth: "40%",
       visualMap: {
         show: false, //removes the postive negative legend
@@ -156,7 +164,6 @@ export default {
           showDetail: false,
         },
       ],
-
       xAxis: {
         type: "value",
         show: false,
@@ -172,9 +179,10 @@ export default {
           interval: 0,
           rotate: 0,
           //padding: 10,
-          fontSize: 15,
+          fontSize: 14,
           fontWeight: "bold",
-          fontFamily: "Cursive",
+          fontFamily: "normal",
+          color: "#0f4294",
         },
 
         axisLine: { show: false },
@@ -187,7 +195,7 @@ export default {
           type: "bar",
           barWidth: "50%",
           fontWeight: "bold",
-          fontFamily: "Cursive",
+          fontFamily: "Arial",
           itemStyle: {
             //barBorderRadius: [5, 5, 5, 5],
             borderRadius : 5
@@ -225,6 +233,7 @@ export default {
   color: rgba(21, 25, 88, 0.971); 
   /*margin-bottom: -50px; /*space between chart title and chart */
   font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
   /*text-align: right;*/
 }
 </style>

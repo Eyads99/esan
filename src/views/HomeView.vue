@@ -9,16 +9,17 @@
           v-model="indexSelection"
           background-color="primary"
           mandatory
+          rounded="lg"
+          border="md"
+          divided= True
           @click="indexChg"
         >
-          <v-btn flat value="30">EGX30</v-btn>
-          -
-          <v-btn value="70">EGX70</v-btn>
-          -
-          <v-btn value="100">EGX100</v-btn>
-          {{ indexSelection }}
+          <v-btn  value="30">EGX30</v-btn>          
+          <v-btn  value="70">EGX70</v-btn>          
+          <v-btn  value="100">EGX100</v-btn>
+          
         </v-btn-toggle>
-
+        {{ indexSelection }}
 
       <v-container fluid >
         <v-row no-gutters>
@@ -26,7 +27,7 @@
            cols="12" md="6" justify="center">
            <v-card elevated class="card-margin">
             <BarChart style="height: 65vh"
-              title="Sectoral Performance"
+              title= "Sectoral Performance"
               :labels = sectors
               :values= sectorChg
             />
