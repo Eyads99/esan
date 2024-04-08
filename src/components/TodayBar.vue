@@ -1,5 +1,5 @@
 <template>
-  <table id="TodayBar">
+  <table style="width: 100%; text-align: center"  id="TodayBar">
     <tr class="title">
       <th :style="{ color: getColor(dailyChange) }">{{ dailyChange }}%</th>
       <th>{{ currentPoints }}</th>
@@ -9,7 +9,7 @@
       <td>Daily Change</td>
       <td>Current Points</td>
       <td>Year-to-Date performance</td>
-      <br />
+      
     </tr>
   </table>
 </template>

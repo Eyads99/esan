@@ -1,6 +1,6 @@
 <template>
   <div class="chart">
-    <div :id= "`pie-chart${ID}`" style="width: 100%; height: 400px"></div>
+    <div :id= "`pie-chart${ID}`" style=" height: 95%"></div>
   </div>
 </template>
 

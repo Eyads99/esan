@@ -2,8 +2,7 @@
  <v-container fluid fill-height >
     <div class="font">      
       {{ title }}  
-    </div>
-    
+    </div>    
     <div :id="`bar-chart${title}`" style=" height: 100%"></div>
   </v-container>
 </template>
@@ -27,7 +26,7 @@ export default {
           //console.log("values changed")
           const options = {
           grid: {
-            left: "30%",
+            //left: "30%",
           },
           barWidth: "40%",
           visualMap: {

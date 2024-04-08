@@ -3,7 +3,7 @@
   <sideDrawer/>
     <v-main >
       <h1>EGX Today</h1>
-      <v-btn @click="changeValues">Top / Bottom 10</v-btn>
+      <v-btn @click="changeValues">Top / Bottom 5</v-btn>
          --
       <v-btn-toggle
           v-model="indexSelection"
@@ -25,7 +25,7 @@
           <v-col
            cols="12" md="6" justify="center">
            <v-card elevated class="card-margin">
-            <BarChart style="height: 75vh"
+            <BarChart style="height: 65vh"
               title="Average performance/sector"
               :labels = sectors
               :values= sectorChg
@@ -34,8 +34,11 @@
           
           <div v-if="idxPointShow">
             <v-card elevated class="card-margin">
+              
               <h3>EGX{{indexSelection}} Today</h3>
-              <TodayBar :dailyChange="idxDailyChgShow" :currentPoints="idxPointShow" :YtDate="idxYtDate"/>
+              <v-layout justify-center>
+              <TodayBar class="fill-height" align="center" justify="center" :dailyChange="idxDailyChgShow" :currentPoints="idxPointShow" :YtDate="idxYtDate"/>
+            </v-layout>
             </v-card>
             </div>
             <div v-else>  
@@ -50,7 +53,7 @@
 
          <div v-if="topstockChgs">
           <v-card elevated class="card-margin">
-          <BarChart style="height: 75vh"
+          <BarChart style="height: 55vh"
             :labels="topStockNames"
             :values="topstockChgs"
             title="Stock Market Today"
@@ -63,9 +66,9 @@
           </v-card>
         </div>
         <div v-if="gainers">
-          <v-card elevated class="card-margin">
+          <v-card style="height: 40vh" elevated class="card-margin">
             <h3>Gainers and losers</h3>
-           <PieChart :gainers="gainers" :losers="losers" ID="GL" />
+           <PieChart style=" height: 100%" :gainers="gainers" :losers="losers" ID="GL" />
           </v-card>
           </div>
           <div v-else>
@@ -95,7 +98,7 @@ export default {
       idxDailyChgShow: null, //this data is to be shown to user
       topstockChgs: null, //used as prop in charts has chaging data
       topStockNames: null, //used as prop in charts has chaging data
-      topCount: 10, //get top x given value i.e 10 -> top ten; -5 -> bottom 5
+      topCount: 5, //get top x given value i.e 10 -> top ten; -5 -> bottom 5
       allStockNamesOrder: null,
       allChgValuesOrder: [],
       gainers: null,
@@ -119,13 +122,14 @@ export default {
   methods: {
     changeValues() {
       this.topCount *= -1
-      if (this.topCount > 0) {
+      this.indexChg()
+      /*if (this.topCount > 0) {
         this.topStockNames = this.allStockNamesOrder.slice(0, this.topCount) // get first 10 elements
         this.topstockChgs = this.allChgValuesOrder.slice(0, this.topCount)
       } else {
         this.topStockNames = this.allStockNamesOrder.slice(this.topCount) // get last 10 elements
         this.topstockChgs = this.allChgValuesOrder.slice(this.topCount) 
-      }
+      }*/
     },
 
     indexChg()
@@ -159,8 +163,8 @@ export default {
 
       const topstocks = Object
           .entries(stocksNeeded) // create Array of Arrays with [key, value]
-          .sort(([, a],[, b]) => b-a) // sort by value, descending (b-a)
-          .slice(0,this.topCount) // return only the first 10 elements of the intermediate result
+          .sort(([, a],[, b]) => (this.topCount>0 ? b - a : a - b)) // sort by value, descending (b-a)
+          .slice(0,Math.abs(this.topCount)) // return only the first topCount elements of the intermediate result
         //reverse order of top10
       topstocks.reverse()
 

@@ -12,7 +12,7 @@
     "@mdi/font": "5.9.55",
     "core-js": "^3.8.3",
     "echarts": "^5.5.0",
-    "firebase": "^10.9.0",
+    "firebase": "^10.10.0",
     "roboto-fontface": "*",
     "vue": "^3.2.13",
     "vue-echarts": "^6.6.9",
