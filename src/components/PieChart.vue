@@ -1,6 +1,6 @@
 <template>
   <div class="chart">
-    <div :id= "`pie-chart${ID}`" style=" height: 95%"></div>
+    <div :id= "`pie-chart${ID}`" style=" height: 95%; "></div>
   </div>
 </template>
 
@@ -40,6 +40,13 @@ export default {
         trigger: "item",
         formatter: "{b}: {c} ({d}%)",
       },
+      grid: {
+            left: "left",
+            top: "top",
+            right: "10%",
+            bottom: "0%",
+            containLabel: true,
+          },
       series: [
         {
           name: "Gainers and Losers",
@@ -52,7 +59,7 @@ export default {
             formatter: "{b}: {c} ({d}%)",
             textStyle: {
               color: "#000",
-              fontFamily: "Arial",
+              fontFamily: "Lucida Sans",
               fontSize: "14",
             },
           },
@@ -90,6 +97,13 @@ export default {
   updateChart()
   {
     const options = {
+      grid: {
+            left: "left",
+            top: "top",
+            right: "10%",
+            bottom: "0%",
+            containLabel: true,
+          },
         tooltip: {
           trigger: "item",
           formatter: "{b}: {c} ({d}%)",
@@ -106,7 +120,7 @@ export default {
               formatter: "{b}: {c} ({d}%)",
               textStyle: {
                 color: "#000",
-                fontFamily: "Arial",
+                fontFamily: "Lucida Sans",
                 fontSize: "15",
               },
             },
@@ -140,7 +154,6 @@ export default {
 
   }
 },
-
 
 data() {
     return {

@@ -1,22 +1,23 @@
 <template>
-<v-app style="background-color: #edeff4fe;">
+<v-app style="background-color: lavender;">
   <sideDrawer/>
     <v-main >
       <h1>EGX Today</h1>
       <v-btn @click="reverseOrder">Top / Bottom 5</v-btn>
-         --
+         -- 
       <v-btn-toggle
           v-model="indexSelection"
           background-color="primary"
           mandatory
           rounded="lg"
           border="md"
-          divided= True
+          divided
+          color="success"
           @click="indexChg"
         >
-          <v-btn  value="30">EGX30</v-btn>          
-          <v-btn  value="70">EGX70</v-btn>          
-          <v-btn  value="100">EGX100</v-btn>
+          <v-btn value="30">EGX30</v-btn>          
+          <v-btn value="70">EGX70</v-btn>          
+          <v-btn value="100">EGX100</v-btn>
           
         </v-btn-toggle>
         {{ indexSelection }}
@@ -38,7 +39,7 @@
               
               <h3>EGX{{indexSelection}} Today</h3>
               <v-layout justify-center>
-              <TodayBar class="fill-height" align="center" justify="center" :dailyChange="idxDailyChgShow" :currentPoints="idxPointShow" :YtDate="idxYtDate"/>
+              <TodayBar class="fill-height" align="left" justify="left" :dailyChange="idxDailyChgShow" :currentPoints="idxPointShow" :YtDate="idxYtDate"/>
             </v-layout>
             </v-card>
             </div>
@@ -67,7 +68,7 @@
           </v-card>
         </div>
         <div v-if="gainers">
-          <v-card style="height: 40vh" elevated class="card-margin">
+          <v-card style="height: 35vh" elevated class="card-margin">
             <h3>Market Movement</h3>
            <PieChart style=" height: 100%" :gainers="gainers" :losers="losers" ID="GL" />
           </v-card>
@@ -79,7 +80,7 @@
       </v-container>
     </v-main> 
     
-    </v-app>
+</v-app>
 </template>
 
 <script>

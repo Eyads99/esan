@@ -1,5 +1,5 @@
 <template>
-  <table style="width: 100%; text-align: center"  id="TodayBar">
+  <v-table style="width: 100%; text-align: left; padding-left: 0px;"  id="TodayBar">
     <tr class="title">
       <th :style="{ color: getColor(dailyChange) }">{{ dailyChange }}%</th>
       <th>{{ currentPoints }}</th>
@@ -8,10 +8,9 @@
     <tr>
       <td>Daily Change</td>
       <td>Current Points</td>
-      <td>Year-to-Date performance</td>
-      
+      <td>Year-to-Date performance</td>      
     </tr>
-  </table>
+  </v-table>
 </template>
 
 <script>
