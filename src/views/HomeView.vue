@@ -177,7 +177,6 @@ export default {
 
       //mange sectors
       let keys = Object.keys(this.sectorComponents)
-      console.log(keys,"keys")
       //loop over all keys in sectorComponents and get the average value of all stocks in the array that are in stocksNeeded
       this.sectorChg = []
       
@@ -287,9 +286,7 @@ export default {
         
         //Object.assign(this.sectorComponents,JSON.parse(JSON.stringify(doc2.data())))
         this.sectorComponents=doc2.data()
-        console.log( Object.keys(this.sectorComponents))
               
-
         const sectorsDoc = Object.keys(doc2.data())
 
         for (let i = 0; i < sectorsDoc.length; i++) {

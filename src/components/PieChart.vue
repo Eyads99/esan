@@ -56,12 +56,10 @@ export default {
           label: {
             show: true,
             position: "outside",
-            formatter: "{b}: {c} ({d}%)",
-            textStyle: {
-              color: "#000",
-              fontFamily: "Lucida Sans",
-              fontSize: "14",
-            },
+            formatter: "{b}: {c} ({d}%)",            
+            color: "#000",
+            fontFamily: "Lucida Sans",
+            fontSize: "14",            
           },
           emphasis: {
             label: {

@@ -348,7 +348,7 @@ export default {
 
 
   mounted() {
-    window.addEventListener('resize', this.handleResize); //this is to handle zoom in/out from browser
+    //window.addEventListener('resize', this.handleResize); //this is to handle zoom in/out from browser
     this.chartId++;
     const chartDom = document.getElementById(["bar-chart" + this.title]);
     const myChart = echarts.init(chartDom);
@@ -437,7 +437,6 @@ export default {
     };
 
     if (this.dataZoom) {
-      console.log("datazoomed")
       options.dataZoom =       
         {
           type: "slider",
@@ -446,7 +445,7 @@ export default {
           width: 20,
           right: 5,
           minValueSpan: 3, //min # of bars to show
-          maxValueSpan: 50,
+          maxValueSpan: 35,
           startValue: 0, //start and end represent the # bars of chart to show by default
           endValue: 15,
           handleSize: 20,
@@ -456,7 +455,6 @@ export default {
 
 
     myChart.setOption(options);
-    myChart.setOption(options)
     //myChart.on("hover", this.handleBarClick);
   },
   methods: {

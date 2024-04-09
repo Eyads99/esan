@@ -18,15 +18,18 @@
             </v-btn-toggle>
     
           <v-container fluid >
-            <v-row no-gutters>
-              
+            <v-row no-gutters>              
               <div v-if="idxPointShow">
                 <v-card elevated class="card-margin">
-                  
+                
                   <h3>EGX{{indexSelection}} Today</h3>
-                  <v-layout justify-center>
+                  <v-col 
+                cols="12" md="9" justify="left"
+                >  
+                <v-layout justify-center>
                   <TodayBar class="fill-height" align="left" justify="left" :dailyChange="idxDailyChgShow" :currentPoints="idxPointShow" :YtDate="idxYtDate"/>
                 </v-layout>
+                </v-col>
                 </v-card>
                 </div>
                 <div v-else>  
@@ -34,6 +37,7 @@
                   Loading Today's details
                 </v-card>
                 </div>
+            
                 <div v-if="gainers">
               <v-card style="height: 35vh" elevated class="card-margin">
                 <h3>Market Movement</h3>
@@ -42,7 +46,8 @@
               </div>
               <div v-else>
                 <v-card loading>Loading Pie Chart</v-card></div>
-              <v-col
+                            
+                <v-col
               cols="12" md="12" justify="center">
     
              <div v-if="topstockChgs">
@@ -149,34 +154,6 @@
           this.gainers = Object.values(stocksNeeded).filter((x) => x > 0).length
           this.losers = Object.values(stocksNeeded).filter((x) => x < 0).length//stocksNeeded.length - this.gainers //0 is considered a loss
     
-          //mange sectors
-          let keys = Object.keys(this.sectorComponents)
-          console.log(keys,"keys")
-          //loop over all keys in sectorComponents and get the average value of all stocks in the array that are in stocksNeeded
-          this.sectorChg = []          
-    
-          for (let i = 0; i < keys.length; i++)
-          //for (const [key, value] of Object.entries(this.sectorComponents)) 
-          {  
-            let key = keys[i]
-            let stocks = this.sectorComponents[key]
-            //console.log("sector stocks",Object.entries(stocks))
-            let filteredStocks = stocks.filter(x => Object.keys(stocksNeeded).includes(x)) // get all keys that are in the current sector and stocksNeeded
-            //console.log(filteredStocks)
-            if (filteredStocks.length > 0)
-              this.sectorChg[key] = this.getAvgChg(filteredStocks, stocksNeeded) 
-            
-          }
-          //remove all sectors that have a value of null
-          this.sectorChg = Object.fromEntries(Object.entries(this.sectorChg).filter(([key]) => this.sectorChg[key] !== null));
-          
-          //make sectorChg in descending order by values
-          this.sectorChg = Object.entries(this.sectorChg).sort((a, b) => a[1] - b[1]).reduce((r, [k, v]) => ({ ...r, [k]: v }), {});
-    
-          this.sectors = Object.keys(this.sectorChg)
-          this.sectorChg = Object.values(this.sectorChg)
-          //make all sectors First letter capital
-          this.sectors = this.sectors.map( x => {return x.charAt(0).toUpperCase() + x.slice(1)})
         },
     
         getAvgChg(stockNames, allChgs) {
