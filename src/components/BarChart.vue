@@ -397,9 +397,9 @@ export default {
           interval: 0,
           rotate: 0,
           //padding: 10,
-          //doesnt work so commented out fontSize: 14,
-          //fontWeight: "bold",
-          fontFamily: "Lucida Sans",
+          fontSize: 20,
+          fontWeight: "bold",
+          fontFamily: "Cascadia code",
           color: "#0f4294",
         },
 
