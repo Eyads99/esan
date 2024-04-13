@@ -3,6 +3,8 @@
     <div class="font">
       {{ title }}
     </div>
+    <th>{{ maxBarValue }}</th>
+
     <div :id="`bar-chart${title}`" style="height: 100%"></div>
   </v-container>
 </template>
@@ -299,10 +301,10 @@ export default {
                 interval: 0,
                 rotate: 0,
                 //padding: 10,
-                fontSize: 14,
+                fontSize: 20,
                 fontWeight: "bold",
-                fontFamily: "Lucida Sans",
-                color: "#0f4294",
+                fontFamily: "Cascadia code",
+                color: "#5a5f6e",
               },
             },
             series: [
@@ -310,17 +312,34 @@ export default {
                 data: this.values,
                 type: "bar",
                 barWidth: "50%",
-                fontWeight: "bold",
-                fontFamily: "Lucida Sans",
+                //fontWeight: "bold",
+
                 itemStyle: {
                   //barBorderRadius: [5, 5, 5, 5],
                   borderRadius: 5,
+                  /*normal: {
+                    color: function (params) {
+                      // Find the maximum value in the data array
+                      let maxBarValue = Math.max(this.values);
+
+                      // Set a different color for the top bar
+                      if (params.value === maxBarValue) {
+                        return "#ff0000";
+                      } else {
+                        return "#0f4294";
+                      }
+                    },
+                  },
+                */
                 },
                 label: {
                   show: true,
                   position: "right",
                   formatter: "{c}%",
-                  fontSize: 15,
+                  fontSize: 20,
+                  fontWeight: "bold",
+                  fontFamily: "Cascadia code",
+                  color: "#818691",
                 },
                 emphasis: {
                   itemStyle: {
@@ -353,15 +372,18 @@ export default {
     const myChart = echarts.init(chartDom);
     // Sort the data array based on values in descending order
     //const sortedValues = this.values.slice().sort((a, b) => a - b); //data should be sorted in input
+    //let maxBarValue = Math.max(this.values);
 
     let options = {
       grid: {
         left: "left",
         top: "top",
+        responsive: true,
         right: "10%",
         bottom: "0%",
         containLabel: true,
       },
+
       tooltip: {
         show: true,
         formatter: (params) => {
@@ -371,14 +393,22 @@ export default {
           return `<b>${extraInfo}</b><br/>` + `Value: ${value}<br/>`;
         },
       },
-      barWidth: "40%",
+
+      barCategoryGap: "5000%", // Add this line to increase the gap between bars (doesn't work)
+      // Other options for your chart
       visualMap: {
         show: false, //removes the postive negative legend
         type: "piecewise",
         dimension: 0,
         pieces: [
-          { gt: 0, color: "#09467d" }, // Blue for positive values (> 0)
-          { lte: 0, color: "#A40000" }, // Red for negative values (<= 0)
+          { gt: 0, color: "#0652c5" }, // Blue for positive values (> 0)
+          { lte: 0, color: "#e60707" }, // Red for negative values (<= 0)
+          /*{
+            min: maxBarValue ,
+            max: maxBarValue ,
+            color: "#A40500",
+          },
+          */
         ],
       }, // Update the labelStyle for xAxis and yAxis in the mounted function of BarChart.vue
 
@@ -423,6 +453,8 @@ export default {
             position: "right",
             formatter: "{c}%",
             fontSize: 15,
+            //barPercentage: 0.6,
+            barCategoryGap: "5000%",
           },
           emphasis: {
             itemStyle: {
@@ -487,10 +519,17 @@ export default {
 .font {
   /*position: absolute;*/
   /*top: 0;*/
-  color: rgba(21, 25, 88, 0.971);
+  color: rgba(247, 247, 248, 0.971);
   /*margin-bottom: -50px; /*space between chart title and chart */
   font-weight: bold;
-  font-family: Arial, Helvetica, sans-serif;
+  height: 100px;
+  width: 250px;
+  font-size: xx-large;
+  font-family: Cascadia code;
+  background-color: rgb(88, 175, 117);
+  border-radius: 10pc;
   /*text-align: right;*/
 }
 </style>
+
+
