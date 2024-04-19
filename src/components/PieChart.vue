@@ -12,7 +12,6 @@ export default {
   name: "PieChart",
   props: ["gainers", "losers","ID"],
 
-
   watch: {
       gainers(newValues, oldValues) {        
         if ((newValues !== oldValues) && oldValues)

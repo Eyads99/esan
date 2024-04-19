@@ -313,27 +313,11 @@ export default {
               barWidth: "50%",
               fontWeight: "bold",
               fontFamily: "Lucida Sans",
-              itemStyle: {
-            //barBorderRadius: [5, 5, 5, 5],
-                borderRadius : 5
-              },
-              label: {
-                show: true,
-                position: "right",
-                formatter: "{c}%",
-                fontSize: 15,
-              },
-              emphasis: {
-                itemStyle: {
-                  barWidth: "6000%",
-                },
-              },
             },
           ],
         };
         // set new options to the chart
-        const chart = echarts.getInstanceByDom(document.getElementById(["bar-chart" + this.title]))
-        
+        const chart = echarts.getInstanceByDom(document.getElementById(["bar-chart" + this.title]))        
           if(chart){
             chart.setOption(options)
             //chart.on("click", this.handleBarClick);
