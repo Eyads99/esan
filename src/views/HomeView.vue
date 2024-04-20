@@ -1,9 +1,15 @@
 <template>
-  <v-app style="background-color: white">
-    <sideDrawer />
-    <v-main>
-      <h1 style="color: red">Egyptian stock market performance today</h1>
-      <v-btn @click="reverseOrder">Top / Bottom 5</v-btn>
+<v-app style="background-color: lavender;">
+  <sideDrawer/>
+    <v-main >
+      <h1>EGX Today</h1>
+      <v-btn @click="reverseOrder">Top / Bottom</v-btn>
+      <v-select
+          label="Select"
+          :items="[5, 10, 15]"
+          v-model = "topCount"
+          @click = "indexChg"
+      ></v-select>
       --
       <v-btn-toggle
         v-model="indexSelection"
@@ -252,15 +258,8 @@ export default {
   },
   methods: {
     reverseOrder() {
-      this.topCount *= -1;
-      this.indexChg();
-      /*if (this.topCount > 0) {
-        this.topStockNames = this.allStockNamesOrder.slice(0, this.topCount) // get first 10 elements
-        this.topstockChgs = this.allChgValuesOrder.slice(0, this.topCount)
-      } else {
-        this.topStockNames = this.allStockNamesOrder.slice(this.topCount) // get last 10 elements
-        this.topstockChgs = this.allChgValuesOrder.slice(this.topCount)
-      }*/
+      this.topCount *= -1
+      this.indexChg()
     },
 
     indexChg() {
@@ -405,19 +404,16 @@ export default {
       this.idxDailyChgShow = (
         ((doc.data()[today] - doc.data()[yesterday]) / doc.data()[yesterday]) *100).toFixed(2); // unneeded to do this.indexChg func
     });*/
+  getDoc(doc(db, "stocks", "idxChanges")).then(doc => {this.indexChgs = doc.data()});
+    
+  //docRef = doc(db, "stocks", "todayIndices")
+  getDoc(doc(db, "stocks", "todayIndices")).then(doc => {    
+    this.indexPoints = doc.data()      
+    this.indexSelection = 30});
 
-    let docRef = doc(db, "stocks", "changes"); //get stock with last trading day's changes
-
-    //docRef = doc(db, "stocks", "idxChanges")
-    getDoc(doc(db, "stocks", "idxChanges")).then((doc) => {
-      this.indexChgs = doc.data();
-    });
-
-    //docRef = doc(db, "stocks", "todayIndices")
-    getDoc(doc(db, "stocks", "todayIndices")).then((doc) => {
-      this.indexPoints = doc.data();
-      this.indexSelection = 30;
-    });
+  let docRef = doc(db, "stocks", "changes") //get stock with last trading day's changes  
+    getDoc(docRef).then((doc) => {
+      this.allStocksChgToday = doc.data()//gets dict with all stocks with last trading day's chgs
 
     getDoc(docRef)
       .then((doc) => {
@@ -460,15 +456,14 @@ export default {
         this.sectors = Object.keys(this.sectorChg);
         this.sectorChg = Object.values(this.sectorChg);
         //make all sectors First letter capital
-        this.sectors = this.sectors.map((x) => {
-          return x.charAt(0).toUpperCase() + x.slice(1);
-        });
-        this.indexChg();
-      });
-
-    //get index daily change data
-  },
-};
+        this.sectors = this.sectors.map( x => {return x.charAt(0).toUpperCase() + x.slice(1)})
+        this.indexChg() 
+      });     
+    
+       //get index daily change data
+      
+  }
+}
 </script>
 
 <style>
