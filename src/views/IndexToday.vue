@@ -23,13 +23,11 @@
                 <v-card elevated class="card-margin">
                 
                   <h3>EGX{{indexSelection}} Today</h3>
-                  <v-col 
-                cols="12" md="9" justify="left"
-                >  
+
                 <v-layout justify-center>
-                  <TodayBar class="fill-height" align="left" justify="left" :dailyChange="idxDailyChgShow" :currentPoints="idxPointShow" :YtDate="idxYtDate"/>
+                  <TodayBar align="left" justify="left" :dailyChange="idxDailyChgShow" :currentPoints="idxPointShow" :YtDate="idxYtDate"/>
                 </v-layout>
-                </v-col>
+
                 </v-card>
                 </div>
                 <div v-else>  
@@ -176,16 +174,15 @@
       },
       mounted(){
 
-        let docRef = doc(db, "stocks", "changes") //get stock with last trading day's changes
+        
 
-        //docRef = doc(db, "stocks", "idxChanges")
         getDoc(doc(db, "stocks", "idxChanges")).then(doc => {this.indexChgs = doc.data()});
 
-        //docRef = doc(db, "stocks", "todayIndices")
         getDoc(doc(db, "stocks", "todayIndices")).then(doc => {    
         this.indexPoints = doc.data()      
         this.indexSelection = 30});
 
+        let docRef = doc(db, "stocks", "changes") //get stock with last trading day's changes
         getDoc(docRef).then((doc) => {
         this.allStocksChgToday = doc.data()//gets dict with all stocks with last trading day's chgs
 
@@ -204,16 +201,13 @@
 
             this.indexChg() 
         });     
-
-        //get index daily change data
-
   
 }
         
 }
     </script>
     
-    <style>
+<style>
     
     .card-margin {
       margin: 10px;
@@ -234,4 +228,4 @@
       /*margin-top: 60px;*/
       background-color: #edeff4fe;
     }
-    </style>
+</style>

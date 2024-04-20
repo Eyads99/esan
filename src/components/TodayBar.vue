@@ -3,15 +3,27 @@
     style="width: 100%; text-align: left; padding-left: 0px"
     id="TodayBar"
   >
+  <v-table
+    style="width: 100%; text-align: left; padding-left: 0px"
+    id="TodayBar"
+  >
     <tr class="title">
       <th :style="{ color: getColor(dailyChange) }">{{ dailyChange }}%</th>
       <th>{{ currentPoints }}</th>
       <th :style="{ color: getColor(YtDate) }">{{ YtDate }}%</th>
     </tr>
     <tr>
-      <td>Daily Change</td>
-      <td>Current Points</td>
-      <td>Year-to-Date performance</td>
+      <td>
+        <span style="font-size: 18px" class="highlight">Daily Change</span>
+      </td>
+      <td>
+        <span style="font-size: 18px" class="highlight">Current Points</span>
+      </td>
+      <td>
+        <span style="font-size: 18px" class="highlight"
+          >Year-to-Date performance</span
+        >
+      </td>
     </tr>
   </v-table>
 </template>
@@ -63,6 +75,10 @@ export default {
   padding-left: 70px;
 }
 .title {
-  font-size: xx-large;
+  font-size: 200%;
+}
+.highlight {
+  color: #5a5f6e;
+  font-weight: bold;
 }
 </style>

@@ -19,11 +19,11 @@
         <v-btn value="70">EGX70</v-btn>
         <v-btn value="100">EGX100</v-btn>
       </v-btn-toggle>
-      {{ indexSelection }}
+      EGX {{ indexSelection }}
 
       <v-container fluid>
         <v-row no-gutters>
-          <v-col cols="12" md="6" justify="center">
+          <v-col cols="12" md="5" justify="center">
             <v-card elevated class="card-margin">
               <BarChart
                 style="height: 65vh"
@@ -35,16 +35,17 @@
 
             <div v-if="idxPointShow">
               <v-card elevated class="card-margin">
-                <h3>EGX{{ indexSelection }} Today</h3>
                 <v-layout justify-center>
-                  <TodayBar
-                    class="fill-height"
-                    align="left"
-                    justify="left"
-                    :dailyChange="idxDailyChgShow"
-                    :currentPoints="idxPointShow"
-                    :YtDate="idxYtDate"
-                  />
+                  <div class="today-bar">
+                    <TodayBar
+                      class="fill-height"
+                      align="left"
+                      justify="left"
+                      :dailyChange="idxDailyChgShow"
+                      :currentPoints="idxPointShow"
+                      :YtDate="idxYtDate"
+                    />
+                  </div>
                 </v-layout>
               </v-card>
             </div>
@@ -53,14 +54,14 @@
             </div>
           </v-col>
 
-          <v-col cols="12" md="6" justify="center">
+          <v-col cols="12" md="5" justify="center">
             <div v-if="topstockChgs">
               <v-card elevated class="card-margin">
                 <BarChart
-                  style="height: 55vh"
+                  style="height: 23cap"
                   :labels="topStockNames"
                   :values="topstockChgs"
-                  title="Stock Market Today"
+                  title="Top/botton 5 today"
                 />
               </v-card>
             </div>
@@ -68,8 +69,7 @@
               <v-card loading> Loading EGX stocks </v-card>
             </div>
             <div v-if="gainers">
-              <v-card style="height: 35vh" elevated class="card-margin">
-                <h3>Market Movement</h3>
+              <v-card style="height: 25vh" elevated class="card-margin">
                 <PieChart
                   style="height: 100%"
                   :gainers="gainers"
@@ -99,6 +99,24 @@ import SideDrawer from "/src/components/SideDrawer.vue";
 
 export default {
   name: "App",
+  props: {
+    labels: {
+      type: Array,
+      required: true,
+    },
+    values: {
+      type: Array,
+      required: true,
+    },
+  },
+  computed: {
+    barWidth() {
+      const numBars = this.labels.length;
+      const totalWidth = 100; // Adjust this value as needed
+      const barWidth = totalWidth / numBars;
+      return `${barWidth}%`;
+    },
+  },
   data() {
     return {
       idxPointShow: null, //this data is to be shown to user
@@ -236,13 +254,6 @@ export default {
     reverseOrder() {
       this.topCount *= -1;
       this.indexChg();
-      /*if (this.topCount > 0) {
-        this.topStockNames = this.allStockNamesOrder.slice(0, this.topCount) // get first 10 elements
-        this.topstockChgs = this.allChgValuesOrder.slice(0, this.topCount)
-      } else {
-        this.topStockNames = this.allStockNamesOrder.slice(this.topCount) // get last 10 elements
-        this.topstockChgs = this.allChgValuesOrder.slice(this.topCount) 
-      }*/
     },
 
     indexChg() {
@@ -372,8 +383,8 @@ export default {
       if (dayOfWeek > 4)
         today.setDate(today.getDate() - (dayOfWeek-4))
 
-      yesterday.setDate(today.getDate() - 1) 
-      
+      yesterday.setDate(today.getDate() - 1)
+
       today = today.toISOString().slice(0, 10).replace(/-/g, '')//gets today date in YYYYMMDD format
       yesterday = yesterday.toISOString().slice(0, 10).replace(/-/g, '')//gets today date in YYYYMMDD format
 
@@ -401,6 +412,10 @@ export default {
       this.indexPoints = doc.data();
       this.indexSelection = 30;
     });
+
+  let docRef = doc(db, "stocks", "changes") //get stock with last trading day's changes
+    getDoc(docRef).then((doc) => {
+      this.allStocksChgToday = doc.data()//gets dict with all stocks with last trading day's chgs
 
     getDoc(docRef)
       .then((doc) => {
@@ -457,16 +472,42 @@ export default {
 <style>
 .card-margin {
   margin: 10px;
+  margin-bottom: 30px;
+}
+
+.bar-chart-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.bar-chart {
+  display: flex;
 }
 
 .bar {
-  width: 20px;
-  margin-right: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.bar-label {
+  margin-bottom: 5px;
+}
+
+.bar-value {
+  font-weight: bold;
+}
+
+.today-bar {
+  background-color: rgb(255, 255, 255);
+  padding: 7px;
 }
 
 #app {
-  font-size: large;
-  font-family: Arial, Helvetica, sans-serif;
+  font-size: 200%;
+  font-family: Cascadia code;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
