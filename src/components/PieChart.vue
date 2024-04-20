@@ -1,31 +1,28 @@
 <template>
   <div class="chart">
-    <div :id= "`pie-chart${ID}`" style=" height: 95%; "></div>
+    <div :id="`pie-chart${ID}`" style="height: 100%"></div>
   </div>
 </template>
 
 <script>
 import * as echarts from "echarts";
 
-
 export default {
   name: "PieChart",
-  props: ["gainers", "losers","ID"],
+  props: ["gainers", "losers", "ID"],
 
   watch: {
-      gainers(newValues, oldValues) {        
-        if ((newValues !== oldValues) && oldValues)
-        {
-          this.updateChart()
-        }        
-      },
+    gainers(newValues, oldValues) {
+      if (newValues !== oldValues && oldValues) {
+        this.updateChart();
+      }
+    },
 
-      losers(newValues, oldValues) {
-        if ((newValues !== oldValues) && oldValues)
-        {
-          this.updateChart()
-        }
-      },
+    losers(newValues, oldValues) {
+      if (newValues !== oldValues && oldValues) {
+        this.updateChart();
+      }
+    },
   },
 
   mounted() {
@@ -40,12 +37,12 @@ export default {
         formatter: "{b}: {c} ({d}%)",
       },
       grid: {
-            left: "left",
-            top: "top",
-            right: "10%",
-            bottom: "0%",
-            containLabel: true,
-          },
+        left: "left",
+        top: "top",
+        right: "10%",
+        bottom: "0%",
+        containLabel: true,
+      },
       series: [
         {
           name: "Gainers and Losers",
@@ -55,10 +52,10 @@ export default {
           label: {
             show: true,
             position: "outside",
-            formatter: "{b}: {c} ({d}%)",            
+            formatter: "{b}: {c} ({d}%)",
             color: "#000",
-            fontFamily: "Lucida Sans",
-            fontSize: "14",            
+            fontFamily: "Cascadia code",
+            fontSize: "20",
           },
           emphasis: {
             label: {
@@ -71,7 +68,7 @@ export default {
             {
               value: this.gainers,
               name: "Gainers",
-              itemStyle: { color: "#09467d" },
+              itemStyle: { color: "#0652c5" },
             }, // Blue
             {
               value: this.losers,
@@ -87,20 +84,19 @@ export default {
   },
 
   methods: {
-  handleResize() {
-    //const chart = echarts.init(document.getElementById(`bar-chart${this.title}`));
-    //chart.resize();
-  },
-  updateChart()
-  {
-    const options = {
-      grid: {
-            left: "left",
-            top: "top",
-            right: "10%",
-            bottom: "0%",
-            containLabel: true,
-          },
+    handleResize() {
+      //const chart = echarts.init(document.getElementById(`bar-chart${this.title}`));
+      //chart.resize();
+    },
+    updateChart() {
+      const options = {
+        grid: {
+          left: "left",
+          top: "top",
+          right: "10%",
+          bottom: "0%",
+          containLabel: true,
+        },
         tooltip: {
           trigger: "item",
           formatter: "{b}: {c} ({d}%)",
@@ -116,9 +112,9 @@ export default {
               position: "outside",
               formatter: "{b}: {c} ({d}%)",
               textStyle: {
-                color: "#000",
-                fontFamily: "Lucida Sans",
-                fontSize: "15",
+                color: "black",
+                fontFamily: "Cascadia code",
+                fontSize: "18",
               },
             },
             emphasis: {
@@ -132,7 +128,7 @@ export default {
               {
                 value: this.gainers,
                 name: "Gainers",
-                itemStyle: { color: "#09467d" },
+                itemStyle: { color: "#0652c5" },
               }, // Blue
               {
                 value: this.losers,
@@ -142,17 +138,17 @@ export default {
             ],
           },
         ],
-          };
-          const chartDom = document.getElementById(["pie-chart" + this.ID]);
-          const myChart = echarts.init(chartDom);
-          
-          if(myChart){
-            myChart.setOption(options);}
+      };
+      const chartDom = document.getElementById(["pie-chart" + this.ID]);
+      const myChart = echarts.init(chartDom);
 
-  }
-},
+      if (myChart) {
+        myChart.setOption(options);
+      }
+    },
+  },
 
-data() {
+  data() {
     return {
       chartId: 0, // Initialize a counter unneeded
     };
@@ -164,7 +160,6 @@ data() {
 .blue-background {
   background-color: #09467d; /* Blue background */
   color: white; /* White text color */
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-family: "Cascadia code";
 }
 </style>
