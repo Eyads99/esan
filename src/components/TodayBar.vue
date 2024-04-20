@@ -9,9 +9,17 @@
       <th :style="{ color: getColor(YtDate) }">{{ YtDate }}%</th>
     </tr>
     <tr>
-      <td><span style="font-size: 20px">Daily Change</span></td>
-      <td><span style="font-size: 20px">Current Points</span></td>
-      <td><span style="font-size: 20px">Year-to-Date performance</span></td>
+      <td>
+        <span style="font-size: 18px" class="highlight">Daily Change</span>
+      </td>
+      <td>
+        <span style="font-size: 18px" class="highlight">Current Points</span>
+      </td>
+      <td>
+        <span style="font-size: 18px" class="highlight"
+          >Year-to-Date performance</span
+        >
+      </td>
     </tr>
   </v-table>
 </template>
@@ -36,7 +44,7 @@ export default {
 
   methods: {
     getColor(value) {
-      return value < 0 ? "red" : value > 0 ? "green" : "black"; //-ive -> red +ive -> green 0 -> black
+      return value < 0 ? "#e60707" : value > 0 ? "rgb(88, 175, 117)" : "black"; //-ive -> red +ive -> green 0 -> black
     },
   },
   computed: {
@@ -63,6 +71,10 @@ export default {
   padding-left: 70px;
 }
 .title {
-  font-size: 250%;
+  font-size: 200%;
+}
+.highlight {
+  color: #5a5f6e;
+  font-weight: bold;
 }
 </style>

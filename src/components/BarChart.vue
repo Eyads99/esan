@@ -3,9 +3,10 @@
     <div class="font">
       {{ title }}
     </div>
+    <div class="blank-space"></div>
     <th>{{ maxBarValue }}</th>
 
-    <div :id="`bar-chart${title}`" style="height: 100%"></div>
+    <div :id="`bar-chart${title}`" style="height: 85%"></div>
   </v-container>
 </template>
 
@@ -401,8 +402,8 @@ export default {
         type: "piecewise",
         dimension: 0,
         pieces: [
-          { gt: 0, color: "#0652c5" }, // Blue for positive values (> 0)
-          { lte: 0, color: "#e60707" }, // Red for negative values (<= 0)
+          { gt: 0, color: "#2d6ccc" }, // Blue for positive values (> 0)
+          { lte: 0, color: "#db3b3b" }, // Red for negative values (<= 0)
           /*{
             min: maxBarValue ,
             max: maxBarValue ,
@@ -524,12 +525,13 @@ export default {
   font-weight: bold;
   height: 100px;
   width: 250px;
-  font-size: xx-large;
+  font-size: 30px;
   font-family: Cascadia code;
   background-color: rgb(88, 175, 117);
   border-radius: 10pc;
   /*text-align: right;*/
 }
+.blank-space {
+  height: 20px; /* Adjust the height value to add blank space */
+}
 </style>
-
-

@@ -1,6 +1,6 @@
 <template>
   <div class="chart">
-    <div :id="`pie-chart${ID}`" style="height: 95%"></div>
+    <div :id="`pie-chart${ID}`" style="height: 100%"></div>
   </div>
 </template>
 
@@ -112,9 +112,9 @@ export default {
               position: "outside",
               formatter: "{b}: {c} ({d}%)",
               textStyle: {
-                color: "#000",
+                color: "black",
                 fontFamily: "Cascadia code",
-                fontSize: "15",
+                fontSize: "18",
               },
             },
             emphasis: {
