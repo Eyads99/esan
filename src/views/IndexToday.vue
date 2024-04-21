@@ -1,6 +1,5 @@
 <template>
     <v-app style="background-color: lavender;">
-      <sideDrawer/>
         <v-main >
           <h1>EGX Today</h1>          
           <v-btn-toggle
@@ -79,7 +78,6 @@
     import BarChart from "/src/components/BarChart.vue";
     import PieChart from "/src/components/PieChart.vue";
     import TodayBar from "/src/components/TodayBar.vue";
-    import SideDrawer from "/src/components/SideDrawer.vue";
     
     export default {
       name: "App",
@@ -170,7 +168,6 @@
         BarChart,
         PieChart,
         TodayBar,
-        SideDrawer,
       },
       mounted(){
 

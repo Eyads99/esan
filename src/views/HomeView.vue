@@ -1,6 +1,5 @@
 <template>
   <v-app style="background-color: #878494">
-    <sideDrawer />
     <v-main>
       <h1 style="color: white">Egyptian stock market performance today</h1>
       <v-btn @click="reverseOrder">Top / Bottom 5</v-btn>
@@ -61,7 +60,7 @@
                   style="height: 23cap"
                   :labels="topStockNames"
                   :values="topstockChgs"
-                  title="Top/botton 5 today"
+                  title="Market today"
                 />
               </v-card>
             </div>
@@ -69,6 +68,7 @@
               <v-card loading> Loading EGX stocks </v-card>
             </div>
             <div v-if="gainers">
+              <h3>Market Movement</h3>
               <v-card style="height: 25vh" elevated class="card-margin">
                 <PieChart
                   style="height: 100%"
@@ -95,7 +95,6 @@ import { db } from "/src/firebase/init";
 import BarChart from "/src/components/BarChart.vue";
 import PieChart from "/src/components/PieChart.vue";
 import TodayBar from "/src/components/TodayBar.vue";
-import SideDrawer from "/src/components/SideDrawer.vue";
 
 export default {
   name: "App",
@@ -366,41 +365,10 @@ export default {
     BarChart,
     PieChart,
     TodayBar,
-    SideDrawer,
   },
   mounted() {
     //let docRef = doc(db, 'stocks', 'EGX30') unneeded after this.indexChg func
     let secdocRef = doc(db, "info", "industry");
-
-    /* getDoc(docRef).then(doc => { //gets todays trading data for stocks
-      var today = new Date()
-      var yesterday = new Date()
-
-      if (new Date().getHours() < 15) // if before 3PM
-        today.setDate(today.getDate() - 1)
-
-      var dayOfWeek = today.getDay()
-      if (dayOfWeek > 4)
-        today.setDate(today.getDate() - (dayOfWeek-4))
-
-      yesterday.setDate(today.getDate() - 1)
-
-      today = today.toISOString().slice(0, 10).replace(/-/g, '')//gets today date in YYYYMMDD format
-      yesterday = yesterday.toISOString().slice(0, 10).replace(/-/g, '')//gets today date in YYYYMMDD format
-
-      //var newYear = parseInt(today.slice(0,4)+'0102') // 1st jan is holiday
-      today = parseInt(today)
-      yesterday = parseInt(yesterday)
-
-
-      /*this.idxPointShow = doc.data()[today]; //gets point for EGX30 today
-      this.idxYtDate = (
-        ((doc.data()[today] - doc.data()[newYear]) / doc.data()[newYear]) * 100).toFixed(2); // round to 3 dp
-      this.idxDailyChgShow = (
-        ((doc.data()[today] - doc.data()[yesterday]) / doc.data()[yesterday]) *100).toFixed(2); // unneeded to do this.indexChg func
-    });*/
-
-    let docRef = doc(db, "stocks", "changes"); //get stock with last trading day's changes
 
     //docRef = doc(db, "stocks", "idxChanges")
     getDoc(doc(db, "stocks", "idxChanges")).then((doc) => {
@@ -414,8 +382,7 @@ export default {
     });
 
   let docRef = doc(db, "stocks", "changes") //get stock with last trading day's changes
-    getDoc(docRef).then((doc) => {
-      this.allStocksChgToday = doc.data()//gets dict with all stocks with last trading day's chgs
+    getDoc(docRef).then((doc) => {this.allStocksChgToday = doc.data()})//gets dict with all stocks with last trading day's chgs
 
     getDoc(docRef)
       .then((doc) => {

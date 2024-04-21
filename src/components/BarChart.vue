@@ -513,7 +513,7 @@ export default {
       return this.stockTickersDict[ticker] || "No extra information available";
     },
   },
-  },
+  
 };
 </script>
 

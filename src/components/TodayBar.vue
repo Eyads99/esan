@@ -3,10 +3,6 @@
     style="width: 100%; text-align: left; padding-left: 0px"
     id="TodayBar"
   >
-  <v-table
-    style="width: 100%; text-align: left; padding-left: 0px"
-    id="TodayBar"
-  >
     <tr class="title">
       <th :style="{ color: getColor(dailyChange) }">{{ dailyChange }}%</th>
       <th>{{ currentPoints }}</th>
