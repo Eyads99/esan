@@ -1,24 +1,5 @@
-# eslense
+# Egyptian Stock Analyser 
 
-## Project setup
-```
-npm install
-```
+This project seeks to allow quick and easy access to details and price movments for stocks and assets 
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+![Tests](https://github.com/Eyads99/Django-WorldBankGraphMaker//actions/workflows/codeql.yml/badge.svg)
