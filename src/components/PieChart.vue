@@ -113,14 +113,14 @@ export default {
               formatter: "{b}: {c} ({d}%)",
               textStyle: {
                 color: "black",
+                fontWeight: "bold",
                 fontFamily: "Cascadia code",
-                fontSize: "18",
+                fontSize: "28",
               },
             },
             emphasis: {
               label: {
                 show: true,
-                fontSize: "15",
                 fontWeight: "bold",
               },
             },
@@ -157,9 +157,24 @@ export default {
 </script>
 
 <style scoped>
+.font {
+  /*position: absolute;*/
+  /*top: 0;*/
+  color: white;
+  /*margin-bottom: -50px; /*space between chart title and chart */
+  font-weight: bold;
+  height: 100px;
+  width: 250px;
+  font-size: 350px;
+  font-family: Cascadia code;
+  background-color: #a29cb8;
+  border-radius: 10pc;
+  /*text-align: right;*/
+}
 .blue-background {
   background-color: #09467d; /* Blue background */
   color: white; /* White text color */
   font-family: "Cascadia code";
+  
 }
 </style>

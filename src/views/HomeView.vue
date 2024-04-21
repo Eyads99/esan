@@ -1,10 +1,10 @@
 <template>
-  <v-app style="background-color: #878494">
-    <sideDrawer />
+
+  <v-app style="background-color: lavender">
     <v-main>
-      <h1 style="color: white">Egyptian stock market performance today</h1>
-      <v-btn @click="reverseOrder">Top / Bottom 5</v-btn>
-      --
+      <br>
+      <h1 class = "title-font ml-15">Egyptian Stock Market Performance today</h1>
+      <br>
       <v-btn-toggle
         v-model="indexSelection"
         background-color="primary"
@@ -15,31 +15,55 @@
         color="success"
         @click="indexChg"
       >
-        <v-btn value="30">EGX30</v-btn>
-        <v-btn value="70">EGX70</v-btn>
-        <v-btn value="100">EGX100</v-btn>
+        <v-btn style="font-size: 30px" value="30">EGX30</v-btn>
+        -
+        <v-btn style="font-size: 30px" value="70">EGX70</v-btn>
+        -
+        <v-btn style="font-size: 30px" value="100">EGX100</v-btn>
       </v-btn-toggle>
-      EGX {{ indexSelection }}
+      -      
+      <v-btn style="font-size: 30px" @click="reverseOrder">Top / Bottom 5</v-btn>
 
       <v-container fluid>
         <v-row no-gutters>
-          <v-col cols="12" md="5" justify="center">
+          <v-col cols="12" md="6" justify="center">
             <v-card elevated class="card-margin">
               <BarChart
-                style="height: 65vh"
                 title="Sectoral Performance"
                 :labels="sectors"
                 :values="sectorChg"
               />
             </v-card>
+          </v-col>          
 
+          <v-col cols="12" md="3" justify="center">
+            <div v-if="topstockChgs">
+              
+              <v-card elevated class="card-margin">
+                
+                <BarChart
+                  :labels="topStockNames"
+                  :values="topstockChgs"
+                  title="Top/bottom 5 today"
+                  style= "width: 800px"
+                  
+                />
+              </v-card>
+            </div>
+            <div v-else>
+              <v-card loading> Loading EGX stocks </v-card>
+            </div>
+ 
+
+          </v-col>
+          <v-col cols="12" md="3" justify="center">
+            
             <div v-if="idxPointShow">
               <v-card elevated class="card-margin">
                 <v-layout justify-center>
                   <div class="today-bar">
                     <TodayBar
                       class="fill-height"
-                      align="left"
                       justify="left"
                       :dailyChange="idxDailyChgShow"
                       :currentPoints="idxPointShow"
@@ -52,28 +76,14 @@
             <div v-else>
               <v-card loading> Loading Today's details </v-card>
             </div>
-          </v-col>
-
-          <v-col cols="12" md="5" justify="center">
-            <div v-if="topstockChgs">
+            <div v-if=true>
               <v-card elevated class="card-margin">
-                <BarChart
-                  style="height: 23cap"
-                  :labels="topStockNames"
-                  :values="topstockChgs"
-                  title="Top/botton 5 today"
-                />
-              </v-card>
-            </div>
-            <div v-else>
-              <v-card loading> Loading EGX stocks </v-card>
-            </div>
-            <div v-if="gainers">
-              <v-card style="height: 25vh" elevated class="card-margin">
+            
+                <h3 class="market-movement mt-4 ml-4">Market Movement</h3>
                 <PieChart
-                  style="height: 100%"
-                  :gainers="gainers"
-                  :losers="losers"
+                  style="height: 400px"
+                  :gainers=5
+                  :losers=10
                   ID="GL"
                 />
               </v-card>
@@ -95,7 +105,6 @@ import { db } from "/src/firebase/init";
 import BarChart from "/src/components/BarChart.vue";
 import PieChart from "/src/components/PieChart.vue";
 import TodayBar from "/src/components/TodayBar.vue";
-import SideDrawer from "/src/components/SideDrawer.vue";
 
 export default {
   name: "App",
@@ -136,6 +145,7 @@ export default {
       indexChgs: {}, // gets % change for all indices
       indexPoints: {}, // gets points for all indices
       sectorComponents: {}, // Key array pairs for sectors and component stocks
+
       EGX30TickerList: [
         "ABUK",
         "ADIB",
@@ -318,9 +328,8 @@ export default {
       for (
         let i = 0;
         i < keys.length;
-        i++
-      ) //for (const [key, value] of Object.entries(this.sectorComponents))
-      {
+        i++ //for (const [key, value] of Object.entries(this.sectorComponents))
+      ) {
         let key = keys[i];
         let stocks = this.sectorComponents[key];
         //console.log("sector stocks",Object.entries(stocks))
@@ -366,43 +375,11 @@ export default {
     BarChart,
     PieChart,
     TodayBar,
-    SideDrawer,
   },
   mounted() {
     //let docRef = doc(db, 'stocks', 'EGX30') unneeded after this.indexChg func
     let secdocRef = doc(db, "info", "industry");
 
-    /* getDoc(docRef).then(doc => { //gets todays trading data for stocks
-      var today = new Date()
-      var yesterday = new Date()
-
-      if (new Date().getHours() < 15) // if before 3PM
-        today.setDate(today.getDate() - 1)
-
-      var dayOfWeek = today.getDay()
-      if (dayOfWeek > 4)
-        today.setDate(today.getDate() - (dayOfWeek-4))
-
-      yesterday.setDate(today.getDate() - 1)
-
-      today = today.toISOString().slice(0, 10).replace(/-/g, '')//gets today date in YYYYMMDD format
-      yesterday = yesterday.toISOString().slice(0, 10).replace(/-/g, '')//gets today date in YYYYMMDD format
-
-      //var newYear = parseInt(today.slice(0,4)+'0102') // 1st jan is holiday
-      today = parseInt(today)
-      yesterday = parseInt(yesterday)
-
-
-      /*this.idxPointShow = doc.data()[today]; //gets point for EGX30 today
-      this.idxYtDate = (
-        ((doc.data()[today] - doc.data()[newYear]) / doc.data()[newYear]) * 100).toFixed(2); // round to 3 dp
-      this.idxDailyChgShow = (
-        ((doc.data()[today] - doc.data()[yesterday]) / doc.data()[yesterday]) *100).toFixed(2); // unneeded to do this.indexChg func
-    });*/
-
-    let docRef = doc(db, "stocks", "changes"); //get stock with last trading day's changes
-
-    //docRef = doc(db, "stocks", "idxChanges")
     getDoc(doc(db, "stocks", "idxChanges")).then((doc) => {
       this.indexChgs = doc.data();
     });
@@ -413,10 +390,7 @@ export default {
       this.indexSelection = 30;
     });
 
-  let docRef = doc(db, "stocks", "changes") //get stock with last trading day's changes
-    getDoc(docRef).then((doc) => {
-      this.allStocksChgToday = doc.data()//gets dict with all stocks with last trading day's chgs
-
+    let docRef = doc(db, "stocks", "changes"); //get stock with last trading day's changes
     getDoc(docRef)
       .then((doc) => {
         this.allStocksChgToday = doc.data(); //gets dict with all stocks with last trading day's chgs
@@ -437,8 +411,6 @@ export default {
         //get sector change
 
         // Iterate over each field in the document
-
-        //Object.assign(this.sectorComponents,JSON.parse(JSON.stringify(doc2.data())))
         this.sectorComponents = doc2.data();
 
         const sectorsDoc = Object.keys(doc2.data());
@@ -468,7 +440,6 @@ export default {
   },
 };
 </script>
-
 <style>
 .card-margin {
   margin: 10px;
@@ -504,6 +475,30 @@ export default {
   background-color: rgb(255, 255, 255);
   padding: 7px;
 }
+.market-movement {
+  color: white;
+  /*margin-bottom: -50px; /*space between chart title and chart */
+  font-weight: bold;
+  height: 40px;
+  width: 300px;
+  font-size: 30px;
+  font-family: Cascadia code;
+  background-color: #a29cb8;
+  border-radius: 10pc;
+   /*margin-bottom: -50px; /*space between chart title and chart */
+}
+.title-font{
+  color: white;
+  /*margin-bottom: -50px; /*space between chart title and chart */
+  font-weight: bold;
+  height: 70px;
+  width: 1900px;
+  font-size: 50px;
+  font-family: Cascadia code;
+  background-color: #5844f1;
+  border-radius: 10pc;
+  text-align:center;
+}
 
 #app {
   font-size: 200%;
@@ -511,8 +506,8 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #000000;
+  color: white;
   /*margin-top: 60px;*/
-  background-color: #47007afe;
+  background-color: #612f85fe;
 }
 </style>

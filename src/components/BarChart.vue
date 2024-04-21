@@ -1,12 +1,12 @@
 <template>
-  <v-container fluid fill-height>
-    <div class="font" style="width: 60%; height: 8%">
+  <v-container>
+    <div class="font" style="width: 45%; height: 8%">
       {{ title }}
     </div>
     <div class="blank-space"></div>
     <th>{{ maxBarValue }}</th>
 
-    <div :id="`bar-chart${title}`" style="height: 65%"></div>
+    <div :id="`bar-chart${title}`" style="width: 100%; min-height: 520px"></div>
   </v-container>
 </template>
 
@@ -513,7 +513,6 @@ export default {
       return this.stockTickersDict[ticker] || "No extra information available";
     },
   },
-  },
 };
 </script>
 
@@ -521,7 +520,7 @@ export default {
 .font {
   /*position: absolute;*/
   /*top: 0;*/
-  color: rgba(21, 25, 88, 0.971);
+  color: white;
   /*margin-bottom: -50px; /*space between chart title and chart */
   font-weight: bold;
   height: 100px;
