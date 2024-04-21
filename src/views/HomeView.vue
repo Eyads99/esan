@@ -3,7 +3,7 @@
   <v-app style="background-color: lavender">
     <v-main>
       <br>
-      <h1 class = "title-font ml-15">Egyptian Stock Market Performance today</h1>
+      <h1 class = "title-font ml-5">Egyptian Stock Market Performance today</h1>
       <br>
       <v-btn-toggle
         v-model="indexSelection"
@@ -15,10 +15,10 @@
         color="success"
         @click="indexChg"
       >
-        <v-btn style="font-size: 30px" value="30">EGX30</v-btn>
-        -
+        <v-btn  style="font-size: 30px" value="30">EGX30</v-btn>
+        
         <v-btn style="font-size: 30px" value="70">EGX70</v-btn>
-        -
+        
         <v-btn style="font-size: 30px" value="100">EGX100</v-btn>
       </v-btn-toggle>
       -      
@@ -32,6 +32,7 @@
                 title="Sectoral Performance"
                 :labels="sectors"
                 :values="sectorChg"
+                
               />
             </v-card>
           </v-col>          
@@ -44,8 +45,8 @@
                 <BarChart
                   :labels="topStockNames"
                   :values="topstockChgs"
-                  title="Top/bottom 5 today"
-                  style= "width: 800px"
+                  title="Best/worst performers"
+                  style= "width: 100% ; height: 615px"
                   
                 />
               </v-card>
@@ -76,14 +77,14 @@
             <div v-else>
               <v-card loading> Loading Today's details </v-card>
             </div>
-            <div v-if=true>
+            <div v-if="gainers">
               <v-card elevated class="card-margin">
             
                 <h3 class="market-movement mt-4 ml-4">Market Movement</h3>
                 <PieChart
-                  style="height: 400px"
-                  :gainers=5
-                  :losers=10
+                  style="height: 400px" 
+                  :gainers= "gainers"
+                  :losers= "losers"
                   ID="GL"
                 />
               </v-card>
@@ -480,7 +481,7 @@ export default {
   /*margin-bottom: -50px; /*space between chart title and chart */
   font-weight: bold;
   height: 40px;
-  width: 300px;
+  width: 90%;
   font-size: 30px;
   font-family: Cascadia code;
   background-color: #a29cb8;
@@ -491,11 +492,11 @@ export default {
   color: white;
   /*margin-bottom: -50px; /*space between chart title and chart */
   font-weight: bold;
-  height: 70px;
-  width: 1900px;
-  font-size: 50px;
+  height: 55px;
+  width: 1100px;
+  font-size: 45px;
   font-family: Cascadia code;
-  background-color: #5844f1;
+  background-color: #903585;
   border-radius: 10pc;
   text-align:center;
 }

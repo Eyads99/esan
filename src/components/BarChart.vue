@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <div class="font" style="width: 45%; height: 8%">
+    <div class="font" style="width: 100%; height: 8%">
       {{ title }}
     </div>
     <div class="blank-space"></div>
@@ -337,7 +337,7 @@ export default {
                   show: true,
                   position: "right",
                   formatter: "{c}%",
-                  fontSize: 20,
+                  fontSize: 18,
                   fontWeight: "bold",
                   fontFamily: "Cascadia code",
                   color: "#818691",
@@ -380,7 +380,7 @@ export default {
         left: "left",
         top: "top",
         responsive: true,
-        right: "10%",
+        right: "15%",
         bottom: "0%",
         containLabel: true,
       },

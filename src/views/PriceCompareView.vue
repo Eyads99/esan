@@ -2,7 +2,39 @@
     <v-combobox
       clearable
       label="Combobox"
-      :items = "['ABUK', 'ORAS', 'EFIC', 'ADIB', 'COMI', 'MFPC']"
+      :items = "[
+        'ABUK',
+        'ADIB',
+        'ALCN',
+        'AMOC',
+        'BTFH',
+        'COMI',
+        'EAST',
+        'EFID',
+        'HRHO',
+        'EFIH',
+        'EKHO',
+        'EKHOA',
+        'SWDY',
+        'ESRS',
+        'FWRY',
+        'GBCO',
+        'HELI',
+        'JUFO',
+        'MASR',
+        'MFPC',
+        'ORAS',
+        'ORHD',
+        'ORWE',
+        'PHDC',
+        'CCAP',
+        'SKPC',
+        'TMGH',
+        'ETEL',
+        'SUGR',
+        'PHAR',
+        'ISPH',
+      ]"
       v-model = "assetsNames"
       multiple
     ></v-combobox>

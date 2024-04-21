@@ -52,18 +52,18 @@ export default {
           label: {
             show: true,
             position: "outside",
-            formatter: "{b}: {c} ({d}%)",
+            formatter: "{b}",
             color: "#000",
             fontFamily: "Cascadia code",
             fontSize: "20",
           },
-          emphasis: {
+          /*emphasis: {
             label: {
               show: true,
-              fontSize: "15",
+              fontSize: "150",
               fontWeight: "bold",
             },
-          },
+          },*/
           data: [
             {
               value: this.gainers,
@@ -110,20 +110,15 @@ export default {
             label: {
               show: true,
               position: "outside",
-              formatter: "{b}: {c} ({d}%)",
+              formatter: "{b}",
               textStyle: {
                 color: "black",
-                fontWeight: "bold",
+                
                 fontFamily: "Cascadia code",
-                fontSize: "28",
+                fontSize: "20",
               },
             },
-            emphasis: {
-              label: {
-                show: true,
-                fontWeight: "bold",
-              },
-            },
+
             data: [
               {
                 value: this.gainers,
