@@ -59,7 +59,7 @@ this.fetchData().then(() =>
           minValueSpan: 4, //min # of bars to show
           maxValueSpan: 2500, 
           startValue: 0, //start and end represent the # points of chart to show by default
-          endValue: 1500,
+          endValue: 3000,
           handleSize: 20,
           //showDataShadow: false, //removes outline of graph in zoombar
         },
@@ -135,7 +135,7 @@ async fetchData() {
             break;
           }
         }        
-        prices = toRaw(prices).map(x => x/basePrice) //divide all values in prices by basePrice by map
+        prices = toRaw(prices).map(x => (x/basePrice).toFixed(3)) //divide values in prices by basePrice by map & round to 3 dp
       }
 
       data.push(

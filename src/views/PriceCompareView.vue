@@ -9,6 +9,8 @@
     ></v-combobox>
     <v-checkbox label="Normalize" value=true v-model=normalize></v-checkbox>
     <PriceHistoryChart :assetsNames="assetsNames" :normalize=normalize title="title"/>
+    <v-range-slider v-model="value"
+        strict> </v-range-slider>
   </v-col>
   </template>
   
