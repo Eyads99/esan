@@ -170,10 +170,7 @@
         TodayBar,
       },
       mounted(){
-
-        
-
-        getDoc(doc(db, "stocks", "idxChanges")).then(doc => {this.indexChgs = doc.data()});
+        getDoc(doc(db, "stocks", "idxChanges")).then(doc => {this.indexChgs = doc.data()}); // get changes in EGX indices 
 
         getDoc(doc(db, "stocks", "todayIndices")).then(doc => {    
         this.indexPoints = doc.data()      

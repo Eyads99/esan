@@ -13,7 +13,7 @@ import { db } from "/src/firebase/init";
 
 export default {
   name: "PriceHistoryChart",
-  props: ["assetsNames", "title"],
+  props: ["assetsNames", "title", "normalize"],
   data() {
     return {
       assets : {},
@@ -61,7 +61,7 @@ this.fetchData().then(() =>
           startValue: 0, //start and end represent the # points of chart to show by default
           endValue: 1500,
           handleSize: 20,
-          showDetail: true,
+          //showDataShadow: false, //removes outline of graph in zoombar
         },
 
   // Declare an x-axis (category axis).
@@ -77,6 +77,7 @@ this.fetchData().then(() =>
   series: data.map(lineData => ({
     type: 'line',
     showSymbol: false,
+    connectNulls: true,
     data: lineData.prices, // Reference the y-axis values for each line TODO fix date issue
     name: lineData.name, // Optional: Name for the line in legend
   }))
@@ -118,13 +119,30 @@ async fetchData() {
       
     let dims = Array.from(this.dates) // turn the dates set into a list 
     let data = []
+    
 
     for (const asset of this.assetsNames) {
+      let prices = Object.values(toRaw(this.assets)[asset])
+      if (this.normalize !=false) //find first non NaN value and divide every number by it
+      {
+        //find first non NaN value 
+        let basePrice = -1
+        for (let i = 0; i < prices.length; i++) 
+        {
+          if (!isNaN(toRaw(prices[i]))) 
+          {
+            basePrice = toRaw(prices[i])
+            break;
+          }
+        }        
+        prices = toRaw(prices).map(x => x/basePrice) //divide all values in prices by basePrice by map
+      }
+
       data.push(
         {
           name: asset,
           dates: Object.keys(toRaw(this.assets)[asset]),
-          prices: Object.values(toRaw(this.assets)[asset])
+          prices: prices
       })
     }
 
@@ -141,17 +159,18 @@ async fetchData() {
               
               series: data.map(lineData => ({
                 type: 'line',
+                showSymbol: false,
+                connectNulls: true,
                 data: lineData.prices, // Reference the y-axis values for each line
                 name: lineData.name, // Optional: Name for the line in legend
               })),
-        };
+        }
         const chart = echarts.getInstanceByDom(document.getElementById(["price-history-chart" + this.title]))
-        if(chart){
-              chart.setOption(options)
-              //chart.on("click", this.handleBarClick);
+        if(chart) //apply new options
+            {
+              chart.setOption(options) //chart.on("click", this.handleBarClick);
             }
-
-            })
+  })
   }
 },
 
@@ -162,6 +181,14 @@ watch: {
           this.updateAssets()
         }        
       },
+
+  normalize(newValues, oldValues){
+    if ((newValues !== oldValues) && oldValues !=null )
+    {
+          this.updateAssets()
+    }    
+  },
+  
   }
-  };
+};
 </script> 
