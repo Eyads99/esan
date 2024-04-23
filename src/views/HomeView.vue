@@ -25,7 +25,7 @@
           <v-col cols="12" md="5" justify="center">
             <v-card elevated class="card-margin">
               <BarChart
-                style="height: 65vh"
+                style="height: 100%"
                 title="Sectoral Performance"
                 :labels="sectors"
                 :values="sectorChg"
@@ -55,9 +55,9 @@
 
           <v-col cols="12" md="5" justify="center">
             <div v-if="topstockChgs">
-              <v-card elevated class="card-margin">
+              <v-card  elevated class="card-margin">
                 <BarChart
-                  style="height: 23cap"
+                  style=""
                   :labels="topStockNames"
                   :values="topstockChgs"
                   title="Market today"
@@ -69,7 +69,7 @@
             </div>
             <div v-if="gainers">
               <h3>Market Movement</h3>
-              <v-card style="height: 25vh" elevated class="card-margin">
+              <v-card elevated class="card-margin">
                 <PieChart
                   style="height: 100%"
                   :gainers="gainers"

@@ -6,7 +6,7 @@
     <div class="blank-space"></div>
     <th>{{ maxBarValue }}</th>
 
-    <div :id="`bar-chart${title}`" style="height: 65%"></div>
+    <div :id="`bar-chart${title}`" style="width: 100%; min-height: 420px"></div>
   </v-container>
 </template>
 
@@ -296,17 +296,6 @@ export default {
             yAxis: {
               type: "category",
               data: this.labels,
-              inverse: false,
-              axisLabel: {
-                show: true,
-                interval: 0,
-                rotate: 0,
-                //padding: 10,
-                fontSize: 20,
-                fontWeight: "bold",
-                fontFamily: "Cascadia code",
-                color: "#5a5f6e",
-              },
             },
             series: [
               {
@@ -316,36 +305,7 @@ export default {
                 //fontWeight: "bold",
 
                 itemStyle: {
-                  //barBorderRadius: [5, 5, 5, 5],
                   borderRadius: 5,
-                  /*normal: {
-                    color: function (params) {
-                      // Find the maximum value in the data array
-                      let maxBarValue = Math.max(this.values);
-
-                      // Set a different color for the top bar
-                      if (params.value === maxBarValue) {
-                        return "#ff0000";
-                      } else {
-                        return "#0f4294";
-                      }
-                    },
-                  },
-                */
-                },
-                label: {
-                  show: true,
-                  position: "right",
-                  formatter: "{c}%",
-                  fontSize: 20,
-                  fontWeight: "bold",
-                  fontFamily: "Cascadia code",
-                  color: "#818691",
-                },
-                emphasis: {
-                  itemStyle: {
-                    barWidth: "6000%",
-                  },
                 },
               },
             ],
@@ -391,7 +351,7 @@ export default {
           const barName = params.name;
           const value = params.value;
           const extraInfo = this.stockTickersDict[barName] || barName;
-          return `<b>${extraInfo}</b><br/>` + `Value: ${value}<br/>`;
+          return `<b>${extraInfo}</b><br/>` + `Value: ${value}%<br/>`;
         },
       },
 
@@ -404,12 +364,6 @@ export default {
         pieces: [
           { gt: 0, color: "#4e81cf" }, // Blue for positive values (> 0)
           { lte: 0, color: "#fc6075" }, // Red for negative values (<= 0)
-          /*{
-            min: maxBarValue ,
-            max: maxBarValue ,
-            color: "#A40500",
-          },
-          */
         ],
       }, // Update the labelStyle for xAxis and yAxis in the mounted function of BarChart.vue
 
@@ -423,12 +377,13 @@ export default {
         type: "category",
         data: this.labels,
         inverse: false,
-        axisLabel: {
+        axisLabel: { // the stock ticker label 
           show: true,
+          inside: false,
           interval: 0,
           rotate: 0,
           //padding: 10,
-          fontSize: 20,
+          fontSize: 17,
           fontWeight: "bold",
           fontFamily: "Cascadia code",
           color: "#5a5f6e",
@@ -444,18 +399,18 @@ export default {
           type: "bar",
           barWidth: "50%",
           fontWeight: "bold",
-          fontFamily: "Cascadia Code",
+          fontFamily: "Cascadia code",
           itemStyle: {
-            //barBorderRadius: [5, 5, 5, 5],
             borderRadius: 5,
           },
           label: {
             show: true,
-            position: "right",
-            formatter: "{c}%",
-            fontSize: 15,
-            //barPercentage: 0.6,
-            barCategoryGap: "5000%",
+                  position: "right",
+                  formatter: "{c}%",
+                  fontSize: 15,
+                  fontWeight: "bold",
+                  fontFamily: "Cascadia code",
+                  color: "#818691",
           },
           emphasis: {
             itemStyle: {

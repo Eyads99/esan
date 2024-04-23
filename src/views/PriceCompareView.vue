@@ -2,14 +2,14 @@
   <v-col cols="12"  md="11" justify="center">
     <v-combobox
       clearable
-      label="Combobox"
+      label="Stocks"
       :items = EGX30TickerList
       v-model = "assetsNames"
       multiple
     ></v-combobox>
     <v-checkbox label="Normalize" value=true v-model=normalize></v-checkbox>
     <PriceHistoryChart :assetsNames="assetsNames" :normalize=normalize title="title"/>
-    <v-range-slider v-model="value"
+    <v-range-slider v-model="dateRange"
         strict> </v-range-slider>
   </v-col>
   </template>
@@ -25,6 +25,7 @@
       return {
         assetsNames: ["ABUK","COMI"],
         normalize: false,
+        dateRange : [2, 95],
         EGX30TickerList: [
         "ABUK",
         "ADIB",

@@ -68,7 +68,7 @@ export default {
 }
 #TodayBar th,
 #TodayBar td {
-  padding-left: 70px;
+  padding-left: 20px;
 }
 .title {
   font-size: 200%;

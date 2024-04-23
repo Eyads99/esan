@@ -114,7 +114,8 @@ export default {
               textStyle: {
                 color: "black",
                 fontFamily: "Cascadia code",
-                fontSize: "18",
+                fontWeight: "bold",
+                fontSize: "28",
               },
             },
             emphasis: {
