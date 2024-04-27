@@ -60,7 +60,6 @@ export default {
           emphasis: {
             label: {
               show: true,
-              fontSize: "15",
               fontWeight: "bold",
             },
           },

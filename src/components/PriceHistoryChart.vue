@@ -27,60 +27,58 @@ export default {
     this.chartId++;
     const chartDom = document.getElementById(["price-history-chart" + this.title]); 
 
-this.fetchData().then(() => 
-{
-  console.log(toRaw(this.assets))
-  let dims = Array.from(this.dates) // turn the dates set into a list 
-  //dims.unshift('stock');
-  console.log("dims", dims)
+    this.fetchData().then(() => 
+    {
+      let dims = Array.from(this.dates) // turn the dates set into a list 
+      //dims.unshift('stock');
+      console.log("dims", dims)
 
-  let data = []
+      let data = []
 
-  for (const asset of this.assetsNames) {
-    data.push(
-      {
-        name: asset,
-        dates: Object.keys(toRaw(this.assets)[asset]),
-        prices: Object.values(toRaw(this.assets)[asset])
-    })
-  }
+      for (const asset of this.assetsNames) {
+        data.push(
+          {
+            name: asset,
+            dates: Object.keys(toRaw(this.assets)[asset]),
+            prices: Object.values(toRaw(this.assets)[asset])
+        })
+      }
 
-  const options = {
-  legend: {},
-  tooltip: {
-      trigger: 'axis'
-    },
-  dataZoom: {
-          type: "slider",
-          //xAxisIndex: 0,
-          zoomLock: false,
-          width: 1200,
-          right: 120,
-          minValueSpan: 4, //min # of bars to show
-          maxValueSpan: 2500, 
-          startValue: 0, //start and end represent the # points of chart to show by default
-          endValue: 3000,
-          handleSize: 20,
-          //showDataShadow: false, //removes outline of graph in zoombar
+      const options = {
+      legend: {},
+      tooltip: {
+          trigger: 'axis'
         },
+      dataZoom: {
+              type: "slider",
+              //xAxisIndex: 0,
+              zoomLock: false,
+              width: 1200,
+              right: 120,
+              minValueSpan: 4, //min # of bars to show
+              maxValueSpan: 2500, 
+              startValue: 0, //start and end represent the # points of chart to show by default
+              endValue: 3000,
+              handleSize: 20,
+              //showDataShadow: false, //removes outline of graph in zoombar
+            },
 
-  // Declare an x-axis (category axis).
-  // The category map the first column in the dataset by default.
-  xAxis: { type: 'category',
-          data: dims,
-          axisLabel: {formatter: function (value) {return echarts.time.format('yyyy-MM-dd', value);}}
-        },
-  // Declare a y-axis (value axis).
-  yAxis: { type: 'value',
-    name:"Price"},
-  
-  series: data.map(lineData => ({
-    type: 'line',
-    showSymbol: false,
-    connectNulls: true,
-    data: lineData.prices, // Reference the y-axis values for each line TODO fix date issue
-    name: lineData.name, // Optional: Name for the line in legend
-  }))
+      // Declare an x-axis (category axis).
+      // The category map the first column in the dataset by default.
+      xAxis: { type: 'category',
+              data: dims,
+              axisLabel: {formatter: function (value) {return echarts.time.format('yyyy-MM-dd', value);}}
+            },
+      // Declare a y-axis (value axis).
+      yAxis: { type: 'value', name:"Price"},
+      
+      series: data.map(lineData => ({
+        type: 'line',
+        connectNulls: true,
+        showSymbol: false, //removes dots on the chart
+        data: lineData.prices, // Reference the y-axis values for each line TODO fix date issue
+        name: lineData.name, // Optional: Name for the line in legend
+      }))
 
   };                 
     const myChart = echarts.init(chartDom);
@@ -91,32 +89,33 @@ this.fetchData().then(() =>
 
 methods:{
 async fetchData() {
+  this.assets = {}
   for (const asset of this.assetsNames) {
     let docRef = doc(db, "stocks", asset);
-    let data;
     const stockDoc = await getDoc(docRef);
-    data = stockDoc.data();
+    let data = stockDoc.data();
+    
     this.assets[asset] = data;
 
     // add dates to the dates set
     let keys = Object.keys(data);
+    this.dates = new Set()
     for (let i = 0; i < keys.length; i++) {
       if (keys[i][0] == '2' || keys[i][0] == '1') //excludes non date data
         { //transform key date in for YYYYMMDD to YYYY-MM-DD
-            this.dates.add(keys[i].slice(0, 4) + '-' + keys[i].slice(4, 6) + '-' + keys[i].slice(6, 8));        
+            this.dates.add(keys[i].slice(0, 4) + '-' + keys[i].slice(4, 6) + '-' + keys[i].slice(6, 8)/*+"T20:00:00Z"*/);        
         }
     }
+    
     this.prices.push(Object.values(data));
-    console.log("dates", this.dates);
   }
     },
 
     updateAssets()
   { 
     this.fetchData().then(() => 
-{
-    console.log(toRaw(this.assets))
-      
+{   console.log("this.dates", this.dates)
+  
     let dims = Array.from(this.dates) // turn the dates set into a list 
     let data = []
     
@@ -137,39 +136,38 @@ async fetchData() {
         }        
         prices = toRaw(prices).map(x => (x/basePrice).toFixed(3)) //divide values in prices by basePrice by map & round to 3 dp
       }
-
       data.push(
         {
           name: asset,
           dates: Object.keys(toRaw(this.assets)[asset]),
           prices: prices
-      })
+        })
+      
     }
-
+    
     const options = {
               // Declare an x-axis (category axis).
               // The category map the first column in the dataset by default.
-              xAxis: { type: 'category',
+              xAxis: {type: 'category',
                       data: dims,
                       axisLabel: {formatter: function (value) {return echarts.time.format('yyyy-MM-dd', value);}}
                     },
               // Declare a y-axis (value axis).
-              yAxis: { type: 'value',
-                name:"Price"},
+              yAxis: { type: 'value', name:"Price"},
               
               series: data.map(lineData => ({
                 type: 'line',
-                showSymbol: false,
+                showSymbol: false, //removes dots on the chart
                 connectNulls: true,
                 data: lineData.prices, // Reference the y-axis values for each line
-                name: lineData.name, // Optional: Name for the line in legend
+                name: lineData.name, // Name for the line in legend
               })),
         }
         const chart = echarts.getInstanceByDom(document.getElementById(["price-history-chart" + this.title]))
-        if(chart) //apply new options
-            {
-              chart.setOption(options) //chart.on("click", this.handleBarClick);
-            }
+        chart.setOption(options, {
+    replaceMerge: ['xAxis', 'yAxis', 'series'] // this ensures proper updating of the graph elements
+});
+           
   })
   }
 },

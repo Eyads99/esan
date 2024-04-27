@@ -362,8 +362,8 @@ export default {
         type: "piecewise",
         dimension: 0,
         pieces: [
-          { gt: 0, color: "#4e81cf" }, // Blue for positive values (> 0)
-          { lte: 0, color: "#fc6075" }, // Red for negative values (<= 0)
+          { gt: 0, color: "#60bb59" }, // Green for positive values (> 0)
+          { lte: 0, color: "#de4343" }, // Red for negative values (<= 0)
         ],
       }, // Update the labelStyle for xAxis and yAxis in the mounted function of BarChart.vue
 

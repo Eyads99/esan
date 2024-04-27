@@ -44,7 +44,7 @@ export default {
 
   methods: {
     getColor(value) {
-      return value < 0 ? "#fc6075" : value > 0 ? "#2d6ccc" : "black"; //-ive -> red +ive -> green 0 -> black
+      return value < 0 ? "#fc6075" : value > 0 ? "#66996c" : "black"; //-ive -> red +ive -> green 0 -> black
     },
   },
   computed: {

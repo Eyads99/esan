@@ -3,14 +3,14 @@
     <v-combobox
       clearable
       label="Stocks"
-      :items = EGX30TickerList
+      :items = EGXTickerList
       v-model = "assetsNames"
       multiple
     ></v-combobox>
     <v-checkbox label="Normalize" value=true v-model=normalize></v-checkbox>
     <PriceHistoryChart :assetsNames="assetsNames" :normalize=normalize title="title"/>
-    <v-range-slider v-model="dateRange"
-        strict> </v-range-slider>
+    <!-- <v-range-slider v-model="dateRange"
+        strict> </v-range-slider> -->
   </v-col>
   </template>
   
@@ -23,7 +23,7 @@
     },
     data() {
       return {
-        assetsNames: ["ABUK","COMI"],
+        assetsNames: ["ORAS","ABUK"],
         normalize: false,
         dateRange : [2, 95],
         EGX30TickerList: [
@@ -131,6 +131,21 @@
         "UNIT",
         "ZMID",
       ],
+      EGXTickerList:["ACAP","AALR","ADIB","ABUK","ACRO","AJWA","AIVC","SAUD","ECAP","FNAR","KRDI","AMPI","EOSB","ALCN","AFMC",
+      "AMES","AMOC","ANFI","AXPH","RREI","AMER","APPC","ALUM","ACAMD","ACGC","ADPC","ADRI","ARAB","AMIA","ADCI","APSW","ARVA",
+      "AIH","ARCC","DOMT","ARPI","ASCM","ASPI","ATLC","AIFI","AVGG","BINV","BTFH","BIGP","CAED","CIRA","CILB","KWIN","COSG",
+      "POUL","CSAG","CASH","PRCL","CERA","CICH","CTSB","CLHO","COMI","CNFN","COPR","CIEB","DAPH","DCRC","DEIN","DTPP","SUGR",
+      "DSCW","DGTZ","EFIH","EASB","EDFM","EAST","EXPA","EDBM","EFID","HRHO","EGAL","EPCO","MFSC","EGAS","EKHOA","EITP","EFIC",
+      "EGBE","IRON","EKHO","MPRC","AREH","EGSA","TORA","EGTS","ETRS","EHDR","PHAR","EIUD","AFDI","EPPK","EEII","EALR","BIDI",
+      "IRAX","ELKA","ELNA","KABO","OBRI","UEGC","SWDY","ELSH","SPHT","ELWA","ELEC","EMFD","ZEOT","ESRS","FAITA","FAIT","FWRY",
+      "FIRE","FTNS","GDWA","GBCO","RAKT","GSSC","GIHD","GGCC","BIOC","GTHE","GMCI","GOCO","GTWL","GRCA","CCRS","HCFI","HDBK",
+      "ISPH","ICFC","ICMI","IEEC","ENGC","IFAP","ICID","IDHC","INEG","IBCT","ICLE","ISMQ","IDRE","INFI","ISMA","JUFO","KZPC",
+      "CPCI","EGCH","LCSW","LUTS","MCRO","MASR","MPCO","MOIL","MMAT","MAAL","MBEN","MEPA","MPCI","MENA","CEFM","WCDF","MIPH",
+      "MBSC","MCQE","MICH","HELI","MFPC","MHOT","MKIT","ATQA","MOSC","MTIE","MOIN","NAHO","NCCW","NBKE","NDRL","NHPS","NCGC",
+      "NIPH","MILS","NEDA","NINH","OLFI","OCPH","ODIN","ORAS","OFH","ORHD","OIH","ORWE","EBSC","PHDC","PRDC","PRMH","PHTV",
+      "CCAP","QNBA","RACC","RAYA","REAC","RKAZ","ROTO","RTVC","RUBX","SCFM","SIPC","SMFR","SEIG","SNFC","SDTI","SKPC","SCEM",
+      "OCDI","SNFI","SVCE","SPMD","SPIN","SCTS","CANA","TMGH","TALM","TANM","TAQA","ETEL","RMDA","MOED","TRTO","UPMS","UASG",
+      "UNIT","UNIP","UNFO","UEFM","UTOP","VERT","WKOL","ZMID",]
       }
 
     }
