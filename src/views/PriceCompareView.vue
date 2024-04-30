@@ -23,7 +23,7 @@
     },
     data() {
       return {
-        assetsNames: ["ORAS","ABUK"],
+        assetsNames: ["ORAS","ABUK","AZ-SAVE"],
         normalize: false,
         dateRange : [2, 95],
         EGX30TickerList: [
@@ -131,7 +131,7 @@
         "UNIT",
         "ZMID",
       ],
-      EGXTickerList:["ACAP","AALR","ADIB","ABUK","ACRO","AJWA","AIVC","SAUD","ECAP","FNAR","KRDI","AMPI","EOSB","ALCN","AFMC",
+      EGXTickerList:["ACAP","AALR","ADIB","ABUK","ACRO","AJWA","SAUD","ECAP","FNAR","KRDI","AMPI","EOSB","ALCN","AFMC",
       "AMES","AMOC","ANFI","AXPH","RREI","AMER","APPC","ALUM","ACAMD","ACGC","ADPC","ADRI","ARAB","AMIA","ADCI","APSW","ARVA",
       "AIH","ARCC","DOMT","ARPI","ASCM","ASPI","ATLC","AIFI","AVGG","BINV","BTFH","BIGP","CAED","CIRA","CILB","KWIN","COSG",
       "POUL","CSAG","CASH","PRCL","CERA","CICH","CTSB","CLHO","COMI","CNFN","COPR","CIEB","DAPH","DCRC","DEIN","DTPP","SUGR",
