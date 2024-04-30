@@ -59,7 +59,7 @@ export default {
           },
           emphasis: {
             label: {
-              show: true,
+              show: false,
               fontWeight: "bold",
             },
           },
