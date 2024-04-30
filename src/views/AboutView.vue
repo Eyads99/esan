@@ -18,12 +18,12 @@
 </template>
 
 <script> 
-import SideDrawer from "/src/components/SideDrawer.vue";
+//import SideDrawer from "/src/components/SideDrawer.vue";
 
 export default {
   name: "AboutView",
   components: {
-    SideDrawer
+    //SideDrawer
   },
 }
 </script>

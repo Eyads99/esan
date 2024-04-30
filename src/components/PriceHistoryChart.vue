@@ -19,6 +19,8 @@ export default {
       assets : {},
       dates : new Set(),
       prices : [],
+      startDate : null,
+      endDate: null,
     };
   },
   
@@ -30,44 +32,59 @@ export default {
     this.fetchData().then(() => 
     {
       let dims = Array.from(this.dates) // turn the dates set into a list 
+      //turn every string in dims into a date obj 
+      //dims = dims.map(x => new Date(x))
+
+
       //dims.unshift('stock');
       console.log("dims", dims)
 
       let data = []
 
       for (const asset of this.assetsNames) {
+        
+        let temp = []
+        let datesList = this.makeDateList(Object.keys(toRaw(this.assets)[asset])) 
+        for (let i = 0; i < datesList.length; i++) {      
+          let value = Object.values(toRaw(this.assets)[asset])[i]==="NaN" ? Number.NaN : Object.values(toRaw(this.assets)[asset])[i]
+          temp.push([datesList[i], value])             
+        }
+        
         data.push(
           {
             name: asset,
             dates: Object.keys(toRaw(this.assets)[asset]),
-            prices: Object.values(toRaw(this.assets)[asset])
+            prices: Object.values(toRaw(this.assets)[asset]),
+            data: temp,
         })
-      }
-
+      }      
       const options = {
-      legend: {},
+      legend: {        
+      },
       tooltip: {
-          trigger: 'axis'
+          trigger: 'axis',
+          //formatter: '{c0}: {a0}' TODO fix formatter see https://echarts.apache.org/en/option.html#tooltip.formatter
         },
       dataZoom: {
               type: "slider",
               //xAxisIndex: 0,
               zoomLock: false,
-              width: 1200,
-              right: 120,
-              minValueSpan: 4, //min # of bars to show
-              maxValueSpan: 2500, 
-              startValue: 0, //start and end represent the # points of chart to show by default
-              endValue: 3000,
-              handleSize: 20,
+              width: 1200, // width of the zoom bar on user screen
+              right: 120, // how much it is shifted right on user screen
+              minValueSpan: 979999999, //min # of dates to show
+              //maxValueSpan: 2500, 
+              //startValue: 0, //start and end represent the # points of chart to show by default
+              start:0,
+              end:100,
+              endValue: 30000,
+              handleSize: 25,
               //showDataShadow: false, //removes outline of graph in zoombar
             },
 
-      // Declare an x-axis (category axis).
-      // The category map the first column in the dataset by default.
-      xAxis: { type: 'category',
-              data: dims,
-              axisLabel: {formatter: function (value) {return echarts.time.format('yyyy-MM-dd', value);}}
+      xAxis: { type: 'time',
+              //data: dims,
+              //min: 'dataMin',
+              axisLabel: {formatter: '{yyyy}-{MM}-{dd}'}
             },
       // Declare a y-axis (value axis).
       yAxis: { type: 'value', name:"Price"},
@@ -76,7 +93,7 @@ export default {
         type: 'line',
         connectNulls: true,
         showSymbol: false, //removes dots on the chart
-        data: lineData.prices, // Reference the y-axis values for each line TODO fix date issue
+        data: lineData.data, // Reference the y-axis values for each line TODO fix date issue
         name: lineData.name, // Optional: Name for the line in legend
       }))
 
@@ -102,11 +119,13 @@ async fetchData() {
     this.dates = new Set()
     for (let i = 0; i < keys.length; i++) {
       if (keys[i][0] == '2' || keys[i][0] == '1') //excludes non date data
-        { //transform key date in for YYYYMMDD to YYYY-MM-DD
-            this.dates.add(keys[i].slice(0, 4) + '-' + keys[i].slice(4, 6) + '-' + keys[i].slice(6, 8)/*+"T20:00:00Z"*/);        
+        { 
+          //check date value is not null
+          //if ( data[keys[i]] != "NaN")
+          //transform key date in for YYYYMMDD to YYYY-MM-DD
+            this.dates.add(keys[i].slice(0, 4) + '-' + keys[i].slice(4, 6) + '-' + keys[i].slice(6, 8));        
         }
-    }
-    
+    } 
     this.prices.push(Object.values(data));
   }
     },
@@ -117,6 +136,7 @@ async fetchData() {
 {   console.log("this.dates", this.dates)
   
     let dims = Array.from(this.dates) // turn the dates set into a list 
+    //dims = dims.map(x => new Date(x))
     let data = []
     
 
@@ -150,7 +170,8 @@ async fetchData() {
               // The category map the first column in the dataset by default.
               xAxis: {type: 'category',
                       data: dims,
-                      axisLabel: {formatter: function (value) {return echarts.time.format('yyyy-MM-dd', value);}}
+                      min: 'dataMin',
+                      //axisLabel: {formatter: function (value) {return echarts.time.format('yyyy-MM-dd', value);}}
                     },
               // Declare a y-axis (value axis).
               yAxis: { type: 'value', name:"Price"},
@@ -169,6 +190,22 @@ async fetchData() {
 });
            
   })
+  },
+
+  makeDateList(dates){
+      let dateList = new Set()
+
+      for (let i = 0; i < dates.length; i++) {
+        if (dates[i][0] == '2' || dates[i][0] == '1') //excludes non date data
+        { 
+          //check date value is not null
+          //if ( data[keys[i]] != "NaN")
+          //transform key date in for YYYYMMDD to YYYY-MM-DD
+          dateList.add(dates[i].slice(0, 4) + '-' + dates[i].slice(4, 6) + '-' + dates[i].slice(6, 8));        
+        }
+    }
+    
+    return Array.from(dateList)
   }
 },
 
