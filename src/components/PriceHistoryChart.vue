@@ -17,8 +17,8 @@ export default {
   data() {
     return {
       assets : {},
-      startDate : null,
-      endDate: null,
+      startDate : "1996-01-01",
+      endDate: "2025-12-01",
     };
   },
   
@@ -33,17 +33,24 @@ export default {
 
       for (const asset of this.assetsNames) {
         
-        let temp = []
+        let stockData = []
         let datesList = this.makeDateList(Object.keys(toRaw(this.assets)[asset])) 
-        for (let i = 0; i < datesList.length; i++) {      
+        for (let i = 0; i < datesList.length; i++) {
+          let datei = datesList[i]
+          let dateiObj = new Date(datei)
+          
+          
+          if ( dateiObj < new Date(this.startDate)) continue; //do not add this date if before starting date
+          if ( dateiObj > new Date(this.endDate)) break; //do not add this date if after ending date
+          
           let value = Object.values(toRaw(this.assets)[asset])[i]==="NaN" ? Number.NaN : Object.values(toRaw(this.assets)[asset])[i]
-          temp.push([datesList[i], value])             
+          stockData.push([datesList[i], value])             
         }
         
         data.push(
           {
             name: asset,
-            data: temp,
+            data: stockData,
         })
       }      
 
@@ -60,12 +67,11 @@ export default {
               zoomLock: false,
               width: 1200, // width of the zoom bar on user screen
               right: 120, // how much it is shifted right on user screen
-              minValueSpan: 979999999, //min # of dates to show
+              minValueSpan: 979999999, //min # of dates to show should equal about a week
               //maxValueSpan: 2500, 
               //startValue: 0, //start and end represent the # points of chart to show by default
-              start:0,
-              end:100,
-              endValue: 30000,
+              start:0, //show from the beginning to end; 0-100%
+              end:100,              
               handleSize: 25,
               //showDataShadow: false, //removes outline of graph in zoombar
             },
@@ -96,20 +102,27 @@ methods:{
 async fetchData() {
   
   //this.assets = {}
-  for (const asset of this.assetsNames) {
-    console.log((asset),(Object.keys(toRaw(this.assets))))
-    console.log("truthness", (asset in (Object.keys(toRaw(this.assets)))))
-    if (asset in Object.keys(toRaw(this.assets))) // keep previous data as is 
-     { 
-      console.log(asset,"skipped")
+  for (let asset of this.assetsNames) {
+
+    let chached = false
+    let keys = Object.keys(this.assets)
+
+    for (let i=0; i < keys.length; i++) //dont retrieve stocks that already exist 
+      { 
+        if (asset==keys[i])
+        {
+        chached = true
+        break
+        }
+      }
+
+    if (chached) // keep previous data as is 
       continue 
-    }
     
     let docRef = doc(db, "stocks", asset);
     const stockDoc = await getDoc(docRef);
     let data = stockDoc.data();
     this.assets[asset] = data;
-    console.log("got data for ", asset);
     }
   },
 
@@ -120,7 +133,17 @@ async fetchData() {
     let data = []
     for (const asset of this.assetsNames) {
       let prices = Object.values(toRaw(this.assets)[asset])
-      let temp = []
+      let stockData = []
+
+      let datesList = this.makeDateList(Object.keys(toRaw(this.assets)[asset])) //get all dates
+      let datesListCropped
+      datesListCropped = datesList.filter(
+        day => {let dateObj = new Date(day); return dateObj >= new Date(this.startDate) && dateObj <= new Date(this.endDate);})
+
+      console.log("crop",datesListCropped) // TODO see if that can be used elsewhere 
+
+
+
       if (this.normalize ) //find first non NaN value and divide every number by it
       {
         //find first non NaN value 
@@ -135,18 +158,27 @@ async fetchData() {
         }        
         prices = toRaw(prices).map(x => (x/basePrice).toFixed(3)) //divide values in prices by basePrice by map & round to 3 dp
         
-        let datesList = this.makeDateList(Object.keys(toRaw(this.assets)[asset])) //get all dates
+        
         for (let i = 0; i < datesList.length; i++) {      
           //let value = Object.values(toRaw(this.assets)[asset])[i]==="NaN" ? Number.NaN : Object.values(toRaw(this.assets)[asset])[i]
-          temp.push([datesList[i], prices[i]==="NaN" ? Number.NaN : prices[i] ])             
+          
+          stockData.push([datesList[i], prices[i]==="NaN" ? Number.NaN : prices[i] ])             
         }
             
       }
       else{
         let datesList = this.makeDateList(Object.keys(toRaw(this.assets)[asset])) 
-        for (let i = 0; i < datesList.length; i++) {      
+        for (let i = 0; i < datesList.length; i++) {
+          
+          let datei = datesList[i]
+          let dateiObj = new Date(datei)
+          
+          
+          if ( dateiObj < new Date(this.startDate)) continue; //do not add this date if before starting date
+          if ( dateiObj > new Date(this.endDate)) break; //do not add this date if after ending date
+
           let value = Object.values(toRaw(this.assets)[asset])[i]==="NaN" ? Number.NaN : Object.values(toRaw(this.assets)[asset])[i]
-          temp.push([datesList[i], value ])             
+          stockData.push([datesList[i], value ])             
         }
       }
       data.push(
@@ -154,11 +186,11 @@ async fetchData() {
           name: asset,
           dates: Object.keys(toRaw(this.assets)[asset]),
           prices: prices,
-          data: temp
+          data: stockData
         })
       
     }
-    
+    console.log(data[0])
     const options = {
               // Declare an x-axis (category axis).
               // The category map the first column in the dataset by default.

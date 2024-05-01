@@ -6,6 +6,7 @@
       :items = EGXTickerList
       v-model = "assetsNames"
       multiple
+      max = 3
     ></v-combobox>
     <v-checkbox label="Normalize" value=true v-model=normalize></v-checkbox>
     <PriceHistoryChart :assetsNames="assetsNames" :normalize=normalize title="title"/>
@@ -23,7 +24,7 @@
     },
     data() {
       return {
-        assetsNames: ["ORAS","ABUK","AZ-SAVE"],
+        assetsNames: ['ORAS','ABUK','AZ-SAVE'],
         normalize: false,
         dateRange : [2, 95],
         EGX30TickerList: [
@@ -148,6 +149,6 @@
       "UNIT","UNIP","UEFM","UTOP","VERT","WKOL","ZMID","EGX30"]
       }
 
-    }
+    },
   }
   </script>
