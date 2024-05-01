@@ -60,7 +60,8 @@ export default {
           emphasis: {
             label: {
               show: false,
-              fontWeight: "bold",
+              fontSize: "20",
+              //fontWeight: "bold",
             },
           },
           data: [

@@ -13,16 +13,20 @@ import { db } from "/src/firebase/init";
 
 export default {
   name: "PriceHistoryChart",
-  props: ["assetsNames", "title", "normalize"],
+  props: ["assetsNames", "title", "normalize","startDateObj","endDateObj"],
   data() {
     return {
       assets : {},
-      startDate : "1996-01-01",
-      endDate: "2025-12-01",
+      startDate : null,
+      endDate : null,
     };
   },
   
     mounted() {
+      console.log(this.startDateObj, this.endDateObj)
+      this.startDate = this.startDateObj.toISOString().split('T')[0]; //convert from Date 
+      this.endDate = this.endDateObj.toISOString().split('T')[0];
+      console.log(this.startDate, this.endDate)
     //window.addEventListener('resize', this.handleResize); //this is to handle zoom in/out from browser
     const chartDom = document.getElementById(["price-history-chart" + this.title]); 
 
@@ -127,7 +131,8 @@ async fetchData() {
   },
 
     updateAssets()
-  { 
+  {   this.startDate = this.startDateObj.toISOString().split('T')[0]; //convert from Date 
+      this.endDate = this.endDateObj.toISOString().split('T')[0];
     this.fetchData().then(() => 
 {   
     let data = []
@@ -249,7 +254,18 @@ watch: {
           this.updateAssets()
     }    
   },
-  
+  startDateObj(newValues, oldValues){
+    if ((newValues !== oldValues) && oldValues !=null )
+    {
+          this.updateAssets()
+    }    
+  },
+  endDateObj(newValues, oldValues){
+    if ((newValues !== oldValues) && oldValues !=null )
+    {
+          this.updateAssets()
+    }    
+  },
   }
 };
 </script> 

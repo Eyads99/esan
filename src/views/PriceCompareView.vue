@@ -8,25 +8,53 @@
       multiple
       max = 3
     ></v-combobox>
+    
+    <v-row dense>
+    <v-col cols="12" md="6">
+      <v-date-input
+        label="Starting date"
+        prepend-icon=""
+        prepend-inner-icon="$calendar"
+        variant="solo"
+        v-model="startDate"
+      ></v-date-input>
+
+    </v-col>
+
+    <v-col cols="12" md="6">
+      <v-date-input
+        label="Ending date"
+        prepend-icon=""
+        variant="solo"
+        v-model="endDate"
+      ></v-date-input>
+
+    </v-col>
+  </v-row>
+
     <v-checkbox label="Normalize" value=true v-model=normalize></v-checkbox>
-    <PriceHistoryChart :assetsNames="assetsNames" :normalize=normalize title="title"/>
+    <PriceHistoryChart :assetsNames="assetsNames" :normalize=normalize title="title" :startDateObj="startDate" :endDateObj="endDate"/>
     <!-- <v-range-slider v-model="dateRange"
         strict> </v-range-slider> -->
   </v-col>
   </template>
   
   <script> 
+  import { VDateInput } from 'vuetify/labs/VDateInput'
   import PriceHistoryChart from "/src/components/PriceHistoryChart.vue"
+  
   export default {
     name: "PriceCompare",
     components: {
-      PriceHistoryChart
+      PriceHistoryChart,
+      VDateInput,
     },
     data() {
       return {
         assetsNames: ['ORAS','ABUK','AZ-SAVE'],
         normalize: false,
-        dateRange : [2, 95],
+        startDate: new Date('2018-01-01'),
+        endDate: new Date('2024-12-31'),
         EGX30TickerList: [
         "ABUK",
         "ADIB",
