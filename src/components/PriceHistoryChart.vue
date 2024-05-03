@@ -39,13 +39,16 @@ export default {
         
         let stockData = []
         let datesList = this.makeDateList(Object.keys(toRaw(this.assets)[asset])) 
+        let startdateObj  = new Date(this.startDate)
+        let endDateObj = new Date(this.endDate)
+
         for (let i = 0; i < datesList.length; i++) {
-          let datei = datesList[i]
-          let dateiObj = new Date(datei)
+          //let datei = datesList[i] redundant
+          let dateiObj = new Date(datesList[i])
           
           
-          if ( dateiObj < new Date(this.startDate)) continue; //do not add this date if before starting date
-          if ( dateiObj > new Date(this.endDate)) break; //do not add this date if after ending date
+          if ( dateiObj < startdateObj) continue; //don't add this date if before starting date
+          if ( dateiObj > endDateObj) break; //don't add this date if after ending date
           
           let value = Object.values(toRaw(this.assets)[asset])[i]==="NaN" ? Number.NaN : Object.values(toRaw(this.assets)[asset])[i]
           stockData.push([datesList[i], value])             
@@ -177,10 +180,9 @@ async fetchData() {
         let endDateObj = new Date(this.endDate)
         for (let i = 0; i < datesList.length; i++) {
           
-          let datei = datesList[i]
-          let dateiObj = new Date(datei)
-          
-          
+          //let datei = datesList[i] redundant
+          let dateiObj = new Date(datesList[i])
+                    
           if ( dateiObj < startdateObj) continue; //do not add this date if before starting date
           if ( dateiObj > endDateObj) break; //do not add this date if after ending date
 
