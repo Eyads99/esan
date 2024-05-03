@@ -1,8 +1,10 @@
 <template>
-  <v-container fluid fill-height>
-    <div class="font" style="width: 60%; height: 8%">
+  <div class="blank-space"></div>
+      <div class="font" style=" width: 85%; height: 8%">
       {{ title }}
     </div>
+  <v-container fluid fill-height>
+
     <div class="blank-space"></div>
     <th>{{ maxBarValue }}</th>
 
@@ -484,7 +486,7 @@ export default {
   font-size: 30px;
   font-family: Cascadia code;
   background-color: #a29cb8;
-  border-radius: 10pc;
+  border-radius: 12pc;
   /*text-align: right;*/
 }
 .blank-space {

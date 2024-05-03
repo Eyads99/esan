@@ -69,8 +69,8 @@ export default {
               type: "slider",
               //xAxisIndex: 0,
               zoomLock: false,
-              width: 1200, // width of the zoom bar on user screen
-              right: 120, // how much it is shifted right on user screen
+              //width: 1200, // width of the zoom bar on user screen
+              //right: 120, // how much it is shifted right on user screen
               minValueSpan: 979999999, //min # of dates to show should equal about a week
               //maxValueSpan: 2500, 
               //startValue: 0, //start and end represent the # points of chart to show by default
@@ -82,7 +82,7 @@ export default {
 
       xAxis: { type: 'time',
               //min: 'dataMin',
-              axisLabel: {formatter: '{yyyy}-{MM}-{dd}'}
+              axisLabel: {formatter: '{yyyy}-{MM}-{dd}', hideOverlap: true}
             },
       // Declare a y-axis (value axis).
       yAxis: { type: 'value', name:"Price"},

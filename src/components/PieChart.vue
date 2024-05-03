@@ -52,15 +52,15 @@ export default {
           label: {
             show: true,
             position: "outside",
-            formatter: "{b}: {c} ({d}%)",
+            formatter: "{b}: {c} ", //({d}%) remove percentage from label
             color: "#000",
             fontFamily: "Cascadia code",
-            fontSize: "20",
+            fontSize: "18",
           },
           emphasis: {
             label: {
-              show: false,
-              fontSize: "20",
+              show: true,
+              fontSize: "18",
               //fontWeight: "bold",
             },
           },

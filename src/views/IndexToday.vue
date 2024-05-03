@@ -1,7 +1,7 @@
 <template>
     <v-app style="background-color: lavender;">
         <v-main >
-          <h1>EGX Today</h1>          
+          <h1>EGX {{indexSelection }} Today </h1>          
           <v-btn-toggle
               v-model="indexSelection"
               background-color="primary"
@@ -17,12 +17,13 @@
             </v-btn-toggle>
     
           <v-container fluid >
-            <v-row no-gutters>              
+            <v-row no-gutters>
+            <v-col cols="12" md="6" justify="center">
               <div v-if="idxPointShow">
                 <v-card elevated class="card-margin">
                 
                   <h3>EGX{{indexSelection}} Today</h3>
-
+                
                 <v-layout justify-center>
                   <TodayBar align="left" justify="left" :dailyChange="idxDailyChgShow" :currentPoints="idxPointShow" :YtDate="idxYtDate"/>
                 </v-layout>
@@ -35,17 +36,17 @@
                 </v-card>
                 </div>
             
-                <div v-if="gainers">
-              <v-card style="height: 35vh" elevated class="card-margin">
-                <h3>Market Movement</h3>
-               <PieChart style=" height: 100%" :gainers="gainers" :losers="losers" ID="GL" />
-              </v-card>
-              </div>
-              <div v-else>
-                <v-card loading>Loading Pie Chart</v-card></div>
-                            
-                <v-col
-              cols="12" md="12" justify="center">
+                    <div v-if="gainers">
+                  <v-card style="height: 35vh" elevated class="card-margin">
+                    <h3>Market Movement</h3>
+                  <PieChart style=" height: 100%" :gainers="gainers" :losers="losers" ID="GL" />
+                  </v-card>
+                  </div>
+                  <div v-else>
+                    <v-card loading>Loading Pie Chart</v-card>
+                  </div>
+                </v-col>        
+            <v-col cols="12" md="12" justify="center">
     
              <div v-if="topstockChgs">
               <v-card elevated class="card-margin">
@@ -53,16 +54,15 @@
                 :labels="topStockNames"
                 :values="topstockChgs"
                 dataZoom = True 
-                title="Stock Market Today"
-              />
-            </v-card>
-            </div>
-            <div v-else>
-              <v-card loading>
-              Loading EGX stocks
-              </v-card>
-            </div>
-           
+                title="Movement Today"/>
+                </v-card>
+                </div>
+                <div v-else>
+                  <v-card loading>
+                  Loading EGX stocks
+                  </v-card>
+                </div>
+              
               </v-col>
             </v-row>
           </v-container>

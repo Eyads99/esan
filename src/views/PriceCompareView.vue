@@ -11,16 +11,15 @@
     
     <v-row dense>
     <v-col cols="12" md="6">
-    <div class="d-flex justify-center">
+<!--     <div class="d-flex justify-center">
     <v-date-input
        v-model="dateRange"
       label="Select range"
       max-width="7500"
       multiple="range"
-      min="1998-01-01 00:00:00.000"
-      >
+      min="1998-01-01 00:00:00.000">
     </v-date-input>
-  </div>
+  </div> -->
       <v-date-input
         label="Starting date"
         prepend-icon=""

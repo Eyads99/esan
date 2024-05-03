@@ -21,8 +21,40 @@
       EGX {{ indexSelection }}
 
       <v-container fluid>
-        <v-row no-gutters>
+        <v-row no-gutters>          
+
           <v-col cols="12" md="5" justify="center">
+            <div v-if="topstockChgs">
+              <v-card  elevated class="card-margin">
+                <BarChart
+                  style=""
+                  :labels="topStockNames"
+                  :values="topstockChgs"
+                  title="Market today"
+                />
+              </v-card>
+            </div>
+            <div v-else>
+              <v-card loading> Loading EGX stocks </v-card>
+            </div>
+            <div v-if="gainers">
+              
+              <v-card elevated class="card-margin">
+                <h3>Market Movement</h3>
+                <PieChart
+                  style="height: 100%"
+                  :gainers="gainers"
+                  :losers="losers"
+                  ID="GL"
+                />
+              </v-card>
+            </div>
+            <div v-else>
+              <v-card loading>Loading Pie Chart</v-card>
+            </div>
+          </v-col>
+
+          <v-col cols="12" md="7" justify="center">
             <v-card elevated class="card-margin">
               <BarChart
                 style="height: 100%"
@@ -53,35 +85,6 @@
             </div>
           </v-col>
 
-          <v-col cols="12" md="5" justify="center">
-            <div v-if="topstockChgs">
-              <v-card  elevated class="card-margin">
-                <BarChart
-                  style=""
-                  :labels="topStockNames"
-                  :values="topstockChgs"
-                  title="Market today"
-                />
-              </v-card>
-            </div>
-            <div v-else>
-              <v-card loading> Loading EGX stocks </v-card>
-            </div>
-            <div v-if="gainers">
-              <h3>Market Movement</h3>
-              <v-card elevated class="card-margin">
-                <PieChart
-                  style="height: 100%"
-                  :gainers="gainers"
-                  :losers="losers"
-                  ID="GL"
-                />
-              </v-card>
-            </div>
-            <div v-else>
-              <v-card loading>Loading Pie Chart</v-card>
-            </div>
-          </v-col>
         </v-row>
       </v-container>
     </v-main>
