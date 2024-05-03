@@ -11,13 +11,24 @@
     
     <v-row dense>
     <v-col cols="12" md="6">
+    <div class="d-flex justify-center">
+    <v-date-input
+       v-model="dateRange"
+      label="Select range"
+      max-width="7500"
+      multiple="range"
+      min="1998-01-01 00:00:00.000"
+      >
+    </v-date-input>
+  </div>
       <v-date-input
         label="Starting date"
         prepend-icon=""
         prepend-inner-icon="$calendar"
         variant="solo"
-        v-model="startDate"
-      ></v-date-input>
+        min="1998-01-01 00:00:00.000"
+        v-model="startDate">
+      </v-date-input>
 
     </v-col>
 
@@ -26,14 +37,14 @@
         label="Ending date"
         prepend-icon=""
         variant="solo"
-        v-model="endDate"
-      ></v-date-input>
+        v-model="endDate">
+      </v-date-input>
 
     </v-col>
   </v-row>
 
     <v-checkbox label="Normalize" value=true v-model=normalize></v-checkbox>
-    <PriceHistoryChart :assetsNames="assetsNames" :normalize=normalize title="title" :startDateObj="startDate" :endDateObj="endDate"/>
+    <PriceHistoryChart :assetsNames="assetsNames" :normalize=normalize :startDateObj="startDate" :endDateObj="endDate" :dateRange="dateRange" title="title" />
     <!-- <v-range-slider v-model="dateRange"
         strict> </v-range-slider> -->
   </v-col>
@@ -54,7 +65,8 @@
         assetsNames: ['ORAS','ABUK','AZ-SAVE'],
         normalize: false,
         startDate: new Date('2018-01-01'),
-        endDate: new Date('2024-12-31'),
+        endDate: new Date(),//today
+        dateRange: [new Date('2018-01-01'), new Date()],
         EGX30TickerList: [
         "ABUK",
         "ADIB",

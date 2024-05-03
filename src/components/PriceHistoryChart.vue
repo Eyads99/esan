@@ -13,7 +13,7 @@ import { db } from "/src/firebase/init";
 
 export default {
   name: "PriceHistoryChart",
-  props: ["assetsNames", "title", "normalize","startDateObj","endDateObj"],
+  props: ["assetsNames", "title", "normalize","startDateObj","endDateObj","dateRange"],
   data() {
     return {
       assets : {},
@@ -23,10 +23,10 @@ export default {
   },
   
     mounted() {
-      console.log(this.startDateObj, this.endDateObj)
+      
       this.startDate = this.startDateObj.toISOString().split('T')[0]; //convert from Date 
       this.endDate = this.endDateObj.toISOString().split('T')[0];
-      console.log(this.startDate, this.endDate)
+      
     //window.addEventListener('resize', this.handleResize); //this is to handle zoom in/out from browser
     const chartDom = document.getElementById(["price-history-chart" + this.title]); 
 
@@ -155,7 +155,7 @@ async fetchData() {
         let basePrice = 1
         for (let i = 0; i < prices.length; i++) 
         {
-          if (!isNaN(toRaw(prices[i]))) 
+          if (!isNaN(toRaw(prices[i]))  &&  new Date (datesList[i]) >= new Date(this.startDate)) 
           {
             basePrice = toRaw(prices[i])
             break;
@@ -166,7 +166,7 @@ async fetchData() {
         
         for (let i = 0; i < datesList.length; i++) {      
           //let value = Object.values(toRaw(this.assets)[asset])[i]==="NaN" ? Number.NaN : Object.values(toRaw(this.assets)[asset])[i]
-          
+          //TODO take into account date range prop
           stockData.push([datesList[i], prices[i]==="NaN" ? Number.NaN : prices[i] ])             
         }
             
@@ -257,12 +257,16 @@ watch: {
   startDateObj(newValues, oldValues){
     if ((newValues !== oldValues) && oldValues !=null )
     {
+      this.startDate = this.startDateObj.toISOString().split('T')[0]; //convert from Date 
+      this.endDate = this.endDateObj.toISOString().split('T')[0];
           this.updateAssets()
     }    
   },
   endDateObj(newValues, oldValues){
     if ((newValues !== oldValues) && oldValues !=null )
     {
+      this.startDate = this.startDateObj.toISOString().split('T')[0]; //convert from Date 
+      this.endDate = this.endDateObj.toISOString().split('T')[0];
           this.updateAssets()
     }    
   },
