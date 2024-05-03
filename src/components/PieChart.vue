@@ -106,25 +106,8 @@ export default {
             name: "Gainers and Losers",
             type: "pie",
             radius: ["00%", "50%"],
-            avoidLabelOverlap: true,
-            label: {
-              show: true,
-              position: "outside",
-              formatter: "{b}: {c} ({d}%)",
-              textStyle: {
-                color: "black",
-                fontFamily: "Cascadia code",
-                fontWeight: "bold",
-                fontSize: "28",
-              },
-            },
-            emphasis: {
-              label: {
-                show: true,
-                fontSize: "15",
-                fontWeight: "bold",
-              },
-            },
+            avoidLabelOverlap: true,            
+
             data: [
               {
                 value: this.gainers,

@@ -1,7 +1,7 @@
 <template>
-  <v-app style="background-color: #878494">
+  <v-app style="background-color: lavender">
     <v-main>
-      <h1 style="color: white">Egyptian stock market performance today</h1>
+      <h1 style="color: black">Egyptian stock market performance today</h1>
       <v-btn @click="reverseOrder">Top / Bottom 5</v-btn>
       --
       <v-btn-toggle
