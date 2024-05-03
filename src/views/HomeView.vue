@@ -262,7 +262,7 @@ export default {
       //deals with todayBar data
       const idx = "EGX" + this.indexSelection;
       this.idxDailyChgShow = (this.indexChgs[idx] * 100).toFixed(2);
-      this.idxPointShow = this.indexPoints[idx];
+      this.idxPointShow = (this.indexPoints[idx]).toFixed(1);
       this.idxYtDate = (
         ((this.idxPointShow - this.idxBeginYTDValues[idx]) /
           this.idxBeginYTDValues[idx]) *
