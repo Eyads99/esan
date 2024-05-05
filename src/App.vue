@@ -4,7 +4,8 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> |
       <router-link to="/IndexToday">Index Today</router-link> |
-      <router-link to="/priceCompare">Asset Compare</router-link>
+      <router-link to="/priceCompare">Asset Compare</router-link> |
+      <router-link to="/assetView">Asset View</router-link>
     </nav>
     <v-main>
       <router-view />

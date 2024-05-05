@@ -18,15 +18,17 @@ const routes = [
   {
     path: '/indexToday',
     name: 'indexToday',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () => import('../views/IndexToday.vue')
   },
   {
     path: '/priceCompare',
     name: 'priceCompare',
     component: () => import('../views/PriceCompareView.vue')
+  },
+  {
+    path : '/assetView/:ticker',
+    name : 'assetView',
+    component : () => import('../views/AssetView.vue')
   }
 ]
 

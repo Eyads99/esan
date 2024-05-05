@@ -452,7 +452,7 @@ export default {
 
     async getStockName(ticker) {
       if (!this.stockTickersDict) {
-        // Fetch JSON data only once (efficiency)
+        // Fetch JSON data only once 
         try {
           const response = await fetch("/src/data/company_data");
           if (!response.ok) {
