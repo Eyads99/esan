@@ -40,7 +40,7 @@ export default{
       ptb: null,
       rev: null,
       startDate: new Date('2008-01-01'),
-      endDate: new Date(),//today
+      endDate: new Date(), 
       dateRange: [new Date('2018-01-01'), new Date()],
 
     }
@@ -57,8 +57,8 @@ export default{
         this.industry = this.data.industry
         this.margin = (this.data.margin).toFixed(2)
         this.profit = (this.data.profit)
-        this.ptb = (this.data.ptb)
-        this.rev = (this.data.rev)
+        this.ptb = (this.data.ptb).toFixed(2)
+        this.rev = (this.data.rev).toFixed(2)
       }
       )
       
