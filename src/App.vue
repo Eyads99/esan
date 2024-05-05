@@ -2,8 +2,8 @@
   <v-app>
     <nav>
       <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>|
-      <router-link to="/IndexToday">Index Today</router-link>|
+      <router-link to="/about">About</router-link> |
+      <router-link to="/IndexToday">Index Today</router-link> |
       <router-link to="/priceCompare">Asset Compare</router-link>
     </nav>
     <v-main>
