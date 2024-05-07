@@ -1,4 +1,5 @@
 <template>
+<h2>UNDER CONSTRUCTION</h2>
 <h1>{{ $route.params.ticker }}</h1>
 <h2>{{ getCompanyName($route.params.ticker) }}</h2>
 <v-card elevated class="card-margin">
