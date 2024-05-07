@@ -66,7 +66,7 @@
 
             <div v-if="idxPointShow">
               <v-card elevated class="card-margin">
-                <v-layout justify-center>
+                
                   <div class="today-bar">
                     <TodayBar
                       class="fill-height"
@@ -77,7 +77,7 @@
                       :YtDate="idxYtDate"
                     />
                   </div>
-                </v-layout>
+                
               </v-card>
             </div>
             <div v-else>

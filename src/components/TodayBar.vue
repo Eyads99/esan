@@ -1,6 +1,6 @@
 <template>
   <v-table
-    style="width: 100%; text-align: left; padding-left: 0px"
+    style=" text-align: center; padding-left: 0px"
     id="TodayBar"
   >
     <tr class="title">
@@ -16,9 +16,7 @@
         <span style="font-size: 18px" class="highlight">Current Points</span>
       </td>
       <td>
-        <span style="font-size: 18px" class="highlight"
-          >Year-to-Date performance</span
-        >
+        <span style="font-size: 18px" class="highlight">YTD performance</span>
       </td>
     </tr>
   </v-table>
@@ -68,10 +66,10 @@ export default {
 }
 #TodayBar th,
 #TodayBar td {
-  padding-left: 20px;
+  padding-left: 0px;
 }
 .title {
-  font-size: 200%;
+  font-size: 25px;
 }
 .highlight {
   color: #5a5f6e;

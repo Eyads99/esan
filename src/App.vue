@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <nav>
+    <nav style="font-size: 18px">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> |
       <router-link to="/IndexToday">Index Today</router-link> |
