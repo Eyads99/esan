@@ -85,7 +85,7 @@ export default {
 
       xAxis: { type: 'time',
               //min: 'dataMin',
-              axisLabel: {formatter: '{yyyy}-{MM}-{dd}', hideOverlap: true, padding:2}
+              axisLabel: {formatter: '{yyyy}-{MM}-{dd}', hideOverlap: true, padding:3}
             },
       // Declare a y-axis (value axis).
       yAxis: { type: 'value', name:"Price"},
