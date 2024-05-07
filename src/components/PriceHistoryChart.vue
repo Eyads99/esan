@@ -170,7 +170,14 @@ async fetchData() {
         for (let i = 0; i < datesList.length; i++) {      
           //let value = Object.values(toRaw(this.assets)[asset])[i]==="NaN" ? Number.NaN : Object.values(toRaw(this.assets)[asset])[i]
           //TODO take into account date range prop
+          console.log("datesList[i]",new Date(datesList[i]))
+          console.log("new Date(this.startDate)",new Date(this.startDate))
+          console.log("new Date(this.endDate)",new Date(this.endDate))
+          console.log(new Date(datesList[i])>= new Date(this.startDate) && datesList[i]<= new Date(this.endDate))
+          if ( new Date(datesList[i])>= new Date(this.startDate) && new Date(datesList[i])<= new Date(this.endDate))
+          {
           stockData.push([datesList[i], prices[i]==="NaN" ? Number.NaN : prices[i] ])             
+          }
         }
             
       }
