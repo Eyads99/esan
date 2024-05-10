@@ -5,5 +5,10 @@ const i18n = createI18n({
     locale: 'en',
     messages,
   })
+
+  export const supportedLocales = {
+    'en': { name: 'English' },
+    'ar': { name: 'العربية (Arabic)' },
+  }
   
 export default i18n
