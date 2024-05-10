@@ -265,8 +265,7 @@ export default {
       this.idxPointShow = (this.indexPoints[idx]).toFixed(1);
       this.idxYtDate = (
         ((this.idxPointShow - this.idxBeginYTDValues[idx]) /
-          this.idxBeginYTDValues[idx]) *
-        100
+          this.idxBeginYTDValues[idx]) * 100
       ).toFixed(2);
 
       // deals with top stocks

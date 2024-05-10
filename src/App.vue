@@ -1,11 +1,11 @@
 <template>
   <v-app>
     <nav style="font-size: 18px">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link> |
-      <router-link to="/IndexToday">Index Today</router-link> |
-      <router-link to="/priceCompare">Asset Compare</router-link> |
-      <router-link to="/assetView">Asset View</router-link>
+      <router-link to="/">{{ $t('home') }}</router-link> |
+      <router-link to="/about">{{ $t('about') }}</router-link> |
+      <router-link to="/IndexToday">{{ $t('indexToday') }}</router-link> |
+      <router-link to="/priceCompare">{{ $t('assetCompare') }}</router-link> |
+      <router-link to="/assetView">{{ $t('assetView') }}</router-link>
     </nav>
     <v-main>
       <router-view />
