@@ -23,6 +23,12 @@ export default {
         this.updateChart();
       }
     },
+
+    "$i18n.locale"(newLocale, oldLocale) {
+      if (newLocale !== oldLocale) {
+        this.updateChart();
+      }
+    },
   },
 
   mounted() {
@@ -40,7 +46,7 @@ export default {
         left: "left",
         top: "top",
         right: "10%",
-        bottom: "0%",
+        bottom: "5%",
         containLabel: true,
       },
       series: [
@@ -67,12 +73,12 @@ export default {
           data: [
             {
               value: this.gainers,
-              name: "Gainers",
+              name: this.$t('gainers'),
               itemStyle: { color: "#0652c5" },
             }, // Blue
             {
               value: this.losers,
-              name: "Losers",
+              name: this.$t('losers'),
               itemStyle: { color: "#e1e1e1" },
             }, // Grey
           ],
@@ -111,12 +117,12 @@ export default {
             data: [
               {
                 value: this.gainers,
-                name: "Gainers",
+                name: this.$t('gainers'),
                 itemStyle: { color: "#0652c5" },
               }, // Blue
               {
                 value: this.losers,
-                name: "Losers",
+                name: this.$t('losers'),
                 itemStyle: { color: "#e1e1e1" },
               }, // Grey
             ],

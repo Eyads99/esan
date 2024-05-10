@@ -8,7 +8,7 @@ const i18n = createI18n({
 
   export const supportedLocales = {
     'en': { name: 'English' },
-    'ar': { name: 'العربية (Arabic)' },
+    'ar': { name: 'العربية' },
   }
   
 export default i18n

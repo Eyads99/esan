@@ -1,7 +1,7 @@
 <template>
   <v-app style="background-color: lavender">
     <v-main>
-      <h1 style="color: black">Egyptian stock market performance today</h1>
+      <h1 style="color: black">{{ $t('homeTitle') }}</h1>
       <v-btn @click="reverseOrder">Top / Bottom 5</v-btn>
       --
       <v-btn-toggle
@@ -30,17 +30,16 @@
                   style=""
                   :labels="topStockNames"
                   :values="topstockChgs"
-                  title="Market today"
+                  :title="$t('homeTitle')"
                 />
               </v-card>
             </div>
             <div v-else>
               <v-card loading> Loading EGX stocks </v-card>
             </div>
-            <div v-if="gainers">
-              
+            <div v-if="gainers">              
               <v-card elevated class="card-margin">
-                <h3>Market Movement</h3>
+                <h3>{{ $t('marketMovement') }}</h3>
                 <PieChart
                   style="height: 100%"
                   :gainers="gainers"
@@ -58,7 +57,7 @@
             <v-card elevated class="card-margin">
               <BarChart
                 style="height: 100%"
-                title="Sectoral Performance"
+                :title="$t('sectoralPerformance')"
                 :labels="sectors"
                 :values="sectorChg"
               />

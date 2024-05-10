@@ -24,8 +24,8 @@
                 
                   <h3>EGX{{indexSelection}} Today</h3>
                 
-                <v-layout justify-center>
-                  <TodayBar align="left" justify="left" :dailyChange="idxDailyChgShow" :currentPoints="idxPointShow" :YtDate="idxYtDate"/>
+                <v-layout flex align-center>
+                  <TodayBar  :dailyChange="idxDailyChgShow" :currentPoints="idxPointShow" :YtDate="idxYtDate"/>
                 </v-layout>
 
                 </v-card>
@@ -38,7 +38,7 @@
             
                     <div v-if="gainers">
                   <v-card style="height: 35vh" elevated class="card-margin">
-                    <h3>Market Movement</h3>
+                    <h3>{{ $t('marketMovement') }}</h3>
                   <PieChart style=" height: 100%" :gainers="gainers" :losers="losers" ID="GL" />
                   </v-card>
                   </div>
@@ -54,7 +54,7 @@
                 :labels="topStockNames"
                 :values="topstockChgs"
                 dataZoom = True 
-                title="Movement Today"/>
+                :title="$t('movementToday')"/>
                 </v-card>
                 </div>
                 <div v-else>

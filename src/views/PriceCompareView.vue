@@ -2,7 +2,7 @@
   <v-col cols="12"  md="11" justify="center">
     <v-combobox
       clearable
-      label="Stocks"
+      :label="$t('stocks')"
       :items = EGXTickerList
       v-model = "assetsNames"
       multiple
@@ -21,7 +21,7 @@
     </v-date-input>
   </div> -->
       <v-date-input
-        label="Starting date"
+        :label="$t('startingDate')"
         prepend-icon=""
         prepend-inner-icon="$calendar"
         variant="solo"
@@ -33,7 +33,7 @@
 
     <v-col cols="12" md="6">
       <v-date-input
-        label="Ending date"
+        :label="$t('endingDate')"
         prepend-icon=""
         variant="solo"
         v-model="endDate">

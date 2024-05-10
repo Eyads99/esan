@@ -1,6 +1,9 @@
 <template>
     <!-- Internally, we're just using Vue's 
-         good old router link -->
+         good old router link 
+        
+        This is probably not needed
+        -->
     <router-link :to="localizedUrl">
       <slot></slot>
     </router-link>

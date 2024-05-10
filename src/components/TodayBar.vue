@@ -10,13 +10,13 @@
     </tr>
     <tr>
       <td>
-        <span style="font-size: 18px" class="highlight">Daily Change</span>
+        <span style="font-size: 18px" class="highlight">{{ $t('dailyChange') }}</span>
       </td>
       <td>
-        <span style="font-size: 18px" class="highlight">Current Points</span>
+        <span style="font-size: 18px" class="highlight">{{ $t('points') }}</span>
       </td>
       <td>
-        <span style="font-size: 18px" class="highlight">YTD performance</span>
+        <span style="font-size: 18px" class="highlight">{{ $t('YTDPerformance') }}</span>
       </td>
     </tr>
   </v-table>
