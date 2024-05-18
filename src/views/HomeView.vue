@@ -42,7 +42,7 @@
             </div>
             <div v-if="gainers">              
               <v-card elevated class="card-margin">
-                <h3>{{ $t('marketMovement') }}</h3>
+                <Text style="font-size: 30px">{{ $t('marketMovement') }}</Text>
                 <PieChart
                   style="height: 100%"
                   :gainers="gainers"
