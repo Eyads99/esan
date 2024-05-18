@@ -1,4 +1,7 @@
 <template>
+    <head>
+    <meta name="about" content="About page" />
+  </head>
   <div class="about">
     <br>
     <br>
