@@ -1,4 +1,7 @@
 <template>
+  <head>
+    <meta name="AssetCompare" content="asset compare" />
+  </head>
   <v-col cols="12"  md="11" justify="center">
     <v-combobox
       clearable
@@ -63,9 +66,9 @@
       return {
         assetsNames: ['ORAS','ABUK','AZ-SAVE'],
         normalize: false,
-        startDate: new Date('2018-01-01'),
+        startDate: new Date('2020-01-01'),
         endDate: new Date(),//today
-        dateRange: [new Date('2018-01-01'), new Date()],
+        dateRange: [new Date('2020-01-01'), new Date()],
         EGX30TickerList: [
         "ABUK",
         "ADIB",
