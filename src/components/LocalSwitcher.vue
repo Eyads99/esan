@@ -1,5 +1,6 @@
 <template>
     <select
+      aria-label="Language Selector"
       :value="$i18n.locale"
       @change="onLocaleChange($event)">
       <option 
