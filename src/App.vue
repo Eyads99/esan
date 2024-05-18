@@ -1,11 +1,11 @@
 <template>
   <v-app>
-    <nav style="font-size: 18px">
-      <router-link to="/">{{ $t('home') }}</router-link> |
-      <router-link to="/about">{{ $t('about') }}</router-link> |
+    <nav style="font-size: 20px; margin: 10px">
+      <router-link to="/">{{ $t('home') }}</router-link> |      
       <router-link to="/IndexToday">{{ $t('indexToday') }}</router-link> |
-      <router-link to="/priceCompare">{{ $t('assetCompare') }}</router-link> |
+      <router-link to="/priceCompare">{{ $t('assetCompare') }}</router-link> |      
       <router-link to="/assetView">{{ $t('assetView') }}</router-link> |
+      <router-link to="/about">{{ $t('about') }}</router-link> |
       <LocaleSwitcher></LocaleSwitcher>
     </nav>
     <v-main>
