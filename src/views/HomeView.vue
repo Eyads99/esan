@@ -5,7 +5,7 @@
   <v-app style="background-color: lavender">
     <v-main>
       <h1 style="color: black">{{ $t('homeTitle') }}</h1>
-      <v-btn @click="reverseOrder">Top / Bottom 5</v-btn>
+      <v-btn style="font-size: 20px; margin: 5px" @click="reverseOrder">Top / Bottom 5</v-btn>
       --
       <v-btn-toggle
         v-model="indexSelection"
@@ -25,10 +25,9 @@
 
       <v-container fluid>
         <v-row no-gutters>          
-
           <v-col cols="12" md="5" justify="center">
             <div v-if="topstockChgs">
-              <v-card  elevated class="card-margin">
+              <v-card elevated class="card-margin">
                 <BarChart
                   style=""
                   :labels="topStockNames"

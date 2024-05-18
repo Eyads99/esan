@@ -1,5 +1,5 @@
 <template>
-    <head>
+  <head>
     <meta name="about" content="About page" />
   </head>
   <div class="about">
