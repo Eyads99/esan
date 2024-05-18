@@ -38,7 +38,9 @@
               </v-card>
             </div>
             <div v-else>
-              <v-card loading> Loading EGX stocks </v-card>
+              <v-card loading elevated class="card-margin">      
+                  <BarChart :title="$t('homeTitle')" />
+              </v-card>
             </div>
             <div v-if="gainers">              
               <v-card elevated class="card-margin">
@@ -52,7 +54,10 @@
               </v-card>
             </div>
             <div v-else>
-              <v-card loading>Loading Pie Chart</v-card>
+              <v-card loading elevated class="card-margin">
+                <Text style="font-size: 30px">{{ $t('marketMovement') }}</Text>
+                <PieChart style="height: 100%"/>
+              </v-card>
             </div>
           </v-col>
 
