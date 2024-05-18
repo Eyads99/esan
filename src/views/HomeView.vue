@@ -451,31 +451,6 @@ export default {
   margin-bottom: 30px;
 }
 
-.bar-chart-container {
-  display: flex;
-  justify-content: space-between;
-}
-
-.bar-chart {
-  display: flex;
-}
-
-.bar {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-right: 10px;
-}
-
-.bar-label {
-  margin-bottom: 5px;
-}
-
-.bar-value {
-  font-weight: bold;
-}
-
 .today-bar {
   background-color: rgb(255, 255, 255);
   padding: 7px;
