@@ -30,6 +30,12 @@ const routes = [
     name : 'assetView',
     component : () => import('../views/AssetView.vue')
   }
+  ,
+  {
+    path : '/robots.txt',
+    name : 'robots',
+    component : () => import('../views/RobotsTXT.vue')
+  }
 ]
 
 const router = createRouter({
