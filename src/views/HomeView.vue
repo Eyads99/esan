@@ -1,4 +1,7 @@
 <template>
+  <head>
+    <meta name="description" content="Home page" />
+  </head>
   <v-app style="background-color: lavender">
     <v-main>
       <h1 style="color: black">{{ $t('homeTitle') }}</h1>
