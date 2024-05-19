@@ -22,18 +22,14 @@
               <div v-if="idxPointShow">
                 <v-card elevated class="card-margin">
                 
-                  <h3>EGX{{indexSelection}} Today</h3>
-                
-                <v-layout flex align-center>
-                  <div class="today-bar" style="margin: 10px; padding: 7px; ">
-                    <TodayBar 
-                    class="fill-height"
-                    align="left"
-                    justify="left"                    
-                    :dailyChange="idxDailyChgShow" :currentPoints="idxPointShow" :YtDate="idxYtDate"/>
+                  <h3>EGX{{indexSelection}} Today</h3>                            
+                  <div elevated class="card-margin">                                 
+                    <TodayBar                      
+                      align="left"
+                      justify="left"
+                      :dailyChange="idxDailyChgShow" :currentPoints="idxPointShow" :YtDate="idxYtDate"
+                    />
                   </div>
-                </v-layout>
-
                 </v-card>
                 </div>
                 <div v-else>  
