@@ -25,7 +25,13 @@
                   <h3>EGX{{indexSelection}} Today</h3>
                 
                 <v-layout flex align-center>
-                  <TodayBar  :dailyChange="idxDailyChgShow" :currentPoints="idxPointShow" :YtDate="idxYtDate"/>
+                  <div class="today-bar" style="margin: 10px; padding: 7px; ">
+                    <TodayBar 
+                    class="fill-height"
+                    align="left"
+                    justify="left"                    
+                    :dailyChange="idxDailyChgShow" :currentPoints="idxPointShow" :YtDate="idxYtDate"/>
+                  </div>
                 </v-layout>
 
                 </v-card>
@@ -39,7 +45,7 @@
                     <div v-if="gainers">
                   <v-card style="height: 35vh" elevated class="card-margin">
                     <h3>{{ $t('marketMovement') }}</h3>
-                  <PieChart style=" height: 100%" :gainers="gainers" :losers="losers" ID="GL" />
+                  <PieChart style=" height: 95%" :gainers="gainers" :losers="losers" ID="GL" />
                   </v-card>
                   </div>
                   <div v-else>
@@ -61,13 +67,11 @@
                   <v-card loading>
                   Loading EGX stocks
                   </v-card>
-                </div>
-              
+                </div>              
               </v-col>
             </v-row>
           </v-container>
-        </v-main> 
-        
+        </v-main>         
     </v-app>
     </template>
     
@@ -210,6 +214,11 @@
     .bar {
       width: 20px;
       margin-right: 5px;
+    }
+
+    .today-bar {
+      background-color: rgb(255, 255, 255);
+      padding: 7px;
     }
     
     #app {

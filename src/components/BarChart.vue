@@ -1,6 +1,6 @@
 <template>
   <div class="blank-space"></div>
-      <div class="font" style=" width: 85%; height: 8%">
+    <div class="title" style="margin-left: 35px; width: 85%; height: 8%">
       {{ title }}
     </div>
   <v-container fluid fill-height>
@@ -475,7 +475,7 @@ export default {
 </script>
 
 <style scoped>
-.font {
+.title {
   /*position: absolute;*/
   /*top: 0;*/
   color: rgba(21, 25, 88, 0.971);

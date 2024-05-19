@@ -1,4 +1,7 @@
 <template>
+  <head>
+    <meta name="PriceHistory" content="Asset Compare" />
+  </head>
     <v-container fluid fill-height style="height: 95vh;" >
        <div :id="`price-history-chart${title}`" style=" height: 100%"></div>
      </v-container>
@@ -284,3 +287,13 @@ watch: {
   }
 };
 </script> 
+
+<style scoped>
+.card {
+  padding: 20px;
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  
+}
+</style>
