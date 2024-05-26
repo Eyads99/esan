@@ -188,7 +188,8 @@
       "NIPH","MILS","NEDA","NINH","OLFI","OCPH","ODIN","ORAS","OFH","ORHD","OIH","ORWE","EBSC","PHDC","PRDC","PRMH","PHTV",
       "CCAP","QNBA","RACC","RAYA","REAC","RKAZ","ROTO","RTVC","RUBX","SCFM","SIPC","SMFR","SEIG","SNFC","SDTI","SKPC","SCEM",
       "OCDI","SNFI","SVCE","SPMD","SPIN","SCTS","CANA","TMGH","TALM","TANM","TAQA","ETEL","RMDA","MOED","TRTO","UPMS","UASG",
-      "UNIT","UNIP","UEFM","UTOP","VERT","WKOL","ZMID","EGX30","EGX70","EGX100","EGX30Cap","TAMAYOUZ", "AZ-GOLD","AZ-HALAN", "AZ-MENTH", "AZ-MENTH", "AZ-OP","AZ-SAVE", "AZ-VALU", "B Secure","Mid-market EGGOLD", "Misr Takaful Fund"]
+      "UNIT","UNIP","UEFM","UTOP","VERT","WKOL","ZMID","EGX30","EGX70","EGX100","EGX30Cap","TAMAYOUZ", "AZ-GOLD","AZ-HALAN", 
+      "AZ-MENTH", "AZ-MENTH", "AZ-OP","AZ-SAVE", "AZ-VALU","CI30", "B Secure","Mid-market EGGOLD", "Misr Takaful Fund"]
       }
 
     },
