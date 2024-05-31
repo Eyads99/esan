@@ -11,7 +11,7 @@
     
       <br>
     <p>
-      This website is created by Eyad Shaban (Computer Scientist) and Aly Nour (Mechanical Engineer). The purpose of the website is to enable users to gain insight into what happened to the stock market in a chosen period.  
+      This website is created by Eyad Shaban and Aly Nour. This website aims to help any user to gain insights into the Egyptian Stock Market including daily changes and historcal trends.  
     </p>
     <p>
       For more details, please contact us at eyadshaban99@gmail.com
