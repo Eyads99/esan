@@ -7,6 +7,7 @@
       <router-link to="/assetView">{{ $t('assetView') }}</router-link> |
       <router-link to="/about">{{ $t('about') }}</router-link> |
       <LocaleSwitcher></LocaleSwitcher>
+      <v-btn @click="signInWithGoogle">Login with Google</v-btn>
     </nav>
     <v-main>
       <router-view/>
@@ -16,12 +17,24 @@
 
 <script>
 import LocaleSwitcher from '/src/components/LocalSwitcher.vue'
+import { auth, googleProvider, signInWithPopup }from "/src/firebase/init";
 export default {
   name: "App",
 
   data: () => ({
     //
   }),
+
+  methods: {
+    async signInWithGoogle() {
+      try {
+        const result = await signInWithPopup(auth, googleProvider);
+        console.log(result.user);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  },
 
   components: {
     LocaleSwitcher
