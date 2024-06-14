@@ -17,6 +17,10 @@
       For more details, please contact us at eyadshaban99@gmail.com
     </p>
 
+<!--     <p>
+      If you would like to make donation please do so here https://buymeacoffee.com/esaneg
+    </p> -->
+
   </div>
 </template>
 
