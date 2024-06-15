@@ -17,23 +17,60 @@
 
 <script>
 import LocaleSwitcher from '/src/components/LocalSwitcher.vue'
-import { auth, googleProvider, signInWithPopup }from "/src/firebase/init";
+import { auth, googleProvider, signInWithRedirect, signInWithPopup, getRedirectResult   }from "/src/firebase/init";
+
+function isMobileDevice() {
+  return /Mobi|Android/i.test(navigator.userAgent);
+}
+
 export default {
   name: "App",
 
   data: () => ({
-    //
+    user: null
   }),
 
   methods: {
     async signInWithGoogle() {
       try {
-        const result = await signInWithPopup(auth, googleProvider);
+        let result
+        if (isMobileDevice())
+          result = await signInWithRedirect(auth, googleProvider)
+        else
+          result = await signInWithPopup(auth, googleProvider)
+        this.user = result.user;
         console.log(result.user);
       } catch (error) {
         console.error(error);
       }
+    },
+
+
+    async checkAuthState() {
+      try {
+        const result = await getRedirectResult(auth);
+        if (result) {
+          this.user = result.user;
+          console.log(result.user);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+      auth.onAuthStateChanged(user => {
+        if (user) {
+          this.user = user;
+          console.log('User signed in: ', user);
+        } else {
+          this.user = null;
+          console.log('No user signed in');
+        }
+      });
     }
+
+  },
+
+  created() {
+    this.checkAuthState();
   },
 
   components: {
