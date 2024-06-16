@@ -6,8 +6,9 @@
       <router-link to="/priceCompare">{{ $t('assetCompare') }}</router-link> |      
       <router-link to="/assetView">{{ $t('assetView') }}</router-link> |
       <router-link to="/about">{{ $t('about') }}</router-link> |
-      <LocaleSwitcher></LocaleSwitcher>
-      <v-btn @click="signInWithGoogle">Login with Google</v-btn>
+      <router-link v-if="user" to="/PortfolioBuilder">{{ "Portfolio builder" }}</router-link> |
+      <LocaleSwitcher></LocaleSwitcher> |
+      <v-btn v-if="!user" @click="signInWithGoogle">Login with Google</v-btn>
     </nav>
     <v-main>
       <router-view/>
@@ -33,16 +34,18 @@ export default {
   methods: {
     async signInWithGoogle() {
       try {
-        let result
+        //let result
         if (isMobileDevice())
-          result = await signInWithRedirect(auth, googleProvider)
+          await signInWithRedirect(auth, googleProvider)
         else
-          result = await signInWithPopup(auth, googleProvider)
-        this.user = result.user;
-        console.log(result.user);
+          {
+            const result = await signInWithPopup(auth, googleProvider)
+            this.user = result.user;
+            console.log(result.user);
+          }
       } catch (error) {
-        console.error(error);
-      }
+        console.error('Error during sign-in:', error);
+      } 
     },
 
 
@@ -66,7 +69,6 @@ export default {
         }
       });
     }
-
   },
 
   created() {

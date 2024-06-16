@@ -11,8 +11,8 @@
           </select>
         </div>
         <div class="form-group">
-          <label for="percentage">Percentage of Portfolio:</label>
-          <input type="number" v-model="newPercentage" class="form-control" min="1" max="100" required />
+          <label for="unit">Number of Stocks:</label>
+          <input type="number" v-model="newUnits" class="form-control" min="1" max="100000" required />
         </div>
         <button type="submit" class="btn btn-primary mt-3">Add Stock</button>
       </form>
@@ -20,44 +20,81 @@
         <h2>Your Portfolio</h2>
         <ul class="list-group">
           <li v-for="(stock, index) in portfolio" :key="index" class="list-group-item">
-            {{ stock.name }}: {{ stock.percentage }}%
+            {{ stock.name }}: {{ stock.unit }} stocks
             <button @click="removeStock(index)" class="btn btn-danger btn-sm float-right">Remove</button>
           </li>
         </ul>
       </div>
+      <button v-if="portfolio.length > 0" @click="encodePortfolio(portfolio)" class="btn btn-success mt-3">Save Portfolio</button>
+      <button v-if="portfolio.length > 0" @click="decodePortfolio(this.portfolioString)" class="btn btn-success mt-3">Print Portfolio</button>
+
     </div>
   </template>
   
   <script>
+import CryptoJS from 'crypto-js';// remove and uninstall this and Hashing after compression of portfolio done 
+
   export default {
     data() {
       return {
         availableStocks: ['AAPL', 'GOOGL', 'MSFT', 'AMZN', 'TSLA'], // Example stocks
         newStock: '',
-        newPercentage: '',
+        newUnits: '',
         portfolio: [],
+        portfolioString: '',
+        portfolioHash: '',
       };
     },
     methods: {
       addStock() {
-        if (this.newStock && this.newPercentage) {
+        if (this.newStock && this.newUnits) {
           // Check if the stock is already in the portfolio
           if (this.portfolio.some(stock => stock.name === this.newStock)) {
             alert('Stock already in portfolio.');
           } else {
-            this.portfolio.push({
+            this.portfolio.push({              
               name: this.newStock,
-              percentage: this.newPercentage,
+              unit: this.newUnits,
             });
             // Reset input fields
             this.newStock = '';
-            this.newPercentage = '';
+            this.newUnits = '';
           }
         }
       },
       removeStock(index) {
         this.portfolio.splice(index, 1);
       },
+    portfolioToString(portfolio) {
+      return portfolio
+        .map(stock => `${stock.name}:${stock.unit}`)
+        .join(';');
+/*       const entries = (Object.entries(portfolio));
+      entries.sort(([a], [b]) => a.localeCompare(b));      
+      return entries.map(([stock, unit]) => `${stock}:${unit}`).join(';'); */
+
+      },
+    encodePortfolio(portfolio) {
+      const str = this.portfolioToString(portfolio);      
+      this.portfolioString = str;
+      console.log("portfolio string: ", this.portfolioString);
+      const hash = CryptoJS.SHA256(str).toString(CryptoJS.enc.Hex);
+      this.portfolioHash = hash;
+      console.log("portfolio hash", this.portfolioHash)
+      //return { encoded: str, hash: hash };
+      },
+
+    decodePortfolio(encodedStr) {
+      console.log("encodedStr: ", encodedStr)
+      const entries = encodedStr.split(';').map(entry => entry.split(':'));
+      const portfolio = {};
+      for (const [stock, percentage] of entries) {
+          portfolio[stock] = parseInt(percentage);
+      }
+      console.log("decoded portfolio: ", portfolio)
+      return portfolio;
+}
+
     },
   };
   </script>
