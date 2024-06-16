@@ -29,6 +29,11 @@ const routes = [
     path : '/assetView/:ticker',
     name : 'assetView',
     component : () => import('../views/AssetView.vue')
+  },
+  {
+    path: '/PortfolioBuilder',
+    name: 'PortfolioBuilder',
+    component: () => import('../views/FormView.vue')
   }
 ]
 
