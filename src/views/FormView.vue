@@ -25,7 +25,7 @@
           </li>
         </ul>
       </div>
-      <button v-if="portfolio.length > 0" @click="encodePortfolio(portfolio)" class="btn btn-success mt-3">Save Portfolio</button>
+      <button v-if="portfolio.length > 0" @click="saveToUserAccount(portfolio)" class="btn btn-success mt-3">Save Portfolio</button>
       <button v-if="portfolio.length > 0" @click="decodePortfolio(this.portfolioString)" class="btn btn-success mt-3">Print Portfolio</button>
 
     </div>
@@ -33,6 +33,9 @@
   
   <script>
 import CryptoJS from 'crypto-js';// remove and uninstall this and Hashing after compression of portfolio done 
+import { db } from "/src/firebase/init";
+import { getAuth } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
 
   export default {
     data() {
@@ -93,7 +96,23 @@ import CryptoJS from 'crypto-js';// remove and uninstall this and Hashing after 
       }
       console.log("decoded portfolio: ", portfolio)
       return portfolio;
-}
+},
+async saveToUserAccount(portfolio) {     
+        const auth = getAuth();
+        const user = auth.currentUser;
+        this.encodePortfolio(portfolio);
+        if (user) {
+          const uid = user.uid;
+          try {
+            await setDoc(doc(db, 'users', uid), { portfolio: this.portfolioHash }, { merge: true });
+            console.log('Portfolio saved to user account');
+          } catch (error) {
+            console.error('Error saving portfolio to user account: ', error);
+          }
+        } else {
+          console.error('User is not logged in');
+        }
+    },
 
     },
   };
