@@ -34,6 +34,16 @@ const routes = [
     path: '/PortfolioBuilder',
     name: 'PortfolioBuilder',
     component: () => import('../views/FormView.vue')
+  },
+  {
+    path: '/Login',
+    name: 'Login',
+    component: () => import('../views/LoginView.vue')
+  },
+  {
+    path: '/SignUp',
+    name: 'SignUp',
+    component: () => import('../views/SignUpView.vue')
   }
 ]
 

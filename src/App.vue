@@ -8,6 +8,7 @@
       <router-link to="/about">{{ $t('about') }}</router-link> |
       <router-link v-if="user" to="/PortfolioBuilder">{{ "Portfolio builder" }}</router-link> |
       <LocaleSwitcher></LocaleSwitcher> |
+      <router-link to="/login">Login</router-link> |
       <v-btn v-if="!user" @click="signInWithGoogle">Login with Google</v-btn>
     </nav>
     <v-main>
