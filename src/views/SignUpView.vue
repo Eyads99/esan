@@ -21,7 +21,7 @@
   
   <script>
   import { auth } from "@/firebase/init";
-  import { createUserWithEmailAndPassword } from "firebase/auth";
+  import { createUserWithEmailAndPassword, sendEmailVerification  } from "firebase/auth";
   
   export default {
     name: "SignUpView",
@@ -40,7 +40,12 @@
         }
         try {
           await createUserWithEmailAndPassword(auth, this.email, this.password);
+          
+          await sendEmailVerification(auth.currentUser)
+          
+          this.email= ''; this.password= ''; this.confirmPassword= ''; //reset the form
           alert("User registered successfully");
+          this.$router.push("/login");
         } catch (error) {
           alert("Error signing up: " + error.message);
         }

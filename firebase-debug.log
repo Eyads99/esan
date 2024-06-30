@@ -1,0 +1,19 @@
+[debug] [2024-06-30T12:28:47.994Z] ----------------------------------------------------------------------
+[debug] [2024-06-30T12:28:47.997Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\eyads\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only hosting:esan
+[debug] [2024-06-30T12:28:47.997Z] CLI Version:   13.12.0
+[debug] [2024-06-30T12:28:47.997Z] Platform:      win32
+[debug] [2024-06-30T12:28:47.997Z] Node Version:  v21.7.1
+[debug] [2024-06-30T12:28:47.998Z] Time:          Sun Jun 30 2024 15:28:47 GMT+0300 (Eastern European Summer Time)
+[debug] [2024-06-30T12:28:47.998Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-06-30T12:28:48.056Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-06-30T12:28:48.057Z] > authorizing via signed-in user (eyadshaban99@gmail.com)
+[debug] [2024-06-30T12:28:48.057Z] [iam] checking project egxsite for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2024-06-30T12:28:48.058Z] > refreshing access token with scopes: []
+[debug] [2024-06-30T12:28:48.059Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2024-06-30T12:28:48.059Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-06-30T12:28:48.510Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2024-06-30T12:28:48.510Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-06-30T12:28:48.516Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/egxsite:testIamPermissions [none]
+[debug] [2024-06-30T12:28:48.516Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/egxsite:testIamPermissions x-goog-quota-user=projects/egxsite
+[debug] [2024-06-30T12:28:48.516Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/egxsite:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}

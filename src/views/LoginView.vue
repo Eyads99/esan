@@ -1,7 +1,7 @@
 <template>
     <div class="container mt-5">
       <h1>Login</h1>
-      <form @submit.prevent="signInWithEmailAndPassword">
+      <form @submit.prevent="signInWithEmail">
         <div class="form-group">
           <label for="email">Email:</label>
           <input type="email" v-model="email" class="form-control" required />
@@ -21,7 +21,7 @@
 
 <script> 
 import { auth, googleProvider, signInWithRedirect, signInWithPopup, /* getRedirectResult */   }from "/src/firebase/init";
-
+import { signInWithEmailAndPassword } from "firebase/auth";
 function isMobileDevice() {
   return /Mobi|Android/i.test(navigator.userAgent);
 }
@@ -54,9 +54,10 @@ export default {
         console.error('Error during sign-in:', error);
       } 
     },
-    async signInWithEmailAndPassword() {
+    async signInWithEmail() {
           try {
-            await auth.signInWithEmailAndPassword(this.email, this.password);
+            await signInWithEmailAndPassword(auth, this.email, this.password)
+            .then(() => this.$router.push('/'));
             this.email = '';
             this.password = '';
           } catch (error) {
