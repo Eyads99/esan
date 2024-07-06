@@ -41,6 +41,21 @@ import { doc, setDoc } from "firebase/firestore";
     data() {
       return {
         availableStocks: ['AAPL', 'GOOGL', 'MSFT', 'AMZN', 'TSLA'], // Example stocks
+        EGXTickerList:["AALR","ABUK","ACAMD","ACAP","ACGC","ACRO","ADCI","ADIB","ADPC","ADRI","AFDI","AFMC","AIFI","AIH","AJWA","ALCN",
+      "ALUM","AMER","AMES","AMIA","AMOC","AMPI","ANFI","APSW","ARAB","ARCC","AREH","ARPI","ARVA","ASCM","ASPI","ATLC","ATQA","AXPH",
+      "BIDI","BIGP","BINV","BIOC","BTFH","CAED","CANA","CCAP","CCRS","CEFM","CERA","CFGH","CICH","CIEB","CIRA","CLHO","CNFN","COMI",
+      "COPR","COSG","CPCI","CSAG","CTSB","DAPH","DEIN","DGTZ","DOMT","DSCW","DTPP","EALR","EASB","EAST","EBSC","ECAP","EDBM","EDFM",
+      "EEII","EFIC","EFID","EFIH","EGAL","EGAS","EGBE","EGCH","EGREF","EGSA","EGTS","EHDR","EIUD","EKHO","EKHOA","ELEC","ELKA","ELNA",
+      "ELSH","ELWA","EMFD","ENGC","EOSB","EPCO","EPPK","ESRS","ETEL","ETRS","EXPA","FAIT","FAITA","FERC","FIRE","FNAR","FTNS","FWRY",
+      "GBCO","GDWA","GGCC","GIHD","GMCI","GOCO","GRCA","GSSC","GTWL","HDBK","HELI","HRHO","IBCT","ICFC","ICID","ICLE","ICMI","IDHC",
+      "IDRE","IEEC","IFAP","INEG","INFI","IRON","ISMA","ISMQ","ISPH","JUFO","KABO","KRDI","KWIN","KZPC","LCSW","LUTS","MAAL","MASR",
+      "MBSC","MCQE","MCRO","MENA","MEPA","MFPC","MFSC","MHOT","MICH","MILS","MIPH","MISR","MKIT","MMAT","MOED","MOIL","MOIN","MOSC",
+      "MPCI","MPCO","MPRC","MTIE","NAHO","NCCW","NDRL","NEDA","NHPS","NINH","NIPH","OBRI","OCDI","OCPH","ODIN","OFH","OIH","OLFI",
+      "ORAS","ORHD","ORWE","PHAR","PHDC","PHTV","POUL","PRCL","PRDC","PRMH","QNBE","RACC","RAKT","RAYA","REAC","RKAZ","RMDA","ROTO","RREI",
+      "RTVC","RUBX","SAIB","SAUD","SCEM","SCFM","SCTS","SDTI","SEIG","SIPC","SKPC","SMFR","SNFC","SPIN","SPMD","SUGR","SVCE","SWDY","TALM",
+      "TANM","TAQA","TMGH","TRTO","UASG","UEFM","UEGC","UNIP","UNIT","UPMS","UTOP","VERT","WCDF","WKOL","ZEOT","ZMID",
+      "EGX30","EGX70","EGX100","EGX30Cap","TAMAYOUZ", "AZ-GOLD","AZ-HALAN","AZ-MENTH", "AZ-OP","AZ-SAVE", "AZ-VALU","AZ-Maashy","AZ-Nasr", 
+      "CI30", "B Secure","Mid-market EGGOLD", "Misr Takaful Fund"],
         newStock: '',
         newUnits: '',
         portfolio: [],
