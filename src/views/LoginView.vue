@@ -16,6 +16,7 @@
   <div class="login">
     <v-btn @click="signInWithGoogle">Login with Google</v-btn>
   </div>
+  <p class="mt-5">Don't have an account? <a href="/SignUp">Click here</a> to sign up!</p>
 
 </template>
 

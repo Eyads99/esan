@@ -5,7 +5,7 @@
   <v-app style="background-color: lavender">
     <v-main>
       <h1 style="color: black">{{ $t('homeTitle') }}</h1>
-      <v-btn style="font-size: 20px; margin: 5px" @click="reverseOrder">Top / Bottom 5</v-btn>
+      <v-btn style="font-size: 20px; margin: 5px" @click="reverseOrder">{{ $t('TopBottom') }}</v-btn>
       -
       <v-btn-toggle
         v-model="indexSelection"

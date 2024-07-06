@@ -6,11 +6,9 @@
       <router-link to="/priceCompare">{{ $t('assetCompare') }}</router-link> |      
       <router-link to="/assetView">{{ $t('assetView') }}</router-link> |
       <router-link to="/about">{{ $t('about') }}</router-link> |
-      <router-link v-if="user" to="/PortfolioBuilder">{{ "Portfolio builder" }}</router-link> |
+      <router-link v-if="user" to="/PortfolioBuilder">{{ $t('PortfolioBuilder') }}</router-link> |
       <LocaleSwitcher></LocaleSwitcher> |
-      <router-link to="/login">Login</router-link> |
-      <router-link to="/SignUp">Sign up</router-link> |
-      <v-btn v-if="!user" @click="signInWithGoogle">Login with Google</v-btn>
+      <router-link v-if="!user" to="/login">{{ $t('login') }}</router-link>
     </nav>
     <v-main>
       <router-view/>

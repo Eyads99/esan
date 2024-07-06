@@ -16,12 +16,18 @@
         </div>
         <button type="submit" class="btn btn-primary mt-3">Sign Up</button>
       </form>
+      <div class="login">
+        <v-btn @click="signInWithGoogle">Login with Google</v-btn>
+      </div>
     </div>
   </template>
   
   <script>
-  import { auth } from "@/firebase/init";
   import { createUserWithEmailAndPassword, sendEmailVerification  } from "firebase/auth";
+  import { auth, googleProvider, signInWithRedirect, signInWithPopup, /* getRedirectResult */   }from "/src/firebase/init";
+  function isMobileDevice() {
+  return /Mobi|Android/i.test(navigator.userAgent);
+}
   
   export default {
     name: "SignUpView",
@@ -49,7 +55,24 @@
         } catch (error) {
           alert("Error signing up: " + error.message);
         }
-      }
+      },
+      async signInWithGoogle() {
+      try {
+        //let result
+        if (isMobileDevice())
+          await signInWithRedirect(auth, googleProvider)
+        .then(() => this.$router.push('/'))
+        else
+          {
+            const result = await signInWithPopup(auth, googleProvider)
+            .then(() => this.$router.push('/'))
+            this.user = result.user;
+            console.log(result.user);
+          }
+      } catch (error) {
+        console.error('Error during sign-in:', error);
+      } 
+    },
     }
   }
   </script>

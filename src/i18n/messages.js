@@ -19,6 +19,9 @@ export default {
         stocks: 'Stocks',
         startingDate: 'Starting Date',
         endingDate: 'Ending Date',
+        login: 'Login',
+        PortfolioBuilder: 'Portfolio Builder',
+        TopBottom: 'Top / Bottom 5',
     },
     ar: {
         appTitle: 'إسان',        
@@ -40,5 +43,8 @@ export default {
         stocks: 'أسهم',
         startingDate: 'تاريخ البدئي',
         endingDate: 'تاريخ النهائي',
+        login: 'تسجيل الدخول',
+        PortfolioBuilder: 'بناء محفظة',
+        TopBottom: 'أعلى / أدنى 5',
     },
   }
