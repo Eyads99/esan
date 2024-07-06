@@ -431,7 +431,7 @@ export default {
         width: 20,
         right: 5,
         minValueSpan: 3, //min # of bars to show
-        maxValueSpan: 35,
+        maxValueSpan: 31,
         startValue: 0, //start and end represent the # bars of chart to show by default
         endValue: 15,
         handleSize: 20,
