@@ -5,7 +5,7 @@
         <div class="form-group">
           <label for="stock">Select Stock:</label>
           <select v-model="newStock" class="form-control" required>
-            <option v-for="stock in availableStocks" :key="stock" :value="stock">
+            <option v-for="stock in EGXTickerList" :key="stock" :value="stock">
               {{ stock }}
             </option>
           </select>
