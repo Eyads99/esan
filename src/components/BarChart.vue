@@ -23,7 +23,7 @@ export default {
       chartId: 0, // Initialize a counter; unneeded
       stockTickersDict: {
         ADIB: "Abu Dhabi Islamic Bank",
-        ABUK: "Abu Qir Fertilizers and Chemical Industries",
+        ABUK: "Abu Qir Fertilizers and Chemicals",
         ACRO: "Acrow Misr",
         AJWA: "AJWA Food Industries",
         SAUD: "Al Baraka Bank",
@@ -121,7 +121,7 @@ export default {
         MCRO: "Macro Pharmaceutical",
         MASR: "Madinet Nasr for Housing and Development",
         MOIL: "Maridive & oil Svcs",
-        MAAL: "Marseilia Egyptian Gulf Real Estate Investment",
+        MAAL: "Marseilia Egyptian Gulf Real Estate",
         MBEN: "MB Engineering",
         MEPA: "Medical Packaging",
         MENA: "Mena Touristic&RE",
