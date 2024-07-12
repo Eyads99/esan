@@ -9,10 +9,12 @@
       :items = EGXStocksList
       :return-object="false"
       v-model = "assetsNames"
+      :item-text = "title"
+      :item-value="value"
       multiple
-      max = 3
-      
-    ></v-combobox>
+      max = 3      
+    >
+  </v-combobox>
     
     <v-row dense>
     <v-col cols="12" md="6">
@@ -66,11 +68,11 @@
     },
     created() {
   // Convert dictionary to array
-        this.EGXStocksList = Object.entries(this.stockTickersDict).map(([value, title]) => ({ title, value }));
+      this.EGXStocksList = Object.entries(this.stockTickersDict).map(([value, title]) => ({ title: `${title} (${value})`, value }));
       },
     data() {
       return {
-        assetsNames: ['ORAS','ABUK','AZ-SAVE'],
+        assetsNames: ['ORAS','AZ-SAVE'],
         normalize: false,
         startDate: new Date('2020-01-01'),
         endDate: new Date(),//today
@@ -203,7 +205,7 @@
         SAUD: "Al Baraka Bank",
         ECAP: "Al Ezz",
         KRDI: "Al Khair River for Development Agricultural Invest",
-        ALCN: "Alexandria Containers&goods",
+        ALCN: "Alexandria Containers & goods",
         AFMC: "Alexandria Flour Mills",
         AMES: "Alexandria Medical Center",
         AMOC: "Alexandria Mineral Oils",
@@ -228,31 +230,30 @@
         POUL: "Cairo Poultry",
         CSAG: "Canal Shipping Agencies",
         CASH: "Cash",
-        PRCL: "Ceramic&Porcelain",
+        PRCL: "Ceramic & Porcelain",
         CERA: "Ceramica Remas",
         CICH: "CI Capital",
         CLHO: "Cleopatra Hospital",
         COMI: "Commercial Int Bank",
         CIEB: "Credit Agricole Egypt",
         DAPH: "DAPH",
-        DTPP: "Delta Printing&Packaging",
+        DTPP: "Delta Printing & Packaging",
         SUGR: "Delta Sugar",
-        DSCW: "Dice Sport&Casual Wear",
+        DSCW: "Dice Sport & Casual Wear",
         EASB: "EASB",
         EAST: "Eastern Tobacco",
         EXPA: "EDBE",
         EDBM: "EDBM",
         EFID: "Edita Food",
         HRHO: "EFG Hermes Holdings",
-        EFIH: "E-finance",
-        EGX30: "EGX30",
+        EFIH: "E-finance",        
         EGAL: "Egypt Aluminum",
         MFSC: "Egypt Free Shops",
         EGAS: "Egypt Gas",
         EKHOA: "Egypt Kuwait Holding",
-        EFIC: "Egyptian Financial&Industrial",
+        EFIC: "Egyptian Financial &Industrial",
         EGBE: "Egyptian Gulf Bank",
-        IRON: "Egyptian Iron&Steel",
+        IRON: "Egyptian Iron & Steel",
         EKHO: "Egyptian Kuwaiti Hld",
         MPRC: "Egyptian Media Production City",
         EGTS: "Egyptian Tourism Resorts",
@@ -276,17 +277,17 @@
         GIHD: "GIHD",
         GGCC: "Giza General Contracting",
         BIOC: "Glaxo Smith Kline",
-        GTWL: "Golden Textiles&Clothes Wool",
+        GTWL: "Golden Textiles",
         CCRS: "Gulf Canadian RE Inv Co",
         HELI: "Misr El Gadida for Housing Dev",
-        HDBK: "Housing&Develop Bank",
+        HDBK: "Housing & Develop Bank",
         ISPH: "Ibnsina Pharma",
         ENGC: "Industrial Engineering",
         IDHC: "Integrated Diagnostics Holding Co",
         IBCT: "International Business",
         ISMQ: "Iron Steel for Mines Quarries",
         ICLE: "IncoLEASE",
-        IDRE: "Ismailia Develop&RE",
+        IDRE: "Ismailia Develop & RE",
         ISMA: "Ismailia Misr Poultry",
         JUFO: "Juhayna Food",
         KZPC: "Kafr El Zayat Pesticides",
@@ -298,7 +299,7 @@
         MAAL: "Marseilia Egyptian Gulf Real Estate",
         MBEN: "MB Engineering",
         MEPA: "Medical Packaging",
-        MENA: "Mena Touristic&RE",
+        MENA: "Mena Touristic & RE",
         MIPH: "Minapharm Pharma",
         MBSC: "Misr Beni Suef Cement",
         MCQE: "Misr Cement",
@@ -330,8 +331,8 @@
         RAYA: "Raya Holding",
         REAC: "Reacap Financial Invest",
         ROTO: "Rowad Tourism",
-        SCFM: "S.Cairo&Giza Mills&Bakeries",
-        SEIG: "Saudi Egyptian Inv&Fin",
+        SCFM: "South Cairo & Giza Mills",
+        SEIG: "Saudi Egyptian Inv & Fin",
         SDTI: "Sharm Dreams Co.",
         SKPC: "Sidi Kerir",
         SCEM: "Sinai Cement",
@@ -344,11 +345,11 @@
         RMDA: "Tenth of Ramadan",
         MOED: "The Egyptian Modern Education",
         UASG: "United Arab Shipping",
-        UNIT: "United Housing&Develop",
+        UNIT: "United Housing",
         UNIP: "Universal Co Packaging",
         ZMID: "Zahraa Maadi",
         BIGP: "BIG",
-        ICID: "Int Co Invest&Development",
+        ICID: "Int Co Invest & Development",
         SIPC: "Sabaa Intl Pharma and Chemical Industries",
         MMAT: "Marsa Marsa Alam Tourism",
         ICFC: "ICFC",
@@ -385,7 +386,7 @@
         DOMT: "Arabian Food Industries Co",
         RTVC: "RTVC",
         AREH: "Egyptian RE Group",
-        DCRC: "Delta Construction&Rebuilding",
+        DCRC: "Delta Construction & Rebuilding",
         RUBX: "Rubex Plastics",
         MILS: "North Cairo Mills",
         UPMS: "Union Pharmacist Company for Medical Services and",
@@ -404,11 +405,11 @@
         FERC: "Ferchem Egypt Fertilizers and Chemicals",
         TANM: "Tanmiya for Real Estate Investment",
         EDFM: "East Delta Flour Mills",
-        GSSC: "General Silos&Storage",
+        GSSC: "General Silos & Storage",
         SVCE: "South Valley Cement",
         MPCI: "Memphis Pharma",
         APSW: "Arab Polvara Spinning Weaving",
-        WCDF: "Middle&West Delta Flour Mills",
+        WCDF: "Middle & West Delta Flour Mills",
         INFI: "Ismailia Food Industries",
         ELEC: "Electro Cable",
         UEFM: "Upper Egypt Flour Mills",
@@ -459,16 +460,35 @@
         NCGC: "Nile Cotton Ginning",
         MISR: "Misr Intercontinental for Granite",
         CILB: "City Lab",
+        EGX30:"EGX30",
+        EGX70:"EGX70",
+        EGX100:"EGX100",
+        EGX30Cap:"EGX30Cap",
+        TAMAYOUZ:"TAMAYOUZ",
+        "Azimut GOLD": "AZ-GOLD",
+        "Azimut HALAN":"AZ-HALAN",
+        "Menthum":"AZ-MENTH",
+        "Azimut Opportunity":"AZ-OP",
+        "AZ SAVE":"AZ-SAVE",
+        "AZ VALU":"AZ-VALU",
+        "AZ Maashy":"AZ-Maashy",
+        "AZ NASER":"AZ-Nasr", 
+        "CI30":"CI30", 
+        "B Secure":"B Secure",
+        "Mid-market EGGOLD":"Mid-market EGGOLD", 
+        "Misr Takaful Fund":"Misr Takaful Fund"
       },
-      EGXStocksList: [
-        { title: 'Apple Inc.', value: 'ORAS' },
-      { title: 'Google LLC', value: 'ABUK' },
-      { title: 'Amazon.com, Inc.', value: 'AMOC' }
-    ],
+      EGXStocksList: [],
     }
-        
-
 
     },
+    methods: {
+      filterItems(item, searchTerm) {
+      const search = searchTerm.toLowerCase();
+      return item.value.toLowerCase().includes(search) || item.title.toLowerCase().includes(search);
+    },
+      
+      },
+    
   }
   </script>
