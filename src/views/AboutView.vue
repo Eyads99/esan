@@ -2,16 +2,15 @@
   <head>
     <meta name="about" content="About page" />
   </head>
-  <div class="about">
+  <div class="about" style="background-color: lavender">
     <br>
     <br>
     <h1>About us
 
-    </h1>
-    
+    </h1>    
       <br>
     <p>
-      This website is created by Eyad Shaban and Aly Nour. This website aims to help any user to gain insights into the Egyptian Stock Market including daily changes and historcal trends.  
+     This website was created by Eyad Shaban and Aly Nour. We aim to help users gain insights about the Egyptian Stock Market detailing daily changes and historcal trends
     </p>
     <p>
       For more details, please contact us at eyadshaban99@gmail.com
