@@ -16,9 +16,9 @@ const firebaseConfig = {
   projectId: "egxsite",
   storageBucket: "egxsite.appspot.com",
   messagingSenderId: "163794934935",
-  appId: "1:163794934935:web:89545d8ff6a8154c279dd2",
-  measurementId: "G-KCPFLH1C13"
-}
+  appId: "1:163794934935:web:a093e7f2fbc83dd3279dd2",
+  measurementId: "G-DKHGJG81X8"
+};
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig)
