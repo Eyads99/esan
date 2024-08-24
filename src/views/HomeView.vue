@@ -2,7 +2,7 @@
   <head>
     <meta name="description" content="Home page" />
   </head>
-  <v-app style="background-color: lavender">
+  <v-app style="background-color: white">
     <v-main>
       <h1 style="color: black">{{ $t('homeTitle') }}</h1>
       <v-btn style="font-size: 20px; margin: 5px" @click="reverseOrder">{{ $t('TopBottom') }}</v-btn>
@@ -427,6 +427,7 @@ export default {
 .card-margin {
   margin: 10px;
   margin-bottom: 30px;
+  box-shadow: 0 3px 10px 0 rgba(0,0,0,0.2);
 }
 
 .today-bar {
