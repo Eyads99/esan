@@ -1,14 +1,17 @@
 <template>
   <v-app>
-    <nav style="font-size: 20px; margin: 10px">
-      <router-link to="/">{{ $t('home') }}</router-link> |      
-      <router-link to="/IndexToday">{{ $t('indexToday') }}</router-link> |
-      <router-link to="/priceCompare">{{ $t('assetCompare') }}</router-link> |      
-      <router-link to="/assetView">{{ $t('assetView') }}</router-link> |
-      <router-link to="/about">{{ $t('about') }}</router-link> |
-      <router-link v-if="user" to="/PortfolioBuilder">{{ $t('PortfolioBuilder') }}</router-link> |
-      <LocaleSwitcher></LocaleSwitcher> |
-      <router-link v-if="!user" to="/login">{{ $t('login') }}</router-link>
+    <nav class=title-bar>
+      
+      <img class=logo src="@/assets/icon.jpg" width="50" height="50" alt="logo">
+
+      <router-link class=title-text to="/">{{ $t('home') }}</router-link>
+      <router-link class=title-text to="/IndexToday">{{ $t('indexToday') }}</router-link>
+      <router-link class=title-text to="/priceCompare">{{ $t('assetCompare') }}</router-link>     
+      <router-link class=title-text to="/assetView">{{ $t('assetView') }}</router-link>
+      <router-link class=title-text to="/about">{{ $t('about') }}</router-link>
+      <router-link class=title-text v-if="user" to="/PortfolioBuilder">{{ $t('PortfolioBuilder') }}</router-link>
+      <LocaleSwitcher class=title-text></LocaleSwitcher>
+      <router-link class=title-text v-if="!user" to="/login">{{ $t('login') }}</router-link>
     </nav>
     <v-main>
       <router-view/>
@@ -80,3 +83,25 @@ export default {
   }
 };
 </script>
+
+<style>
+.title-bar {
+margin: 0;
+
+}
+
+.title-text {
+  font-size: 20px;
+  margin-right: 10px;
+  margin-left: 10px;
+  color: black;
+  text-decoration: none;
+}
+
+.logo {
+  margin-right: 10px;
+  margin-left: 0;  
+  float: left;
+}
+
+</style>
