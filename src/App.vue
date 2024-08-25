@@ -14,6 +14,7 @@
 
       <router-link class=login v-if="!user" to="/login">{{ $t('login') }}</router-link>
       <router-link class=login v-if="user" to="/login" >{{ $t('LogOut') }}</router-link>
+      <hr style="border-color: black; border-width: 1px; margin: 0">
     </nav>
     <v-main>
       <router-view/>
@@ -90,6 +91,9 @@ export default {
 .title-bar {
 margin: 0;
 font-family: 'Lato', 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+/*   position: fixed;
+  top: 0; makes always show at the top of the screen but it overlaps 
+  width: 100%; */
 }
 
 .title-text {
