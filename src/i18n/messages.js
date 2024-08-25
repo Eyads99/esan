@@ -22,6 +22,8 @@ export default {
         login: 'Login',
         PortfolioBuilder: 'Portfolio Builder',
         TopBottom: 'Top / Bottom 5',
+        LogOut: 'Log Out',
+        TodayBarTitle: 'Today Summarised ',
     },
     ar: {
         appTitle: 'إسان',        
@@ -46,5 +48,7 @@ export default {
         login: 'تسجيل الدخول',
         PortfolioBuilder: 'بناء محفظة',
         TopBottom: 'أعلى / أدنى 5',
+        LogOut:'تسجيل الخروج',
+        TodayBarTitle: 'أبرز أحداث اليوم',
     },
   }

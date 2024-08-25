@@ -12,6 +12,7 @@
       <router-link class=title-text v-if="user" to="/PortfolioBuilder">{{ $t('PortfolioBuilder') }}</router-link>
       <LocaleSwitcher class=title-text></LocaleSwitcher>
       <router-link class=title-text v-if="!user" to="/login">{{ $t('login') }}</router-link>
+      <router-link class=title-text v-if="user" to="/login" >{{ $t('LogOut') }}</router-link>
     </nav>
     <v-main>
       <router-view/>
@@ -87,7 +88,7 @@ export default {
 <style>
 .title-bar {
 margin: 0;
-
+font-family: 'Lato', 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
 }
 
 .title-text {
@@ -96,12 +97,16 @@ margin: 0;
   margin-left: 10px;
   color: black;
   text-decoration: none;
+  font-family: 'Lato', 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
 }
 
 .logo {
   margin-right: 10px;
   margin-left: 0;  
   float: left;
+}
+
+.locale-picker {
 }
 
 </style>

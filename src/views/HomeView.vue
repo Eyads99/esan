@@ -4,7 +4,7 @@
   </head>
   <v-app style="background-color: white">
     <v-main>
-      <h1 style="color: black">{{ $t('homeTitle') }}</h1>
+      <h1 style="color: black; font-family: 'Lato', 'Open Sans', 'Helvetica Neue', Arial, sans-serif">{{ $t('homeTitle') }}</h1>
       <v-btn style="font-size: 20px; margin: 5px" @click="reverseOrder">{{ $t('TopBottom') }}</v-btn>
       -
       <v-btn-toggle
@@ -21,7 +21,7 @@
         <v-btn value="70">EGX70</v-btn>
         <v-btn value="100">EGX100</v-btn>
       </v-btn-toggle>
-      EGX {{ indexSelection }}
+   <!--    EGX {{ indexSelection }} -->
 
       <v-container fluid>
         <v-row no-gutters>          
@@ -73,6 +73,8 @@
             <div v-if="idxPointShow">
               <v-card elevated class="card-margin">                
                   <div class="today-bar">
+                    <h2 class="highlight">{{ $t('TodayBarTitle') }}</h2>
+                    
                     <TodayBar
                       class="fill-height"
                       align="left"
@@ -430,9 +432,19 @@ export default {
   box-shadow: 0 3px 10px 0 rgba(0,0,0,0.2);
 }
 
+.card-margin:hover {
+  transform: scale(1.01); /* Slightly enlarge the card */
+  box-shadow: 0 6px 20px 0 rgba(0,0,0,0.3); /* Enhance the shadow on hover */
+}
+
 .today-bar {
   background-color: rgb(255, 255, 255);
   padding: 7px;
+}
+
+.today-bar:hover {
+  transform: scale(1.01); /* Slightly enlarge the card */
+  box-shadow: 0 6px 20px 0 rgba(0,0,0,0.3); /* Enhance the shadow on hover */
 }
 
 #app {
