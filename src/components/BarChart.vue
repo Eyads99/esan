@@ -485,7 +485,7 @@ export default {
   width: 250px;
   font-size: 30px;
   font-family: Cascadia code;
-  background-color: #a29cb8;
+  /* background-color: #a29cb8; */
   border-radius: 12pc;
   /*text-align: right;*/
 }
