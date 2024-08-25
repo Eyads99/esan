@@ -6,7 +6,7 @@ export default {
         indexToday: 'Index Today',
         assetCompare: 'Asset Compare',
         assetView: 'Asset View',
-        homeTitle: 'Egyptian stock market performance today',
+        homeTitle: 'Stock performance today',
         marketToday: 'Market Today',
         sectoralPerformance: 'Sectoral Performance',
         marketMovement: 'Market Movement',

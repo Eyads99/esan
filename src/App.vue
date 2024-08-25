@@ -11,8 +11,9 @@
       <router-link class=title-text to="/about">{{ $t('about') }}</router-link>
       <router-link class=title-text v-if="user" to="/PortfolioBuilder">{{ $t('PortfolioBuilder') }}</router-link>
       <LocaleSwitcher class=title-text></LocaleSwitcher>
-      <router-link class=title-text v-if="!user" to="/login">{{ $t('login') }}</router-link>
-      <router-link class=title-text v-if="user" to="/login" >{{ $t('LogOut') }}</router-link>
+
+      <router-link class=login v-if="!user" to="/login">{{ $t('login') }}</router-link>
+      <router-link class=login v-if="user" to="/login" >{{ $t('LogOut') }}</router-link>
     </nav>
     <v-main>
       <router-view/>
@@ -102,10 +103,18 @@ font-family: 'Lato', 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
 
 .logo {
   margin-right: 10px;
-  margin-left: 0;  
+  margin-left: 10px;  
   float: left;
 }
-
+ .login {
+  margin-right: 10px;
+  margin-left: 10px;  
+  float: right;
+  font-size: 25px;
+  color: black;
+  text-decoration: none;
+  font-family: 'Lato', 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+ }
 .locale-picker {
 }
 
