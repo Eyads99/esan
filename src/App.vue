@@ -1,9 +1,12 @@
 <template>
   <v-app>
     <nav class=title-bar>
-      
-      <img class=logo src="@/assets/icon.jpg" width="50" height="50" alt="logo">
-
+      <v-img
+          class="logo"
+          src="@\assets\icon.jpg"
+          contain
+          alt="esan logo"
+        />
       <router-link class=title-text to="/">{{ $t('home') }}</router-link>
       <router-link class=title-text to="/IndexToday">{{ $t('indexToday') }}</router-link>
       <router-link class=title-text to="/priceCompare">{{ $t('assetCompare') }}</router-link>     
@@ -103,23 +106,40 @@ font-family: 'Lato', 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
   color: black;
   text-decoration: none;
   font-family: 'Lato', 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+  padding: 1px;
+}
+
+.title-text:hover {
+  background-color: #f0f0f0;
+  border-radius: 5px;
 }
 
 .logo {
-  margin-right: 10px;
-  margin-left: 10px;  
+  margin-right: 5px;
+  margin-left: 5px;
+  margin-top: 5px;
   float: left;
+  width: 25px;
+  height: 25px;
 }
  .login {
-  margin-right: 10px;
+/*   margin-right: 10px;
   margin-left: 10px;  
-  float: right;
-  font-size: 25px;
+  float: right;*/
+  font-size: 20px;
   color: black;
   text-decoration: none;
   font-family: 'Lato', 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
  }
 .locale-picker {
+  font-size: 20px;
+  margin-right: 10px;
+  margin-left: 10px;
+  color: black;
+  text-decoration: none;
+  font-family: 'Lato', 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+  padding: 1px;
+  text-align: center;
 }
 
 </style>
