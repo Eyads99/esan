@@ -1,5 +1,5 @@
 <template>
-    <v-app style="background-color: lavender;">
+    <v-app style="background-color: white">
         <v-main >
           <h1>EGX {{indexSelection }} Today </h1>          
           <v-btn-toggle
@@ -23,7 +23,7 @@
                 <v-card elevated class="card-margin">
                 
                   <h3>EGX{{indexSelection}} Today</h3>                            
-                  <div elevated class="card-margin">                                 
+                  <div>                                 
                     <TodayBar                      
                       align="left"
                       justify="left"
