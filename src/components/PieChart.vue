@@ -73,12 +73,12 @@ export default {
           data: [
             {
               value: this.gainers,
-              name: this.$t('gainers'),
+              name: this.$t('Gain'),
               itemStyle: { color: "#0652c5" },
             }, // Blue
             {
               value: this.losers,
-              name: this.$t('losers'),
+              name: this.$t('Loss'),
               itemStyle: { color: "#e1e1e1" },
             }, // Grey
           ],
