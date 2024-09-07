@@ -2,8 +2,8 @@
   <head>
     <meta name="PriceHistory" content="Asset Compare" />
   </head>
-    <v-container fluid fill-height style="height: 100%;" >
-       <div :id="`price-history-chart${title}`" style=" height: 100%"></div>
+    <v-container fluid fill-height style="height: 95%;" >
+       <div :id="`price-history-chart${title}`" style=" height: 95%"></div>
      </v-container>
 </template>
 
