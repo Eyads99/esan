@@ -49,7 +49,7 @@
 
           <!-- Column with PriceHistoryChart -->
           <v-col cols="12" md="6">
-            <v-card style="height: 51vh" elevated class="card-margin">
+            <v-card style="height: 51.5vh" elevated class="card-margin">
               <h2>YTD Performance</h2>
               <PriceHistoryChart
                 :assetsNames="['EGX' + indexSelection]"
