@@ -50,7 +50,10 @@
   </v-row>
 
     <v-checkbox label="Normalize" value=true v-model=normalize></v-checkbox>
-    <PriceHistoryChart :assetsNames="assetsNames" :normalize=normalize :startDateObj="startDate" :endDateObj="endDate" :dateRange="dateRange" title="title" />
+    <div style="height: 95vh">
+      <PriceHistoryChart :assetsNames="assetsNames" :normalize=normalize :startDateObj="startDate" 
+          :endDateObj="endDate" :dateRange="dateRange" title="title" />
+    </div>
     <!-- <v-range-slider v-model="dateRange"
         strict> </v-range-slider> -->
   </v-col>
