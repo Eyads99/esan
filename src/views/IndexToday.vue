@@ -1,82 +1,89 @@
 <template>
-    <v-app style="background-color: white">
-        <v-main >
-          <h1>EGX {{indexSelection }} Today </h1>          
-          <v-btn-toggle
-              v-model="indexSelection"
-              background-color="primary"
-              mandatory
-              rounded="lg"
-              border="md"
-              divided
-              color="success"
-              @click="indexChg"
-            >
-              <v-btn value="30">EGX30</v-btn>          
-              <v-btn value="70">EGX70</v-btn>                         
-            </v-btn-toggle>
-    
-          <v-container fluid >
-            <v-row no-gutters>
-            <v-col cols="12" md="6" justify="center">
-              <div v-if="idxPointShow">
-                <v-card elevated class="card-margin">
-                
-                  <h3>EGX{{indexSelection}} Today</h3>                            
-                  <div>                                 
-                    <TodayBar                      
-                      align="left"
-                      justify="left"
-                      :dailyChange="idxDailyChgShow" :currentPoints="idxPointShow" :YtDate="idxYtDate"
-                    />
-                  </div>
-                </v-card>
-                </div>
-                <div v-else>  
-                  <v-card loading> 
-                  Loading Today's details
-                </v-card>
-                </div>
-            
-              <div v-if="gainers">
-                <v-card style="height: 35vh" elevated class="card-margin">
-                  <h3>{{ $t('marketMovement') }}</h3>
-                 <PieChart style=" height: 95%" :gainers="gainers" :losers="losers" ID="GL" />
-                </v-card>
-              </div>
-              <div v-else>
-                <v-card loading>Loading Pie Chart</v-card>
-              </div>
-            </v-col> 
-            <v-col cols="12" md="6" justify="center">  
-              <v-card style="height: 95vh" elevated >
-               
-              <PriceHistoryChart :assetsNames="['EGX'+indexSelection]" :normalize=false 
-              :startDateObj="startDate" :endDateObj="endDate" :dateRange="dateRange" title="title" />
-            </v-card>
-            </v-col>  
-            <v-col cols="12" md="12" justify="center">
-    
-             <div v-if="topstockChgs">
+  <v-app style="background-color: white">
+    <v-main>
+      <h1>EGX {{ indexSelection }} Today</h1>
+      <v-btn-toggle
+        v-model="indexSelection"
+        background-color="primary"
+        mandatory
+        rounded="lg"
+        border="md"
+        divided
+        color="success"
+        @click="indexChg"
+      >
+        <v-btn value="30">EGX30</v-btn>
+        <v-btn value="70">EGX70</v-btn>
+      </v-btn-toggle>
+
+      <v-container fluid>
+        <v-row no-gutters>
+          <!-- Column with PieChart and TodayBar -->
+          <v-col cols="12" md="6">
+            <div v-if="idxPointShow">
               <v-card elevated class="card-margin">
-              <BarChart style="height: 66vh"
-                :labels="topStockNames"
-                :values="topstockChgs"
-                dataZoom = True 
-                :title="$t('movementToday')"/>
-                </v-card>
-                </div>
-                <div v-else>
-                  <v-card loading>
-                  Loading EGX stocks
-                  </v-card>
-                </div>              
-              </v-col>
-            </v-row>
-          </v-container>
-        </v-main>         
-    </v-app>
-    </template>
+                <h3>EGX{{ indexSelection }} Today</h3>
+                <TodayBar
+                  align="left"
+                  justify="left"
+                  :dailyChange="idxDailyChgShow"
+                  :currentPoints="idxPointShow"
+                  :YtDate="idxYtDate"
+                />
+              </v-card>
+            </div>
+            <div v-else>
+              <v-card loading>Loading Today's details</v-card>
+            </div>
+
+            <div v-if="gainers">
+              <v-card style="height: 35vh" elevated class="card-margin">
+                <h3>{{ $t('marketMovement') }}</h3>
+                <PieChart style="height: 95%" :gainers="gainers" :losers="losers" ID="GL" />
+              </v-card>
+            </div>
+            <div v-else>
+              <v-card loading>Loading Pie Chart</v-card>
+            </div>
+          </v-col>
+
+          <!-- Column with PriceHistoryChart -->
+          <v-col cols="12" md="6">
+            <v-card style="height: 51vh" elevated class="card-margin">
+              <h2>YTD Performance</h2>
+              <PriceHistoryChart
+                :assetsNames="['EGX' + indexSelection]"
+                :normalize="false"
+                :startDateObj="startDate"
+                :endDateObj="endDate"
+                :dateRange="dateRange"
+                title="title"
+              />
+            </v-card>
+          </v-col>
+
+          <!-- Full width column with BarChart -->
+          <v-col cols="12" md="12">
+            <div v-if="topstockChgs">
+              <v-card elevated class="card-margin">
+                <BarChart
+                  style="height: 66vh"
+                  :labels="topStockNames"
+                  :values="topstockChgs"
+                  :dataZoom="true"
+                  :title="$t('movementToday')"
+                />
+              </v-card>
+            </div>
+            <div v-else>
+              <v-card loading>Loading EGX stocks</v-card>
+            </div>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-main>
+  </v-app>
+</template>
     
     <script>
     import { getDoc, doc } from "firebase/firestore";
@@ -172,8 +179,7 @@
             }
           return ((sum / count)*100).toFixed(2)
         }
-      },
-    
+      },      
       components: {
         BarChart,
         PieChart,
