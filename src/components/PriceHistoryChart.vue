@@ -84,12 +84,13 @@ export default {
               end:100,              
               handleSize: 25,
               //showDataShadow: false, //removes outline of graph in zoombar
+              show: window.innerWidth > 400,  // Only show zoom on larger screens
             },
 
       xAxis: { type: 'time',
               //min: 'dataMin',
               axisLabel: {formatter: '{yyyy}-{MM}-{dd}', hideOverlap: true,  padding: [0, 10, 0, 10], margin:10, fontSize: 11, },
-              axisTick: {
+              axisTick: { 
                 alignWithLabel: true,  // Align ticks with labels
               },
             },
