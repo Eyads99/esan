@@ -38,16 +38,23 @@
                 </v-card>
                 </div>
             
-                    <div v-if="gainers">
-                  <v-card style="height: 35vh" elevated class="card-margin">
-                    <h3>{{ $t('marketMovement') }}</h3>
-                  <PieChart style=" height: 95%" :gainers="gainers" :losers="losers" ID="GL" />
-                  </v-card>
-                  </div>
-                  <div v-else>
-                    <v-card loading>Loading Pie Chart</v-card>
-                  </div>
-                </v-col>        
+              <div v-if="gainers">
+                <v-card style="height: 35vh" elevated class="card-margin">
+                  <h3>{{ $t('marketMovement') }}</h3>
+                 <PieChart style=" height: 95%" :gainers="gainers" :losers="losers" ID="GL" />
+                </v-card>
+              </div>
+              <div v-else>
+                <v-card loading>Loading Pie Chart</v-card>
+              </div>
+            </v-col> 
+            <v-col cols="12" md="6" justify="center">  
+              <v-card style="height: 95vh" elevated >
+               
+              <PriceHistoryChart :assetsNames="['EGX'+indexSelection]" :normalize=false 
+              :startDateObj="startDate" :endDateObj="endDate" :dateRange="dateRange" title="title" />
+            </v-card>
+            </v-col>  
             <v-col cols="12" md="12" justify="center">
     
              <div v-if="topstockChgs">
@@ -78,7 +85,7 @@
     import BarChart from "/src/components/BarChart.vue";
     import PieChart from "/src/components/PieChart.vue";
     import TodayBar from "/src/components/TodayBar.vue";
-    
+    import PriceHistoryChart from "/src/components/PriceHistoryChart.vue"
     export default {
       name: "App",
       data() {
@@ -108,6 +115,9 @@
           "MPRC","MTIE","NCCW","OCDI","ODIN","OIH","OLFI","POUL","PRCL","PRDC","PRMH","QNBA","RACC","RAYA","RMDA","SAUD","TALM",
           "TAQA","UEGC","UNIT","ZMID"],
           idxBeginYTDValues : {"EGX30": 25501.94, "EGX70":5640.68,"EGX100":8111.12, "EGX30Cap":30887.48,"TAMAYOUZ":6531.4},
+          startDate: new Date('2024-01-01'),
+          endDate: new Date(), 
+          dateRange: [new Date('2024-01-01'), new Date()],
         };
       },
       methods: {
@@ -168,6 +178,7 @@
         BarChart,
         PieChart,
         TodayBar,
+        PriceHistoryChart,
       },
       mounted(){
         getDoc(doc(db, "stocks", "idxChanges")).then(doc => {this.indexChgs = doc.data()}); // get changes in EGX indices 
