@@ -411,7 +411,7 @@ async saveToUserAccount(portfolio) {
         if (user) {
           const uid = user.uid;
           try {
-            await setDoc(doc(db, 'users', uid), { portfolio: this.portfolioHash }, { merge: true });
+            await setDoc(doc(db, 'users', uid), { portfolio: this.portfolioString }, { merge: true });
             console.log('Portfolio saved to user account');
           } catch (error) {
             console.error('Error saving portfolio to user account: ', error);
