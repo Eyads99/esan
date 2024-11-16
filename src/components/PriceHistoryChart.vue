@@ -11,21 +11,25 @@
 <script>
 import * as echarts from "echarts";
 import { toRaw } from 'vue';
+import { getAuth } from "firebase/auth";
 import { getDoc, doc } from "firebase/firestore";
 import { db } from "/src/firebase/init";
 
 export default {
   name: "PriceHistoryChart",
-  props: ["assetsNames", "title", "normalize","startDateObj","endDateObj","dateRange"],
+  props: ["assetsNames", "title","portfolio", "normalize","startDateObj","endDateObj","dateRange"],
   data() {
     return {
       assets : {},
       startDate : null,
       endDate : null,
+      portfolioList: [],
+      assetNamesWithPortfolio: [],
+      portfolioCache: false
     };
   },
   
-    mounted() {
+    async mounted() {
       
       this.startDate = this.startDateObj.toISOString().split('T')[0]; //convert from Date 
       this.endDate = this.endDateObj.toISOString().split('T')[0];
@@ -36,8 +40,7 @@ export default {
     this.fetchData().then(() => 
     {
 
-      let data = []
-
+      let data = []      
       for (const asset of this.assetsNames) {
         
         let stockData = []
@@ -115,8 +118,82 @@ export default {
 methods:{
 async fetchData() {
   
-  //this.assets = {}
-  for (let asset of this.assetsNames) {
+  if (this.portfolio && this.portfolioCache===false) //if portfolio selected
+      {        
+        this.portfolioCache = true
+        let portfolioResponse = await this.getPortfolioDoc()
+        let portfolio = this.decodePortfolio(portfolioResponse.portfolio)
+
+
+        for (let asset of Object.keys(portfolio)) {// get assets in portfolio
+
+            let chached = false
+            let keys = Object.keys(this.assets)
+
+              for (let i=0; i < keys.length; i++) //dont retrieve stocks that already exist 
+                { 
+                  if (asset==keys[i])
+                  {
+                  chached = true
+                  break
+                  }
+                }
+
+              if (chached) // keep previous data as is 
+                continue 
+
+              let docRef = doc(db, "stocks", asset);
+              const stockDoc = await getDoc(docRef);
+              let data = stockDoc.data();
+              this.assets[asset] = data;
+        }
+
+        let firstKey = Object.keys(portfolio)[0]
+        let weightedPortfolioValue = this.assets[firstKey]        
+        //rename first key in weightedPortfolioValue to prevent issue between portfolio and first stock
+        weightedPortfolioValue = { ...weightedPortfolioValue, [`${firstKey}_value`]: weightedPortfolioValue.value }
+        delete weightedPortfolioValue.value
+
+        for (const ticker of Object.keys(portfolio))
+        {
+          
+          let stockData = this.assets[ticker]
+
+        Object.keys(this.assets[ticker]).forEach(key => {
+          let numberOfStocks = portfolio[ticker]
+          if (ticker == firstKey) // to compansate for the first stock already exisiting 
+             numberOfStocks -= 1
+
+          if (!weightedPortfolioValue[key]) {
+                weightedPortfolioValue[key] = 0;
+            }
+
+          if (stockData[key] === undefined || stockData[key] === null || stockData[key] === "NaN" )   
+            weightedPortfolioValue[key] = 0; 
+            
+          else if (!isNaN(stockData[key]))
+              {                              
+                 weightedPortfolioValue[key] = weightedPortfolioValue[key] + (stockData[key] * numberOfStocks);
+              }
+        });
+
+        }
+        
+        this.assets['Portfolio'] = weightedPortfolioValue;
+        //remove duplicates from adding portfolio here
+
+        console.log("weightedPortfolioValue", weightedPortfolioValue)
+        console.log("portfolio keys", Object.keys(portfolio))
+        console.log("portfolio vals", Object.values(portfolio))
+        this.portfolioList = portfolio
+      }
+
+  
+ this.assetNamesWithPortfolio = this.assetsNames.concat(Object.keys(this.portfolioList)) //add portfolio to asset list
+ this.assetNamesWithPortfolio = this.assetsNames.concat("Portfolio")
+ //this.assetNamesWithPortfolio = [...new Set(this.assetNamesWithPortfolio)] //remove duplicate entries
+  
+  for (let asset of this.assetNamesWithPortfolio) {
 
     let chached = false
     let keys = Object.keys(this.assets)
@@ -139,14 +216,35 @@ async fetchData() {
     this.assets[asset] = data;
     }
   },
+  async getPortfolioDoc(){
+    const auth = getAuth();
+    const user = auth.currentUser;
+    const userID = user.uid;
+
+    let docRef = doc(db, "users", userID);
+    const stockDoc = await getDoc(docRef);
+    let data = stockDoc.data();
+    return data
+  },
+  decodePortfolio(encodedStr) {
+      console.log("encodedStr: ", encodedStr)
+      const entries = encodedStr.split(';').map(entry => entry.split(':'));
+      const portfolio = {};
+      for (const [stock, percentage] of entries) {
+          portfolio[stock] = parseInt(percentage);
+      }
+      console.log("decoded portfolio: ", portfolio)
+      return portfolio;
+  },
 
     updateAssets()
   {   this.startDate = this.startDateObj.toISOString().split('T')[0]; //convert from Date 
       this.endDate = this.endDateObj.toISOString().split('T')[0];
-    this.fetchData().then(() => 
+    this.fetchData().then(async () => 
 {   
     let data = []
-    for (const asset of this.assetsNames) {
+
+    for (const asset of this.portfolio? this.assetNamesWithPortfolio : this.assetsNames) {
       let prices = Object.values(toRaw(this.assets)[asset])
       let stockData = []
 
@@ -155,8 +253,7 @@ async fetchData() {
       datesListCropped = datesList.filter(
         day => {let dateObj = new Date(day); return dateObj >= new Date(this.startDate) && dateObj <= new Date(this.endDate);})
 
-      console.log("crop",datesListCropped) // TODO see if that can be used elsewhere 
-
+      console.log("crop", datesListCropped) // TODO see if that can be used elsewhere 
 
 
       if (this.normalize ) //find first non NaN value and divide every number by it
@@ -266,7 +363,14 @@ watch: {
         }        
       },
 
-  normalize(newValues, oldValues){
+      portfolio(newValues, oldValues) { //if portfolio prop updates auto update graph
+        if ((newValues !== oldValues) && oldValues !=null)
+        {
+          this.updateAssets()
+        }
+      },
+
+  normalize(newValues, oldValues){ // if normalize prop updates auto update graph
     if ((newValues !== oldValues) && oldValues !=null )
     {
           this.updateAssets()
