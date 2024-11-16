@@ -49,9 +49,16 @@
     </v-col>
   </v-row>
 
-    <v-checkbox label="Normalize" value=true v-model=normalize></v-checkbox>
+    <v-row dense>
+      <v-col cols="2">
+        <v-checkbox label="Normalize" value=true v-model=normalize></v-checkbox>
+      </v-col>
+      <v-col cols="6">
+        <v-checkbox label="My Portfolio" value=true v-model=myPortfolio></v-checkbox>
+      </v-col>
+    </v-row>
     <div style="height: 95vh">
-      <PriceHistoryChart :assetsNames="assetsNames" :normalize=normalize :startDateObj="startDate" 
+      <PriceHistoryChart :assetsNames="assetsNames" :portfolio="myPortfolio" :normalize=normalize :startDateObj="startDate" 
           :endDateObj="endDate" :dateRange="dateRange" title="title" />
     </div>
     <!-- <v-range-slider v-model="dateRange"
@@ -60,6 +67,9 @@
   </template>
   
   <script> 
+/*   import { db } from "/src/firebase/init";
+  import { getAuth } from "firebase/auth";
+  import { doc, setDoc } from "firebase/firestore"; */
   import { VDateInput } from 'vuetify/labs/VDateInput'
   import PriceHistoryChart from "/src/components/PriceHistoryChart.vue"
   
@@ -72,14 +82,16 @@
     created() {
   // Convert dictionary to array
       this.EGXStocksList = Object.entries(this.stockTickersDict).map(([value, title]) => ({ title: `${title} (${value})`, value }));
-      },
+      /* this.EGXStocksList.push({ title: 'My Portfolio', value: 'PORTFOLIO' }); */
+    },
     data() {
       return {
-        assetsNames: ['ORAS','AZ-SAVE'],
+        assetsNames: ['ORAS','COMI','Misr Takaful Fund'],
         normalize: false,
-        startDate: new Date('2020-01-01'),
+        myPortfolio: false,
+        startDate: new Date('2022-01-01'),
         endDate: new Date(),//today
-        dateRange: [new Date('2020-01-01'), new Date()],
+        dateRange: [new Date('2022-01-01'), new Date()],
         EGX30TickerList: [
         "ABUK",
         "ADIB",
@@ -479,7 +491,10 @@
         "CI30":"CI30", 
         "B Secure":"B Secure",
         "Mid-market EGGOLD":"Mid-market EGGOLD", 
-        "Misr Takaful Fund":"Misr Takaful Fund"
+        "Misr Takaful Fund":"Misr Takaful Fund",
+        "Beltone EGX100":"Beltone EGX100",
+        "Beltone EGX33":"Beltone EGX33",
+
       },
       EGXStocksList: [],
     }
@@ -490,6 +505,17 @@
       const search = searchTerm.toLowerCase();
       return item.value.toLowerCase().includes(search) || item.title.toLowerCase().includes(search);
     },
+
+      decodePortfolio(encodedStr) {
+        console.log("encodedStr: ", encodedStr)
+        const entries = encodedStr.split(';').map(entry => entry.split(':'));
+        const portfolio = {};
+        for (const [stock, percentage] of entries) {
+            portfolio[stock] = parseInt(percentage);
+        }
+        console.log("decoded portfolio: ", portfolio)
+        return portfolio;
+  },
       
       },
     
