@@ -35,8 +35,11 @@
           </li>
         </ul>
       </div>
-      <button v-if="portfolio.length > 0" @click="saveToUserAccount(portfolio)" class="btn btn-success mt-3">Save Portfolio</button>
-      <button v-if="portfolio.length > 0" @click="decodePortfolio(this.portfolioString)" class="btn btn-success mt-3">Print Portfolio</button>
+      <p v-if="portfolio.length < 2" class="text-danger mt-3">
+        Please add at least 2 stocks to save your portfolio.
+      </p>
+      <button v-if="portfolio.length > 1" @click="saveToUserAccount(portfolio)" class="btn btn-success mt-3">Save Portfolio</button>
+      <!-- <button v-if="portfolio.length > 1" @click="decodePortfolio(this.portfolioString)" class="btn btn-success mt-3">Print Portfolio</button> -->
 
     </div>
   </template>
