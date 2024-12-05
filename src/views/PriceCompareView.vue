@@ -49,14 +49,22 @@
     </v-col>
   </v-row>
 
-    <v-row dense>
-      <v-col cols="2">
-        <v-checkbox label="Normalize" value=true v-model=normalize></v-checkbox>
-      </v-col>
-      <v-col cols="6">
-        <v-checkbox label="My Portfolio" value=true v-model=myPortfolio></v-checkbox>
-      </v-col>
-    </v-row>
+  <v-row dense>
+  <v-col 
+    cols="12" 
+    md="2" 
+    class="pa-0"
+  >
+    <v-checkbox label="Normalize" value=true v-model=normalize></v-checkbox>
+  </v-col>
+  <v-col 
+    cols="12" 
+    md="6" 
+    class="pa-0"
+  >
+    <v-checkbox label="My Portfolio" value=true v-model=myPortfolio></v-checkbox>
+  </v-col>
+</v-row>
     <div style="height: 95vh">
       <PriceHistoryChart :assetsNames="assetsNames" :portfolio="myPortfolio" :normalize=normalize :startDateObj="startDate" 
           :endDateObj="endDate" :dateRange="dateRange" title="title" />
