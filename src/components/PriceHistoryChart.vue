@@ -2,7 +2,7 @@
   <head>
     <meta name="PriceHistory" content="Asset Compare" />
   </head>
-    <v-container fluid fill-height style="height: 95%;" >
+    <v-container fluid fill-height style="height: 95%;padding: 0;" >
        <div :id="`price-history-chart${title}`" style=" height: 95%"></div>
      </v-container>
 </template>
@@ -34,8 +34,11 @@ export default {
       this.startDate = this.startDateObj.toISOString().split('T')[0]; //convert from Date 
       this.endDate = this.endDateObj.toISOString().split('T')[0];
       
-    //window.addEventListener('resize', this.handleResize); //this is to handle zoom in/out from browser
-    const chartDom = document.getElementById(["price-history-chart" + this.title]); 
+      const chartDom = document.getElementById(["price-history-chart" + this.title]); 
+      const myChart = echarts.init(chartDom);
+        window.addEventListener('resize', () => {
+          myChart.resize();
+        }); //this is to handle zoom in/out from browser
 
     this.fetchData().then(() => 
     {
