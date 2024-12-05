@@ -2,7 +2,7 @@
   <head>
     <meta name="AssetCompare" content="asset compare" />
   </head>
-  <v-col cols="12" md="11" justify="center">
+  <v-col cols="12" md="12" justify="center">
     <v-combobox
       clearable
       :label="$t('stocks')"
