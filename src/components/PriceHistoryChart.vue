@@ -185,9 +185,9 @@ async fetchData() {
         this.assets['Portfolio'] = weightedPortfolioValue;
         //remove duplicates from adding portfolio here
 
-        console.log("weightedPortfolioValue", weightedPortfolioValue)
-        console.log("portfolio keys", Object.keys(portfolio))
-        console.log("portfolio vals", Object.values(portfolio))
+        //console.log("weightedPortfolioValue", weightedPortfolioValue)
+        //console.log("portfolio keys", Object.keys(portfolio))
+        //console.log("portfolio vals", Object.values(portfolio))
         this.portfolioList = portfolio
       }
 
@@ -252,12 +252,11 @@ async fetchData() {
       let stockData = []
 
       let datesList = this.makeDateList(Object.keys(toRaw(this.assets)[asset])) //get all dates
-      let datesListCropped
-      datesListCropped = datesList.filter(
+      /* let datesListCropped
+       datesListCropped = datesList.filter(
         day => {let dateObj = new Date(day); return dateObj >= new Date(this.startDate) && dateObj <= new Date(this.endDate);})
 
-      console.log("crop", datesListCropped) // TODO see if that can be used elsewhere 
-
+      console.log("crop", datesListCropped) // TODO see if that can be used elsewhere */
 
       if (this.normalize ) //find first non NaN value and divide every number by it
       {
