@@ -320,7 +320,10 @@ async fetchData() {
               xAxis: {type: 'time',
                       
                       //min: 'dataMin',
-                      axisLabel: {formatter: '{yyyy}-{MM}-{dd}'}                      
+                      axisLabel: {formatter: '{yyyy}-{MM}-{dd}', hideOverlap: true,  padding: [0, 10, 0, 10], margin:10, fontSize: 11, },
+                        axisTick: { 
+                          alignWithLabel: true,  // Align ticks with labels
+                        },                   
                     },
               // Declare a y-axis (value axis).
               yAxis: { type: 'value', name:"Price"},
