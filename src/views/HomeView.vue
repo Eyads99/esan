@@ -69,12 +69,10 @@
                 :values="sectorChg"
               />
             </v-card>
-
             <div v-if="idxPointShow">
               <v-card style="height: 20.5vh;" elevated class="card-margin">                
                   <div class="today-bar">
-                    <h2 class="highlight">{{ $t('TodayBarTitle') }}</h2>
-                    
+                    <h2 class="highlight">{{ $t('TodayBarTitle') }}</h2>                    
                     <TodayBar
                       class="fill-height"
                       align="left"

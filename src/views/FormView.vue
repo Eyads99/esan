@@ -18,7 +18,6 @@
               :item-text = "title"
               :item-value="value">
             </v-combobox>
-
         </div>
         <div class="form-group">
           <label for="unit">Number of Stocks:</label>

@@ -502,7 +502,6 @@
         "Misr Takaful Fund":"Misr Takaful Fund",
         "Beltone EGX100":"Beltone EGX100",
         "Beltone EGX33":"Beltone EGX33",
-
       },
       EGXStocksList: [],
     }
@@ -523,8 +522,7 @@
         }
         console.log("decoded portfolio: ", portfolio)
         return portfolio;
-  },
-      
+  },      
       },
     
   }
