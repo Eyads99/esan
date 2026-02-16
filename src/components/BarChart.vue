@@ -285,6 +285,12 @@ export default {
         NCGC: "Nile Cotton Ginning",
         MISR: "Misr Intercontinental for Granite",
         CILB: "City Lab",
+        NAPR: "National Printing",
+        TWSA: "Tawasoa for Factoring",
+        GOUR: "Gourmet",
+        BONY: "Bonyan for Real Estate Development",
+        VALU: "Valu for consumer finance",
+        GPIM: "GPI for urban growth"
       },
     };
   },

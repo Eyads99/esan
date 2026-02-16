@@ -336,6 +336,12 @@ import { doc, setDoc } from "firebase/firestore";
         "Beltone EGX100":"Beltone EGX100",
         "Beltone EGX33":"Beltone EGX33",
         "NI Sahmy 70 Fund":"NI Sahmy 70 Fund",
+        NAPR: "National Printing",
+        TWSA: "Tawasoa for Factoring",
+        GOUR: "Gourmet",
+        BONY: "Bonyan for Real Estate Development",
+        VALU: "Valu for consumer finance",
+        GPIM: "GPI for urban growth"
       },
         EGXTickerList:["AALR","ABUK","ACAMD","ACAP","ACGC","ACRO","ADCI","ADIB","ADPC","ADRI","AFDI","AFMC","AIFI","AIH","AJWA","ALCN",
       "ALUM","AMER","AMES","AMIA","AMOC","AMPI","ANFI","APSW","ARAB","ARCC","AREH","ARPI","ARVA","ASCM","ASPI","ATLC","ATQA","AXPH",
