@@ -219,7 +219,7 @@
       "RREI","RTVC","RUBX","SAIB","SAUD","SCEM","SCFM","SCTS","SDTI","SEIG","SIPC","SKPC","SMFR","SNFC","SPIN","SPMD","SUGR","SVCE",
       "SWDY","TALM","TANM","TAQA","TMGH","TRTO","UASG","UEFM","UEGC","UNIP","UNIT","UPMS","UTOP","VERT","WCDF","WKOL","ZEOT","ZMID",
       "EGX30","EGX70","EGX100","EGX30Cap","TAMAYOUZ", "AZ-GOLD","AZ-HALAN","AZ-MENTH", "AZ-OP","AZ-SAVE", "AZ-VALU","AZ-Maashy","AZ-Nasr", 
-      "CI30", "B Secure","Mid-market EGGOLD", "Misr Takaful Fund"],
+      "CI30", "B Secure","Mid-market EGGOLD", "Misr Takaful Fund","NI Sahmy 70 Fund","Beltone EGX100","Beltone EGX33"],
       stockTickersDict: {
         ADIB: "Abu Dhabi Islamic Bank",
         ABUK: "Abu Qir Fertilizers and Chemicals",
@@ -502,6 +502,7 @@
         "Misr Takaful Fund":"Misr Takaful Fund",
         "Beltone EGX100":"Beltone EGX100",
         "Beltone EGX33":"Beltone EGX33",
+        "NI Sahmy 70 Fund":"NI Sahmy 70 Fund",
       },
       EGXStocksList: [],
     }
