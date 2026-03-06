@@ -121,10 +121,10 @@
           "EXPA","GDWA","GGCC","HDBK","IDRE","IFAP","ISMA","ISMQ","KABO","KRDI","KZPC","MCQE","MCRO","MENA","MEPA","MICH","MOIL",
           "MPRC","MTIE","NCCW","OCDI","ODIN","OIH","OLFI","POUL","PRCL","PRDC","PRMH","QNBA","RACC","RAYA","RMDA","SAUD","TALM",
           "TAQA","UEGC","UNIT","ZMID"],
-          idxBeginYTDValues : {"EGX30": 25501.94, "EGX70":5640.68,"EGX100":8111.12, "EGX30Cap":30887.48,"TAMAYOUZ":6531.4},
-          startDate: new Date('2024-01-01'),
+          idxBeginYTDValues : {"EGX30": 41829.0, "EGX70":13125.0,"EGX100":17425.88, "EGX30Cap":51568.60,"TAMAYOUZ":21088.4},
+          startDate: new Date('2026-01-01'),
           endDate: new Date(), 
-          dateRange: [new Date('2024-01-01'), new Date()],
+          dateRange: [new Date('2026-01-01'), new Date()],
         };
       },
       methods: {
