@@ -15,7 +15,7 @@
     "echarts": "^5.5.0",
     "firebase": "^12.7.0",
     "lz-string": "^1.5.0",
-    "postcss": "^8.4.41",
+    "postcss": "^8.5.9",
     "roboto-fontface": "*",
     "vue": "^3.5.29",
     "vue-echarts": "^6.6.9",
