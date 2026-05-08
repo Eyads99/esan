@@ -68,11 +68,10 @@ export default {
             const barName = params.name;
             const value = params.value;
             const extraInfo = this.stockTickersDict[barName] || barName;
-            return `<b>${extraInfo}</b><br/>Value: ${value}%<br/>`;
-          },
+          return `<b>${extraInfo}</b><br/>` + `Value: ${value}%<br/>`;
         },
         visualMap: {
-          show: false,
+        show: false, //removes the postive negative legend
           type: "piecewise",
           dimension: 0,
           pieces: [
