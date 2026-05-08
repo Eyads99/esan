@@ -27,7 +27,7 @@
         <v-row no-gutters>          
           <v-col cols="12" md="5" justify="center">
             <div v-if="topstockChgs">
-              <v-card elevated class="card-margin">
+              <v-card elevation="3" hover class="ma-3 mb-6">
                 <BarChart
                   style=""
                   :labels="topStockNames"
@@ -37,12 +37,10 @@
               </v-card>
             </div>
             <div v-else>
-              <v-card loading elevated class="card-margin">      
-                  <BarChart :title="$t('homeTitle')" />
-              </v-card>
+              <v-skeleton-loader type="card" elevation="3" class="ma-3 mb-6" min-height="420"></v-skeleton-loader>
             </div>
             <div v-if="gainers">              
-              <v-card elevated class="card-margin">
+              <v-card elevation="3" hover class="ma-3 mb-6">
                 <Text style="font-size: 30px">{{ $t('marketMovement') }}</Text>
                 <PieChart
                   style="height: 100%"
@@ -53,15 +51,12 @@
               </v-card>
             </div>
             <div v-else>
-              <v-card loading elevated class="card-margin">
-                <Text style="font-size: 30px">{{ $t('marketMovement') }}</Text>
-                <PieChart style="height: 100%"/>
-              </v-card>
+              <v-skeleton-loader type="card" elevation="3" class="ma-3 mb-6">{{ $t('marketMovement') }}</v-skeleton-loader>
             </div>
           </v-col>
 
           <v-col cols="12" md="7" justify="center">
-            <v-card elevated class="card-margin">
+            <v-card elevation="3" hover class="ma-3 mb-6">
               <BarChart
                 style="height: 100%"
                 :title="$t('sectoralPerformance')"
@@ -70,7 +65,7 @@
               />
             </v-card>
             <div v-if="idxPointShow">
-              <v-card style="height: 20.5vh;" elevated class="card-margin">                
+              <v-card style="height: 20.5vh;" elevation="3" hover class="ma-3 mb-6">                
                   <div class="today-bar">
                     <h2 class="highlight">{{ $t('TodayBarTitle') }}</h2>                    
                     <TodayBar
@@ -86,7 +81,7 @@
               </v-card>
             </div>
             <div v-else>
-              <v-card loading> Loading Today's details </v-card>
+              <v-skeleton-loader type="card" elevation="3" class="ma-3 mb-6" style="height: 20.5vh;">Loading Today's details</v-skeleton-loader>
             </div>
           </v-col>
 
@@ -353,88 +348,63 @@ export default {
     PieChart,
     TodayBar,
   },
-  mounted() {
-    //let docRef = doc(db, 'stocks', 'EGX30') unneeded after this.indexChg func
-    let secdocRef = doc(db, "info", "industry");
+  async mounted() {
+    try {
+      const [idxChangesDoc, todayIndicesDoc, changesDoc, industryDoc] = await Promise.all([
+        getDoc(doc(db, "stocks", "idxChanges")),
+        getDoc(doc(db, "stocks", "todayIndices")),
+        getDoc(doc(db, "stocks", "changes")),
+        getDoc(doc(db, "info", "industry"))
+      ]);
 
-    //docRef = doc(db, "stocks", "idxChanges")
-    getDoc(doc(db, "stocks", "idxChanges")).then((doc) => {
-      this.indexChgs = doc.data();
-    });
-
-    //docRef = doc(db, "stocks", "todayIndices")
-    getDoc(doc(db, "stocks", "todayIndices")).then((doc) => {
-      this.indexPoints = doc.data();
+      this.indexChgs = idxChangesDoc.data();
+      
+      this.indexPoints = todayIndicesDoc.data();
       this.indexSelection = 30;
-    });
 
-  let docRef = doc(db, "stocks", "changes") //get stock with last trading day's changes
-    getDoc(docRef).then((doc) => {this.allStocksChgToday = doc.data()})//gets dict with all stocks with last trading day's chgs
+      const changesData = changesDoc.data();
+      this.allStocksChgToday = changesData;
 
-    getDoc(docRef)
-      .then((doc) => {
-        this.allStocksChgToday = doc.data(); //gets dict with all stocks with last trading day's chgs
+      this.allStockNamesOrder = Object.keys(changesData); //reorder obj to be in descending order
+      this.allStockNamesOrder.sort((a, b) => changesData[a] - changesData[b]);
 
-        this.allStockNamesOrder = Object.keys(doc.data()); //reorder obj to be in descending order
-        this.allStockNamesOrder.sort((a, b) => doc.data()[a] - doc.data()[b]);
-
-        for (let i = 0; i < this.allStockNamesOrder.length; i++) {
+      for (let i = 0; i < this.allStockNamesOrder.length; i++) {
           // get all keys and values and push them into their arrays
-          let key = this.allStockNamesOrder[i];
-          this.allChgValuesOrder.push((doc.data()[key] * 100).toFixed(2)); //makes array with all chgs in decreasing order
-        }
+        let key = this.allStockNamesOrder[i];
+        this.allChgValuesOrder.push((changesData[key] * 100).toFixed(2));
+      }
 
-        //below is for next doc for getting sectors and their component stocks
-        return getDoc(secdocRef);
-      })
-      .then((doc2) => {
-        //get sector change
+      this.sectorComponents = industryDoc.data();
+      const sectorsDoc = Object.keys(industryDoc.data());
 
-        // Iterate over each field in the document
-
-        //Object.assign(this.sectorComponents,JSON.parse(JSON.stringify(doc2.data())))
-        this.sectorComponents = doc2.data();
-
-        const sectorsDoc = Object.keys(doc2.data());
-
-        for (let i = 0; i < sectorsDoc.length; i++) {
-          let currSector = sectorsDoc[i];
-          this.sectorChg[currSector] = this.getAvgChg(
-            doc2.data()[currSector],
-            this.allStocksChgToday
-          );
-        }
+      for (let i = 0; i < sectorsDoc.length; i++) {
+        let currSector = sectorsDoc[i];
+        this.sectorChg[currSector] = this.getAvgChg(
+          industryDoc.data()[currSector],
+          this.allStocksChgToday
+        );
+      }
         //make sectorChg in descending order by values
-        this.sectorChg = Object.entries(this.sectorChg)
-          .sort((a, b) => a[1] - b[1])
-          .reduce((r, [k, v]) => ({ ...r, [k]: v }), {});
+      this.sectorChg = Object.entries(this.sectorChg)
+        .sort((a, b) => a[1] - b[1])
+        .reduce((r, [k, v]) => ({ ...r, [k]: v }), {});
 
-        this.sectors = Object.keys(this.sectorChg);
-        this.sectorChg = Object.values(this.sectorChg);
+      this.sectors = Object.keys(this.sectorChg);
+      this.sectorChg = Object.values(this.sectorChg);
         //make all sectors First letter capital
-        this.sectors = this.sectors.map((x) => {
-          return x.charAt(0).toUpperCase() + x.slice(1);
-        });
-        this.indexChg();
+      this.sectors = this.sectors.map((x) => {
+        return x.charAt(0).toUpperCase() + x.slice(1);
       });
-
-    //get index daily change data
+      
+      this.indexChg();
+    } catch (e) {
+      console.error("Error fetching data:", e);
+    }
   },
 };
 </script>
 
 <style>
-.card-margin {
-  margin: 10px;
-  margin-bottom: 30px;
-  box-shadow: 0 3px 10px 0 rgba(0,0,0,0.2);
-}
-
-.card-margin:hover {
-  transform: scale(1.01); /* Slightly enlarge the card */
-  box-shadow: 0 6px 20px 0 rgba(0,0,0,0.3); /* Enhance the shadow on hover */
-}
-
 .today-bar {
   background-color: rgb(255, 255, 255);
   padding: 7px;

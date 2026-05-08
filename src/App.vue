@@ -1,24 +1,28 @@
 <template>
   <v-app>
-    <nav class=title-bar>
+    <v-app-bar color="primary" elevation="2">
       <v-img
-          class="logo"
+          class="ml-2 mr-2"
           src="@\assets\icon.jpg"
           contain
           alt="esan logo"
+          max-width="30"
+          max-height="30"
         />
-      <router-link class=title-text to="/">{{ $t('home') }}</router-link>
-      <router-link class=title-text to="/IndexToday">{{ $t('indexToday') }}</router-link>
-      <router-link class=title-text to="/priceCompare">{{ $t('assetCompare') }}</router-link>     
-      <router-link class=title-text to="/assetView">{{ $t('assetView') }}</router-link>
-      <router-link class=title-text to="/about">{{ $t('about') }}</router-link>
-      <router-link class=title-text v-if="user" to="/PortfolioBuilder">{{ $t('PortfolioBuilder') }}</router-link>
-      <LocaleSwitcher class=title-text></LocaleSwitcher>
+      <v-btn variant="text" to="/">{{ $t('home') }}</v-btn>
+      <v-btn variant="text" to="/IndexToday">{{ $t('indexToday') }}</v-btn>
+      <v-btn variant="text" to="/priceCompare">{{ $t('assetCompare') }}</v-btn>     
+      <v-btn variant="text" to="/assetView">{{ $t('assetView') }}</v-btn>
+      <v-btn variant="text" to="/about">{{ $t('about') }}</v-btn>
+      <v-btn variant="text" v-if="user" to="/PortfolioBuilder">{{ $t('PortfolioBuilder') }}</v-btn>
+      
+      <v-spacer></v-spacer>
+      
+      <LocaleSwitcher class="locale-picker"></LocaleSwitcher>
 
-      <router-link class=login v-if="!user" to="/login">{{ $t('login') }}</router-link>
-      <router-link class=login v-if="user" to="/login" >{{ $t('LogOut') }}</router-link>
-      <hr style="border-color: black; border-width: 1px; margin: 0">
-    </nav>
+      <v-btn variant="text" v-if="!user" to="/login">{{ $t('login') }}</v-btn>
+      <v-btn variant="text" v-if="user" to="/login" >{{ $t('LogOut') }}</v-btn>
+    </v-app-bar>
     <v-main>
       <router-view/>
     </v-main>
@@ -91,46 +95,7 @@ export default {
 </script>
 
 <style>
-.title-bar {
-margin: 0;
-font-family: 'Lato', 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
-/*   position: fixed;
-  top: 0; makes always show at the top of the screen but it overlaps 
-  width: 100%; */
-}
 
-.title-text {
-  font-size: 20px;
-  margin-right: 10px;
-  margin-left: 10px;
-  color: black;
-  text-decoration: none;
-  font-family: 'Lato', 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
-  padding: 1px;
-}
-
-.title-text:hover {
-  background-color: #f0f0f0;
-  border-radius: 5px;
-}
-
-.logo {
-  margin-right: 5px;
-  margin-left: 5px;
-  margin-top: 5px;
-  float: left;
-  width: 25px;
-  height: 25px;
-}
- .login {
-/*   margin-right: 10px;
-  margin-left: 10px;  
-  float: right;*/
-  font-size: 20px;
-  color: black;
-  text-decoration: none;
-  font-family: 'Lato', 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
- }
 .locale-picker {
   font-size: 20px;
   margin-right: 10px;
