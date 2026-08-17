@@ -35,7 +35,7 @@
             <div v-else>
               <v-card loading>Loading Today's details</v-card>
             </div>
-
+ 
             <div v-if="gainers">
               <v-card style="height: 35vh" elevated class="card-margin">
                 <h3>{{ $t('marketMovement') }}</h3>
