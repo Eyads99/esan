@@ -49,6 +49,7 @@ export const stockTickersDict = {
     HRHO: "EFG Hermes Holdings",
     EFIH: "E-finance",
     EGX30: "EGX30",
+    EGX33: "EGX33",
     EGAL: "Egypt Aluminum",
     MFSC: "Egypt Free Shops",
     EGAS: "Egypt Gas",
