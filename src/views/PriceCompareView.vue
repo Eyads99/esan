@@ -220,7 +220,7 @@
       "CI30", "B Secure","Mid-market EGGOLD", "Misr Takaful Fund","NI Sahmy 70 Fund","Beltone EGX100","Beltone EGX33",
       "AZ-Sharia Opportunities","AZ-Shariah","Bareeq Fund","Beltone Alpha Fund","Beltone B35 fund","Beltone Consumer Fund",
       "Beltone Coubonat Fund","Beltone Financial Fund","Beltone Gold Fund", "Beltone Industrial Fund", "Beltone Real Estate Fund",
-      "Beltone Silver Fund","Beltone Yawmy Fund","C20",
+      "Beltone Silver Fund","Beltone Yawmy Fund","C20"
     ],
       stockTickersDict: {
         ADIB: "Abu Dhabi Islamic Bank",
@@ -511,7 +511,21 @@
         GOUR: "Gourmet",
         BONY: "Bonyan for Real Estate Development",
         VALU: "Valu for consumer finance",
-        GPIM: "GPI for urban growth"
+        GPIM: "GPI for urban growth",
+        AZSO:"AZ-Sharia Opportunities",
+        AZS:"AZ-Shariah",
+        ABR: "Bareeq Fund",
+        BAF:"Beltone Alpha Fund",
+        B35:"Beltone B35 fund",
+        BCF:"Beltone Consumer Fund",
+        BCU:"Beltone Coubonat Fund",
+        BFF:"Beltone Financial Fund",
+        BGF:"Beltone Gold Fund",
+        BIF: "Beltone Industrial Fund", 
+        BRE:"Beltone Real Estate Fund",
+        BSF:"Beltone Silver Fund",
+        BYF:"Beltone Yawmy Fund",
+        C20HD:"C20"
       },
       EGXStocksList: [],
     }
