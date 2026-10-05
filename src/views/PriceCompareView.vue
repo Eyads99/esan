@@ -217,7 +217,7 @@
       "RREI","RTVC","RUBX","SAIB","SAUD","SCEM","SCFM","SCTS","SDTI","SEIG","SIPC","SKPC","SMFR","SNFC","SPIN","SPMD","SUGR","SVCE",
       "SWDY","TALM","TANM","TAQA","TMGH","TRTO","TWSA","UASG","UEFM","UEGC","UNIP","UNIT","UPMS","UTOP","VERT","WCDF","WKOL","ZEOT","ZMID",
       "EGX30","EGX33","EGX70","EGX100","EGX30Cap","TAMAYOUZ", "AZ-GOLD","AZ-HALAN","AZ-MENTH", "AZ-OP","AZ-SAVE", "AZ-VALU","AZ-Maashy","AZ-Nasr", 
-      "CI30", "B Secure","Mid-market EGGOLD", "Misr Takaful Fund","NI Sahmy 70 Fund","Beltone EGX100","Beltone EGX33",
+      "CI30", "B Secure","Mid-market EGGOLD", "Misr Takaful Fund","NI Sahmy 70 Fund","Beltone EGX100","Beltone EGX33", "Beltone EGX70",
       "AZ-Sharia Opportunities","AZ-Shariah","Bareeq Fund","Beltone Alpha Fund","Beltone B35 fund","Beltone Consumer Fund",
       "Beltone Coubonat Fund","Beltone Financial Fund","Beltone Gold Fund", "Beltone Industrial Fund", "Beltone Real Estate Fund",
       "Beltone Silver Fund","Beltone Yawmy Fund","C20"
@@ -504,6 +504,7 @@
         "Mid-market EGGOLD":"Mid-market EGGOLD", 
         "Misr Takaful Fund":"Misr Takaful Fund",
         "Beltone EGX100":"Beltone EGX100",
+        "Beltone EGX70":"Beltone EGX70",
         "Beltone EGX33":"Beltone EGX33",
         "NI Sahmy 70 Fund":"NI Sahmy 70 Fund",
         NAPR: "National Printing",
